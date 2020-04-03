@@ -18,7 +18,7 @@ export class AuthProvider extends React.Component {
       })
   }
 
-  handleLogin = (user, histroy) => {
+  handleLogin = (user, history) => {
     axios.post("/api/auth/sign_in", user)
       .then( res => {
         this.setState({ user: res.data.data, });
