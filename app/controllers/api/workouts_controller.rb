@@ -15,6 +15,7 @@ class Api::WorkoutsController < ApplicationController
         render json: @workout
       else 
         render json: {errors: @workout.errors}, status: :unprocessable_entitiy
+      end
   end
 
   def update
@@ -23,6 +24,7 @@ class Api::WorkoutsController < ApplicationController
       render json: @workout
     else
       render json: {errors: @workout.errors}, status: :unprocessable_entitiy
+    end
   end
   
   def destroy
