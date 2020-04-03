@@ -12,6 +12,7 @@ class Register extends React.Component {
     e.preventDefault();
     const { email, password, passwordConfirmation, firstName, lastName, username, gender, dateOfBirth, weight, fitnessLevel } = this.state;
     const { auth: { handleRegister, }, history, } = this.props;
+    // [users]
     
     // user.forEach(user => {
       // if (this.state.username !== user.username)
@@ -30,7 +31,7 @@ class Register extends React.Component {
   // gets usernames from db to use for checkUserName uniqeness TODO
   // getUsernames = () => {
     // users = []
-  //   axios.get()
+  //   axios.get('/api/users').then(res => this.setState(res.data))
   // return users
   // }
 
