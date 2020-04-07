@@ -10,7 +10,7 @@ class WorkoutCard extends Component {
     return(
       <Card>
         <Link to='workoutShow'>
-        <Image src={ropesImg}></Image>
+        <Image src={ropesImg} />
         </Link>
         <CardContent>
           <Card.Header>Workout Title</Card.Header>
