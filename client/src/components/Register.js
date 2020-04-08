@@ -1,16 +1,18 @@
 import React from 'react';
 import { AuthConsumer } from '../providers/AuthProvider';
 import { Button, Form, Segment, Header } from 'semantic-ui-react';
-import axios from 'axios';  
+// import Axios from 'axios';
 
 class Register extends React.Component {
-  state = { email: '', password: '', passwordConfirmation: '', firstName: '', lastName: '', username: '',
-   gender: '', dateOfBirth: '', weight: '', fitnessLevel: '' };
+  state = { email: '', password: '', passwordConfirmation: '', first_name: '', last_name: '', username: '',
+   gender: '', date_of_birth: '', weight: '', fitness_level: '' };
+
+   
   // Pull in all the users - user index
   
   handleSubmit = (e) => {
     e.preventDefault();
-    const { email, password, passwordConfirmation, firstName, lastName, username, gender, dateOfBirth, weight, fitnessLevel } = this.state;
+    const { email, password, passwordConfirmation, first_name, last_name, username, gender, date_of_birth, weight, fitness_level } = this.state;
     const { auth: { handleRegister, }, history, } = this.props;
     // [users]
     
@@ -21,7 +23,7 @@ class Register extends React.Component {
     // })
     // checkUserName()
     if (password === passwordConfirmation)
-      handleRegister({ email, password, passwordConfirmation, firstName, lastName, username, gender, dateOfBirth, weight, fitnessLevel }, history);
+      handleRegister({ email, password, first_name, last_name, username, gender, date_of_birth, weight, fitness_level }, history);
     else
       alert('Passwords Do Not Match!')
   }
@@ -50,7 +52,7 @@ class Register extends React.Component {
   }
   
   render() {
-    const { email, password, passwordConfirmation, firstName, lastName, username, gender, dateOfBirth, weight, fitnessLevel } = this.state;
+    const { email, password, passwordConfirmation, first_name, last_name, username, gender, date_of_birth, weight, fitness_level } = this.state;
     
     
     return (
@@ -61,16 +63,16 @@ class Register extends React.Component {
             label="First Name"
             required
             autoFocus
-            name='firstName'
-            value={firstName}
+            name='first_name'
+            value={first_name}
             placeholder='First Name'
             onChange={this.handleChange}
           />
           <Form.Input
             label="Last Name"
             required
-            name='lastName'
-            value={lastName}
+            name='last_name'
+            value={last_name}
             placeholder='Last Name'
             onChange={this.handleChange}
           />
@@ -119,8 +121,8 @@ class Register extends React.Component {
           <Form.Input
             label="Date of Birth"
             required
-            name='dateOfBirth'
-            value={dateOfBirth}
+            name='date_of_birth'
+            value={date_of_birth}
             placeholder='Date of Birth'
             onChange={this.handleChange}
           />
@@ -135,8 +137,8 @@ class Register extends React.Component {
           <Form.Input
             label="Fitness Level"
             required
-            name='fitnessLevel'
-            value={fitnessLevel}
+            name='fitness_level'
+            value={fitness_level}
             placeholder='Fitness Level'
             onChange={this.handleChange}
           />

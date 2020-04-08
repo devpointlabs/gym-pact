@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2020_04_04_195312) do
+=======
+ActiveRecord::Schema.define(version: 2020_04_08_020310) do
+>>>>>>> a9a498db20300113f773893e597ce73feeb964df
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,12 +43,13 @@ ActiveRecord::Schema.define(version: 2020_04_04_195312) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
-    t.string "dateOfBirth"
+    t.string "first_name"
+    t.string "last_name"
     t.string "username"
     t.string "gender"
-    t.integer "weight"
-    t.integer "age"
-    t.string "fitnessLevel"
+    t.string "date_of_birth"
+    t.string "weight"
+    t.string "fitness_level"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

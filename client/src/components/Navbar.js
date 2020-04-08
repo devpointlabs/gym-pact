@@ -2,6 +2,7 @@ import React from 'react'
 import { AuthConsumer, } from "../providers/AuthProvider";
 import { Menu, } from 'semantic-ui-react'
 import { Link, withRouter, } from 'react-router-dom'
+import Profile from './User/Profile'
 
 class Navbar extends React.Component {
 
@@ -18,10 +19,16 @@ class Navbar extends React.Component {
             name='logout'
             onClick={ () => handleLogout(this.props.history) }
           />
+          <Link to='/profile'> 
+          <Menu.Item
+          name='profile' 
+          />
+          </Link>
         </Menu.Menu>
       )
     } else {
       return (
+        
         <Menu.Menu position='right'>
           <Link to='/login'>
             <Menu.Item
