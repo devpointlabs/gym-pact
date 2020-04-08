@@ -52,6 +52,8 @@ class WorkoutProvider extends Component {
         })
   }
 
+  globalWorkouts()
+
   render(){
     return(
       <WorkoutContext.Provider value={{
