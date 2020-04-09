@@ -3,9 +3,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :workouts
-
+    
     get "/all_workouts", to: "workouts#global_workouts"
-
   end
+
 
 end

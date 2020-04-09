@@ -52,7 +52,9 @@ class WorkoutProvider extends Component {
         })
   }
 
-  globalWorkouts()
+  globalWorkouts(){
+    
+  }
 
   render(){
     return(

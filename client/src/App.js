@@ -8,6 +8,9 @@ import NoMatch from './components/NoMatch';
 import Navbar from './components/Navbar';
 import FetchUser from './components/FetchUser';
 import ProtectedRoute from './components/ProtectedRoute';
+import FeedWorkouts from './components/workouts/FeedWorkouts';
+import WorkoutShow from './components/workouts/WorkoutShow';
+import WorkoutForm from './components/workouts/WorkoutForm';
 
 const App = () => (
 <Fragment>
@@ -18,6 +21,9 @@ const App = () => (
         <ProtectedRoute exact path='/' component={Home} />
          <Route exact path='/login' component={Login} />
          <Route exact path='/register' component={Register} />
+         <Route exact path='/feedWorkouts' component={FeedWorkouts} />
+         <Route exact path='/workoutShow' component={WorkoutShow} />
+         <Route exact path='/workoutForm' component={WorkoutForm} />
          <Route component={NoMatch} />
       </Switch>
     </Container>
