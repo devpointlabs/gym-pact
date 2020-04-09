@@ -7,6 +7,5 @@ Rails.application.routes.draw do
 
     get "/all_workouts", to: "workouts#global_workouts"
 
-  end
 
 end

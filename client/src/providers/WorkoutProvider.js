@@ -52,7 +52,15 @@ class WorkoutProvider extends Component {
         })
   }
 
-  globalWorkouts()
+  globalWorkouts(){
+    axios.get('/all_workouts')
+      .then( res => {
+        this.setState = ({workouts: res.data})
+      })
+      .catch( err => {
+        console.log(err)
+      })
+  }
 
   render(){
     return(

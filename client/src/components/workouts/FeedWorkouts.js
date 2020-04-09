@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 
+class FeedWorkouts extends Component {
 
   
   render() {
@@ -13,17 +14,18 @@ import axios from 'axios';
       <>
       <h1>User Workouts</h1>
       
-        {/* <Container>
+        <Container>
           <Card.Group itemsPerRow='5'>
-
+          
           </Card.Group>
           </Container>
           <Link to='./workoutForm'>
-            <Button>New Workout</Button>
-          </Link> */}
+          <Button>New Workout</Button>
+        </Link>
       </>
     )
   }
+}
 
 
-export default UserWorkouts;
+export default FeedWorkouts;
