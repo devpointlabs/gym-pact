@@ -6,6 +6,11 @@ import { Link } from "react-router-dom";
 import Modal from "./Modal";
 import { WorkoutConsumer } from "../../providers/WorkoutProvider";
 
+// WorkoutForm button
+// <Link to="./workoutForm">
+//   <Button>New Workout</Button>
+// </Link>
+
 class FeedWorkouts extends Component {
   state = { workouts: [] };
 
@@ -23,9 +28,6 @@ class FeedWorkouts extends Component {
             </Modal>
           ))}
         </Container>
-        <Link to="./workoutForm">
-          <Button>New Workout</Button>
-        </Link>
       </div>
     );
   }
