@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import ropesImg from "../../imgs/ropes.jpg";
 
+const ModalDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 30%;
+  z-index: -1;
+  cursor: pointer;
+`;
 const Background = styled.div`
   position: fixed;
   bottom: 0vh;
@@ -10,28 +19,53 @@ const Background = styled.div`
   background-color: black;
   overflow-y: hidden;
   opacity: 0.6;
+  z-index: 1;
 `;
-const ModalDiv = styled.div`
+const Container = styled.div`
+  position: fixed;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  height: 30%;
 `;
-const hide = {
-  display: "none",
-};
+const Header = styled.h2`
+  color: orange;
+  position: fixed;
+  text-align: center;
+  top: 20vh;
+  font-size: 35px;
+  z-index: 12;
+`;
+const Text = styled.p`
+  position: fixed;
+  text-align: center;
+  top: 40vh;
+  font-size: 25px;
+  color: orange;
+  z-index: 12;
+`;
+const Image = styled.img`
+  position: fixed;
+  top: 0;
+  width: 50vw;
+  z-index: 2;
+`;
+
 const Modal = (props) => {
   const [display, setDisplay] = useState("none");
-  const toggle = () => {
-    console.log(display);
-    display == "none" ? setDisplay("block") : setDisplay("none");
-    // hidden ? setHidden(false) : setHidden(true);
+  const toggle = (e) => {
+    if (display == "none") {
+      setDisplay("block");
+      document.body.style.overflowY = "hidden";
+    } else {
+      setDisplay("none");
+      document.body.style.overflowY = "initial";
+    }
   };
   return (
     <ModalDiv onClick={toggle}>
-      <div style={{ display: display }}>This is the Workout Info</div>
       <Background style={{ display: display }}></Background>
-      This is the modal
+      <Image style={{ display: display }} src={ropesImg} />
+      <Header style={{ display: display }}>{props.workout.title}</Header>
+      <Text style={{ display: display }}>{props.workout.desc}</Text>
       {props.children}
     </ModalDiv>
   );

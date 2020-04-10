@@ -3,7 +3,6 @@ import { Container, Grid, Card, Button } from "semantic-ui-react";
 import WorkoutCard from "./WorkoutCard";
 import WorkoutForm from "./WorkoutForm";
 import { Link } from "react-router-dom";
-import Modal from "./Modal";
 import { WorkoutConsumer } from "../../providers/WorkoutProvider";
 
 // WorkoutForm button
@@ -23,9 +22,7 @@ class FeedWorkouts extends Component {
         <h1>User Workouts</h1>
         <Container>
           {workouts.map((workout) => (
-            <Modal>
-              <WorkoutCard workout={workout} />
-            </Modal>
+            <WorkoutCard workout={workout} />
           ))}
         </Container>
       </div>
