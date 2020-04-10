@@ -3,15 +3,16 @@ import { Card, Image, CardContent } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import ropesImg from "../../imgs/ropes.jpg";
 import Modal from "./Modal";
+import ConnectedModal from "./Modal";
 
 const WorkoutCard = ({ workout }) => (
   // workoutShow
   <>
     <Card>
       <div>
-        <Modal workout={workout}>
+        <ConnectedModal workout={workout}>
           <Image src={ropesImg} style={{ cursor: "pointer" }} />
-        </Modal>
+        </ConnectedModal>
       </div>
       <CardContent>
         <Card.Header>{workout.title}</Card.Header>
