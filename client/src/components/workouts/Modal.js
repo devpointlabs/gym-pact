@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import ropesImg from "../../imgs/ropes.jpg";
+import gymProfilePic from "../../imgs/gymProfPic.jpg";
 
 const ModalDiv = styled.div`
   z-index: -1;
-  cursor: pointer;
+  color: #292b4d;
 `;
 const Background = styled.div`
   transition-duration: 1s;
@@ -25,13 +26,11 @@ const Container = styled.div`
   background-color: #eee;
   border-radius: 5px;
   z-index: 3;
-  /* width: 70vw; */
 `;
 const Column = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 20vw;
+  /* width: 30vw; */
 `;
 const Row = styled.div`
   display: flex;
@@ -39,21 +38,29 @@ const Row = styled.div`
 const H1 = styled.h1`
   position: relative;
   text-align: center;
-  font-size: 35px;
+  padding: 0.5rem;
+  margin-left: 1rem;
+  border-radius: 5px;
+  font-size: 20px;
+  color: #fbd878;
+  background-color: #353765;
   z-index: 12;
+  width: fit-content;
 `;
 const H2 = styled.h2`
   position: relative;
-  text-align: center;
-  font-size: 25px;
+  font-size: 20px;
+  margin: 0.4rem 1rem;
   z-index: 12;
 `;
 const Desc = styled.p`
   position: relative;
   text-align: center;
   min-height: 10vh;
-  font-size: 20px;
+  max-width: 80%;
+  font-size: 16px;
   z-index: 12;
+  color: #000;
 `;
 const Image = styled.img`
   width: 48vw;
@@ -82,10 +89,23 @@ const Modal = (props) => {
         <Row>
           <Image src={ropesImg} />
           <Column>
-            <H2>User Name</H2>
-            <p>{props.workout.created_at}</p>
-            <H1>Title: {props.workout.title}</H1>
-            <Desc>Workout: {props.workout.desc}</Desc>
+            <Row>
+              <img
+                src={gymProfilePic}
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  margin: "0.5rem",
+                  borderRadius: "50%",
+                }}
+              />
+              <Column>
+                <H2>User Name</H2>
+                <p style={{ fontSize: "12px" }}>{props.workout.created_at}</p>
+              </Column>
+            </Row>
+            <H1>{props.workout.title}</H1>
+            <Desc>{props.workout.desc}</Desc>
             <p>(number of) Comments</p>
             <Desc>
               <p>Enter Comments Here</p>

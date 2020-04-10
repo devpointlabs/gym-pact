@@ -10,7 +10,7 @@ const WorkoutCard = ({ workout }) => (
     <Card>
       <div>
         <Modal workout={workout}>
-          <Image src={ropesImg} />
+          <Image src={ropesImg} style={{ cursor: "pointer" }} />
         </Modal>
       </div>
       <CardContent>
