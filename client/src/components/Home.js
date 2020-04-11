@@ -4,7 +4,7 @@ import ConnectedFeedWorkouts from "./workouts/FeedWorkouts";
 
 const Home = () => (
   <>
-    <Header textAlign="center">Gym Pact Header</Header>
+    <Header textAlign="center">Feed</Header>
     <ConnectedFeedWorkouts className="feed" />
   </>
 );

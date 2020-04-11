@@ -8,7 +8,7 @@ import ConnectedModal from "./Modal";
 const WorkoutCard = ({ workout }) => (
   // workoutShow
   <>
-    <Card>
+    <Card style={{ margin: "1rem" }}>
       <div>
         <ConnectedModal workout={workout}>
           <Image src={ropesImg} style={{ cursor: "pointer" }} />
