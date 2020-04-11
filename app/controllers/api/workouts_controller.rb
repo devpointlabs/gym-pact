@@ -11,6 +11,10 @@ class Api::WorkoutsController < ApplicationController
     render json: Workout.all
   end
 
+  def global_users
+    render json: User.all
+  end
+
   def index
     render json: current_user.workouts
   end

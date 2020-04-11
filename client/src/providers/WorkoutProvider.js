@@ -6,7 +6,9 @@ export const WorkoutConsumer = WorkoutContext.Consumer;
 
 class WorkoutProvider extends Component {
   state = { workouts: [] };
+
   componentDidMount() {
+    const response = [];
     axios
       .get("/api/all_workouts")
       .then((res) => {

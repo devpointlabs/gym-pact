@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AuthConsumer } from "../../providers/AuthProvider";
 import styled from "styled-components";
 import ropesImg from "../../imgs/ropes.jpg";
+import axios from "axios";
 import gymProfilePic from "../../imgs/gymProfPic.jpg";
 
 const ModalDiv = styled.div`
@@ -23,9 +24,9 @@ const Background = styled.div`
 const Container = styled.div`
   position: fixed;
   height: 70vh;
-  width: 70vw;
+  width: 60vw;
   top: 15vh;
-  left: 15vw;
+  left: 21vw;
   background-color: #eee;
   z-index: 3;
   border-radius: 5px;
@@ -33,7 +34,7 @@ const Container = styled.div`
 const Close = styled.span`
   position: fixed;
   top: 13vh;
-  left: 84.2vw;
+  left: 80.2vw;
   height: 30px;
   width: 30px;
   background-color: #6cd3e0;
@@ -55,7 +56,6 @@ const H1 = styled.h1`
   position: relative;
   text-align: center;
   padding: 0.5rem;
-  /* margin-left: 1rem; */
   border-radius: 5px;
   font-size: 15px;
   color: #fbd878;
@@ -87,7 +87,7 @@ const CommentCounter = styled.p`
   padding: 1rem 0;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
-  width: 80%;
+  width: 90%;
 `;
 const Image = styled.img`
   width: 38vw;
@@ -108,7 +108,27 @@ const Input = styled.input`
 `;
 
 const Modal = (props) => {
-  // const { user } = this.props;
+  const [users, setUsers] = useState([]);
+  const response = [];
+  const postUser = [];
+  const id = props.workout.user_id;
+
+  const getPostUser = () => {
+    axios
+      .get("/api/all_users")
+      .then((res) => {
+        response.push(res.data);
+        response.forEach((res) => {
+          res.filter((user) => {
+            return user.id === id ? setUsers(user) : null;
+          });
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const [display, setDisplay] = useState("none");
   const show = (e) => {
     if (display == "none") {
@@ -123,7 +143,12 @@ const Modal = (props) => {
     }
   };
   return (
-    <ModalDiv onClick={show}>
+    <ModalDiv
+      onClick={() => {
+        getPostUser();
+        show();
+      }}
+    >
       <Background onClick={hide} style={{ display: display }}></Background>
       <Container style={{ display: display }}>
         <Close onClick={hide}>X</Close>
@@ -141,7 +166,7 @@ const Modal = (props) => {
                 }}
               />
               <Column style={{ paddingTop: "1rem" }}>
-                <H2>{props.user.user.first_name}</H2>
+                <H2>{users.username}</H2>
                 <p style={{ fontSize: "12px" }}>{props.workout.created_at}</p>
               </Column>
             </Row>
