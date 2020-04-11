@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
+import LandingPage from './components/LandingPage';
 import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -16,9 +17,9 @@ const App = () => (
 <Fragment>
   <Navbar />
   <FetchUser>
-    <Container>
+    {/* <Container> */}
       <Switch>
-        <ProtectedRoute exact path='/' component={Home} />
+        <Route exact path='/' component={LandingPage} />
          <Route exact path='/login' component={Login} />
          <Route exact path='/register' component={Register} />
          <Route exact path='/feedWorkouts' component={FeedWorkouts} />
@@ -26,7 +27,7 @@ const App = () => (
          <Route exact path='/workoutForm' component={WorkoutForm} />
          <Route component={NoMatch} />
       </Switch>
-    </Container>
+    {/* </Container> */}
   </FetchUser>
 </Fragment>
 
