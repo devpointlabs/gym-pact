@@ -21,7 +21,7 @@ const App = () => (
     <Navbar />
     <FetchUser>
       <WorkoutProvider>
-        <Container>
+        {/* <Container> */}
           <Switch>
             <Route exact path="/landing" component={LandingPage} />
             <ProtectedRoute exact path="/" component={Home} />
@@ -33,7 +33,7 @@ const App = () => (
            <Route exact path='/profile' component={Profile} /> 
             <Route component={NoMatch} />
           </Switch>
-        </Container>
+        {/* </Container> */}
       </WorkoutProvider>
     </FetchUser>
   </Fragment>

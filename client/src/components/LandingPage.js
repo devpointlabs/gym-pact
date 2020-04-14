@@ -1,18 +1,22 @@
 import React from 'react';
 import { 
-   Background,
    Container,
    MainFont,
+   CallBtn,
+   Left,
+   Landing,
+   Right
  } from './styles/LandingStyles';
+
+ 
 
 const LandingPage = () => (
 
+ <Landing>
+    <Left></Left>
+    <Right></Right>
+ </Landing>
  
- <Background>
-    <Container>
-       <MainFont>GYM PACT</MainFont>
-    </Container>
- </Background>
 
 )
 
