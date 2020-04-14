@@ -76,6 +76,14 @@ class Register extends React.Component {
             placeholder='Last Name'
             onChange={this.handleChange}
           />
+            <Form.Input
+              label="Username"
+              required
+              name='username'
+              value={username}
+              placeholder='User Name'
+              onChange={this.handleChange}
+            />
           <Form.Input
             label="Email"
             required
@@ -100,14 +108,6 @@ class Register extends React.Component {
             value={passwordConfirmation}
             placeholder='Password Confirmation'
             type='password'
-            onChange={this.handleChange}
-          />
-          <Form.Input
-            label="Username"
-            required
-            name='username'
-            value={username}
-            placeholder='User Name'
             onChange={this.handleChange}
           />
           <Form.Input
