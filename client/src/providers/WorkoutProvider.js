@@ -1,70 +1,91 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
 
 const WorkoutContext = React.createContext();
 export const WorkoutConsumer = WorkoutContext.Consumer;
 
 class WorkoutProvider extends Component {
-  state = {workouts: []}
+  state = { workouts: [] };
 
+  componentDidMount() {
+    const response = [];
+    axios
+      .get("/api/all_workouts")
+      .then((res) => {
+        this.setState({ workouts: res.data });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   // call to get user workouts
-  getWorkouts(){
-    axios.get('/api/workouts')
-      .then( res => {
-        this.setState = ({workouts: res.data})
+  getWorkouts() {
+    axios
+      .get("/api/workouts")
+      .then((res) => {
+        this.setState = { workouts: res.data };
       })
-      .catch( err => {
-        console.log(err)
-      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
-  showWorkout(user, id){
-    axios.get(`/api/workouts/${id}`, { user })
-      .then( res => {
-        this.setState = ({workouts: res.data})
+  showWorkout(user, id) {
+    axios
+      .get(`/api/workouts/${id}`, { user })
+      .then((res) => {
+        this.setState = { workouts: res.data };
       })
-      .catch( err => {
-        console.log(err)
-      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   // creates new workout
-  createWorkout(workout){
-    axios.post('/api/workouts',{workout})
-      .then( res => {
-        const { workouts } = this.setState
-        this.setState({ workouts: [...workouts, res.data]})
-
+  createWorkout(workout, history) {
+    console.log(workout);
+    axios
+      .post("/api/workouts", { workout })
+      .then((res) => {
+        const { workouts } = this.state;
+        console.log(workouts);
+        this.setState({ workouts: [...workouts, res.data] });
+        history.push("/");
       })
-      .catch( err => {
-        console.log(err)
-      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
-  deleteWorkout(id){
-    axios.delete(`/api/workouts/${id}`)
-      .then( res => {
-        const workouts = this.setState
-        console.log(res.data.message)
+  deleteWorkout(id) {
+    axios
+      .delete(`/api/workouts/${id}`)
+      .then((res) => {
+        const workouts = this.setState;
+        console.log(res.data.message);
       })
-        .catch( err => {
-          console.log(err)
-        })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
-  globalWorkouts()
+  globalWorkouts() {}
 
-  render(){
-    return(
-      <WorkoutContext.Provider value={{
-        ...this.setState,
+  render() {
+    return (
+      <WorkoutContext.Provider
+        value={{
+          ...this.state,
           getWorkouts: this.getWorkouts,
           showWorkout: this.showWorkout,
           createWorkout: this.createWorkout,
           deleteWorkout: this.deleteWorkout,
-      }}>
+        }}
+      >
         {this.props.children}
       </WorkoutContext.Provider>
-    )
+    );
   }
 }
+
+export default WorkoutProvider;
