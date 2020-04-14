@@ -1,55 +1,45 @@
-import React, { Component } from 'react';
-import { Container, Grid, Card, Button } from 'semantic-ui-react';
-import WorkoutCard from './WorkoutCard';
-import WorkoutForm from './WorkoutForm';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import { WorkoutConsumer } from '../../providers/WorkoutProvider';
+import React, { Component } from "react";
+import { Container, Grid, Card, Button } from "semantic-ui-react";
+import WorkoutCard from "./WorkoutCard";
+import { Link } from "react-router-dom";
+import { WorkoutConsumer } from "../../providers/WorkoutProvider";
 
+// WorkoutForm button
+// <Link
+//   to={{
+//     pathname: "./workoutForm",
+//     state: { user: this.props.location.auth.user },
+//   }}
+// >
+// <Button>New Workout</Button>
+// </Link>
 
 class FeedWorkouts extends Component {
-  state = {workouts: []}
-  
+  state = { workouts: [] };
 
-  componentDidMount(){
-    axios.get('/api/all_workouts')
-      .then( res => {
-        this.setState({workouts: res.data})
-      })
-      .catch( err => {
-        console.log(err)
-      })
-  }
-
-  
   render() {
-    const {workouts} = this.state
-    return(
-
-      <>
-      <h1>User Workouts</h1>
-      
-        <Container>
-          <Card.Group itemsPerRow='3'>
-            <WorkoutCard workouts={workouts} />
-          
-          </Card.Group>
-          </Container>
-          <Link to='./workoutForm'>
-          <Button>New Workout</Button>
-        </Link>
-      </>
-    )
+    const {
+      workouts: { workouts },
+    } = this.props;
+    return (
+      <div>
+        <h1>Gym Pact Workouts</h1>
+        <Container style={{ display: "flex", flexWrap: "wrap" }}>
+          {workouts.map((workout, ind) => (
+            <WorkoutCard key={ind} workout={workout} />
+          ))}
+        </Container>
+      </div>
+    );
   }
 }
 
-
-export default class ConnectedFeedWorkouts extends Component{
-  render(){
-    return(
+export default class ConnectedFeedWorkouts extends Component {
+  render() {
+    return (
       <WorkoutConsumer>
-        {workout => <FeedWorkouts {...this.props} workout={workout} /> }
+        {(workout) => <FeedWorkouts {...this.props} workouts={workout} />}
       </WorkoutConsumer>
-    )
+    );
   }
 }

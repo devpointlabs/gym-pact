@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthConsumer } from "../providers/AuthProvider";
+import { AuthConsumer } from '../providers/AuthProvider';
 import { Button, Form, Segment, Header } from 'semantic-ui-react';
 // import Axios from 'axios';
 
@@ -76,6 +76,14 @@ class Register extends React.Component {
             placeholder='Last Name'
             onChange={this.handleChange}
           />
+            <Form.Input
+              label="Username"
+              required
+              name='username'
+              value={username}
+              placeholder='User Name'
+              onChange={this.handleChange}
+            />
           <Form.Input
             label="Email"
             required
@@ -100,14 +108,6 @@ class Register extends React.Component {
             value={passwordConfirmation}
             placeholder='Password Confirmation'
             type='password'
-            onChange={this.handleChange}
-          />
-          <Form.Input
-            label="Username"
-            required
-            name='username'
-            value={username}
-            placeholder='User Name'
             onChange={this.handleChange}
           />
           <Form.Input
@@ -151,7 +151,7 @@ class Register extends React.Component {
   }
 }
 
-export default class ConnectedRegister extends React.Component {
+ class ConnectedRegister extends React.Component {
   render() {
     return (
       <AuthConsumer>
@@ -160,3 +160,6 @@ export default class ConnectedRegister extends React.Component {
     )
   }
 }
+
+
+export default ConnectedRegister;

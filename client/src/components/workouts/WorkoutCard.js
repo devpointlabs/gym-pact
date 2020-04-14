@@ -1,37 +1,26 @@
-import React from 'react';
-import { Card, Image, CardContent } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
-import ropesImg from '../../imgs/ropes.jpg';
+import React from "react";
+import { Card, Image, CardContent } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import ropesImg from "../../imgs/ropes.jpg";
+import Modal from "./Modal";
+import ConnectedModal from "./Modal";
 
-const WorkoutCard = ({ workouts }) => (
-  
+const WorkoutCard = ({ workout }) => (
+  // workoutShow
   <>
-  {
-    workouts.map(w => (
-
-        <Card>
-          <Link to='workoutShow'>
-          <Image src={ropesImg} />
-          </Link>
-          <CardContent>
-            <Card.Header>{w.title}</Card.Header>
-            <Card.Description>{w.desc}</Card.Description>
-            <Card.Meta>Comments</Card.Meta>
-    
-          </CardContent>
-        </Card>
-    )
-    )
-  }
-      </>
-    )
-  
-
-
-
-
-
-
-
+    <Card style={{ margin: "1rem" }}>
+      <div>
+        <ConnectedModal workout={workout}>
+          <Image src={ropesImg} style={{ cursor: "pointer" }} />
+        </ConnectedModal>
+      </div>
+      <CardContent>
+        <Card.Header>{workout.title}</Card.Header>
+        <Card.Description>{workout.desc}</Card.Description>
+        <Card.Meta>Comments</Card.Meta>
+      </CardContent>
+    </Card>
+  </>
+);
 
 export default WorkoutCard;

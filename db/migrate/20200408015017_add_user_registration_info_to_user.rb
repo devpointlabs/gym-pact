@@ -7,6 +7,5 @@ class AddUserRegistrationInfoToUser < ActiveRecord::Migration[6.0]
     add_column :users, :date_of_birth, :string
     add_column :users, :weight, :string
     add_column :users, :fitness_level, :string
-    add_column :users, :registration, :string
   end
 end
