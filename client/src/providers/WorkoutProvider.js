@@ -43,10 +43,12 @@ class WorkoutProvider extends Component {
 
   // creates new workout
   createWorkout(workout, history) {
+    console.log(workout);
     axios
       .post("/api/workouts", { workout })
       .then((res) => {
-        const { workouts } = this.setState;
+        const { workouts } = this.state;
+        console.log(workouts);
         this.setState({ workouts: [...workouts, res.data] });
         history.push("/");
       })

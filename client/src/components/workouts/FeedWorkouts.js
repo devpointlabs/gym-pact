@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 import { Container, Grid, Card, Button } from "semantic-ui-react";
 import WorkoutCard from "./WorkoutCard";
+import { Link } from "react-router-dom";
 import { WorkoutConsumer } from "../../providers/WorkoutProvider";
 
 // WorkoutForm button
-// <Link to="./workoutForm">
-//   <Button>New Workout</Button>
+// <Link
+//   to={{
+//     pathname: "./workoutForm",
+//     state: { user: this.props.location.auth.user },
+//   }}
+// >
+// <Button>New Workout</Button>
 // </Link>
 
 class FeedWorkouts extends Component {

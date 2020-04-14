@@ -20,7 +20,7 @@ class WorkoutForm extends Component {
   render() {
     const { title, desc } = this.state;
     return (
-      <Form>
+      <Form onSubmit={this.handleSubmit}>
         <Form.Input
           label="Workout Title"
           required
@@ -35,12 +35,14 @@ class WorkoutForm extends Component {
           value={desc}
           onChange={this.handleChange}
         />
-        <Form.Button>Submit</Form.Button>
+        <FormButton>Submit</FormButton>
       </Form>
     );
   }
 }
 const ConnectedWorkoutForm = (props) => (
-  <WorkoutConsumer>{(value) => <WorkoutForm {...props} />}</WorkoutConsumer>
+  <WorkoutConsumer>
+    {(value) => <WorkoutForm {...props} {...value} />}
+  </WorkoutConsumer>
 );
 export default ConnectedWorkoutForm;
