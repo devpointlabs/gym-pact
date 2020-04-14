@@ -1,7 +1,10 @@
+
 import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
 import { Menu } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
+import Follower from './Follower';
+
 
 class Navbar extends React.Component {
   rightNavItems = () => {
@@ -27,13 +30,18 @@ class Navbar extends React.Component {
             <Menu.Item active={location.pathname === "/workoutForm"}>
               New Workout
             </Menu.Item>
+             </Link>
+          <Link to='/profile'> 
+          <Menu.Item
+          name='profile' 
+          />
           </Link>
         </Menu.Menu>
       );
     } else {
-      return (
-        <Menu.Menu position="right">
-          <Link to="/login">
+      return (        
+        <Menu.Menu position='right'>
+          <Link to='/login'>
             <Menu.Item
               id="login"
               name="login"

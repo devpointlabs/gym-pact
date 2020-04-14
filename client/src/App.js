@@ -1,3 +1,4 @@
+
 import React, { Fragment } from "react";
 import { Switch, Route } from "react-router-dom";
 import { Container } from "semantic-ui-react";
@@ -12,6 +13,7 @@ import FeedWorkouts from "./components/workouts/FeedWorkouts";
 import WorkoutShow from "./components/workouts/WorkoutShow";
 import WorkoutForm from "./components/workouts/WorkoutForm";
 import WorkoutProvider from "./providers/WorkoutProvider";
+import Profile from './components/User/Profile';
 
 const App = () => (
   <Fragment>
@@ -26,6 +28,7 @@ const App = () => (
             <Route exact path="/feedWorkouts" component={FeedWorkouts} />
             <Route exact path="/workoutShow" component={WorkoutShow} />
             <Route exact path="/workoutForm" component={WorkoutForm} />
+           <Route exact path='/profile' component={Profile} /> 
             <Route component={NoMatch} />
           </Switch>
         </Container>
@@ -33,5 +36,6 @@ const App = () => (
     </FetchUser>
   </Fragment>
 );
+
 
 export default App;
