@@ -8,7 +8,6 @@ class WorkoutProvider extends Component {
   state = { workouts: [] };
 
   componentDidMount() {
-    const response = [];
     axios
       .get("/api/all_workouts")
       .then((res) => {
@@ -42,22 +41,23 @@ class WorkoutProvider extends Component {
   }
 
   // creates new workout
-  createWorkout(workout, history) {
-    console.log(workout);
+  createWorkout = (workout, id, history) => {
     axios
-      .post("/api/workouts", { workout })
+      .post(`/api/users/${id}/workouts`, workout)
       .then((res) => {
         const { workouts } = this.state;
-        console.log(workouts);
+        res.data.title = workout.title;
+        res.data.desc = workout.desc;
+        console.log(res.data);
         this.setState({ workouts: [...workouts, res.data] });
         history.push("/");
       })
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
-  deleteWorkout(id) {
+  deleteWorkout = (id) => {
     axios
       .delete(`/api/workouts/${id}`)
       .then((res) => {
@@ -67,7 +67,7 @@ class WorkoutProvider extends Component {
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
   globalWorkouts() {}
 
