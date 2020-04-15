@@ -57,6 +57,11 @@ class Profile extends React.Component {
     axios
       .delete(`/api/users/${this.state.user_id}/workouts/${workout_id}`)
       .then((res) => {
+        const { workouts } = this.state;
+        this.setState({
+          workouts: workouts.filter((w) => w.id !== workout_id),
+        });
+        console.log(this.state.workouts);
         console.log(res.data.message);
       })
       .catch((err) => {
