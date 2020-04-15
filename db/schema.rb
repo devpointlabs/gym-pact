@@ -10,12 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 2020_04_13_202406) do
-
+ActiveRecord::Schema.define(version: 2020_04_15_021831) do
 
   # These are extensions that must be enabled in order to support this database
-  # enable_extension "plpgsql"
+  enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "workout_id", null: false
+    t.text "text_field"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_comments_on_user_id"
+    t.index ["workout_id"], name: "index_comments_on_workout_id"
+  end
 
   create_table "follows", force: :cascade do |t|
     t.integer "user_id"
@@ -71,5 +79,7 @@ ActiveRecord::Schema.define(version: 2020_04_13_202406) do
     t.index ["user_id"], name: "index_workouts_on_user_id"
   end
 
+  add_foreign_key "comments", "users"
+  add_foreign_key "comments", "workouts"
   add_foreign_key "workouts", "users"
 end

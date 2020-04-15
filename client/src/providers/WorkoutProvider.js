@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+
 const WorkoutContext = React.createContext();
 export const WorkoutConsumer = WorkoutContext.Consumer;
-
 class WorkoutProvider extends Component {
   state = { workouts: [] };
-
   componentDidMount() {
-    const response = [];
     axios
       .get("/api/all_workouts")
       .then((res) => {
@@ -29,7 +27,6 @@ class WorkoutProvider extends Component {
         console.log(err);
       });
   }
-
   showWorkout(user, id) {
     axios
       .get(`/api/workouts/${id}`, { user })
@@ -40,24 +37,23 @@ class WorkoutProvider extends Component {
         console.log(err);
       });
   }
-
   // creates new workout
-  createWorkout(workout, history) {
-    console.log(workout);
+  createWorkout = (workout, id, history) => {
     axios
-      .post("/api/workouts", { workout })
+      .post(`/api/users/${id}/workouts`, workout)
       .then((res) => {
         const { workouts } = this.state;
-        console.log(workouts);
+        res.data.title = workout.title;
+        res.data.desc = workout.desc;
+        console.log(res.data);
         this.setState({ workouts: [...workouts, res.data] });
         history.push("/");
       })
       .catch((err) => {
         console.log(err);
       });
-  }
-
-  deleteWorkout(id) {
+  };
+  deleteWorkout = (id) => {
     axios
       .delete(`/api/workouts/${id}`)
       .then((res) => {
@@ -67,10 +63,8 @@ class WorkoutProvider extends Component {
       .catch((err) => {
         console.log(err);
       });
-  }
-
+  };
   globalWorkouts() {}
-
   render() {
     return (
       <WorkoutContext.Provider
@@ -87,5 +81,4 @@ class WorkoutProvider extends Component {
     );
   }
 }
-
 export default WorkoutProvider;
