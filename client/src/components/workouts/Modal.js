@@ -34,12 +34,15 @@ const Modal = (props) => {
     
 }
 
-  const addComment = () => {
-    axios.post(`/api/workouts/${props.workout.id}/comments`)
-    .then( res => {
-       set
-    })
- }
+//   const addComment = () => {
+//     axios.post(`/api/workouts/${props.workout.id}/comments`)
+//     .then( res => {
+//        setNewComment(res.data)
+//     })
+//       .catch( err => {
+//         console.log(err)
+//       })
+//  }
 
   const renderComments = () => {
      return comments.map(comment => (

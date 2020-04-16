@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, FormButton } from 'semantic-ui-react';
-import Axios from 'axios';
+import axios from 'axios';
 
 
 
@@ -16,21 +16,24 @@ state = {comment: ''}
       
       handleSubmit = (e) => {
          e.preventDefault()
-
-         const {comment} = this.state
-
+         axios.post(`/api/workouts/${this.props.workout_id}/comments`, {...this.state })
+         .then( res => {
+            this.props.add(res.data)
+         })
+         this.setState({comment: ''})
       }
 
    render(){
+      const { comment } = this.state
       return(
          <Form onSubmit={this.handleSubmit}>
             <Form.Input
                label="Leave a comment..."
-               name="comment"
-               value='comment'
+               name='comment'
+               value={comment}
                onChange={this.handleChange}
             />
-
+            <Form.Button>Submit</Form.Button>
          </Form>
       )
    }
