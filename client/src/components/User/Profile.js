@@ -2,12 +2,13 @@ import React from 'react';
 import {AuthConsumer} from "../../providers/AuthProvider"
 import { Form, Grid, Image, Container, Divider, Header, Button } from 'semantic-ui-react'
 import Dropzone from 'react-dropzone'; 
+import Follower from '../Follower'; 
 
 const defaultImage = 'https://s3.amazonaws.com/37assets/svn/765-default-avatar.png';
 
 
 class Profile extends React.Component {
-  state = { editing: false, formValues: { first_name: '', email: '', file: '' }, };
+  state = { editing: false, formValues: { first_name: '', email: '', file: '', Follower: '' }, };
   
   componentDidMount() {
     const { auth: { user } } = this.props;

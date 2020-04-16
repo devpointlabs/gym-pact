@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'relationships/follow_user'
+  get 'relationships/unfollow_user'
   mount_devise_token_auth_for 'User', at: 'api/auth'
 
 
