@@ -22,6 +22,11 @@ class Profile extends React.Component {
     formValues: { first_name: "", email: "", file: "" },
     workouts: [],
     user_id: this.props.auth.user.id,
+    users: [],
+    followersIndex: this.props.auth.user.followers,
+    followingIndex: this.props.auth.user.following,
+    followers: [],
+    following: [],
   };
 
   componentDidMount() {
@@ -31,10 +36,31 @@ class Profile extends React.Component {
     this.setState({
       formValues: { first_name: user.first_name, email: user.email },
     });
+    // get workouts for this user
     axios.get(`/api/users/${this.state.user_id}/workouts`).then((res) => {
-      console.log(res.data);
       this.setState({ workouts: res.data });
     });
+    // get user to compare to followers and followings
+    axios
+      .get("/api/all_users")
+      .then((res) => {
+        this.setState({ users: res.data });
+        const { followersIndex, followingIndex, users } = this.state;
+        const followerArr = [];
+        const followingArr = [];
+        users.forEach((user) => {
+          if (followingIndex.indexOf(user.id) > -1) {
+            followingArr.push(user);
+          }
+          if (followersIndex.indexOf(user.id) > -1) {
+            followerArr.push(user);
+          }
+        });
+        this.setState({ followers: followerArr, following: followingArr });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   onDrop = (files) => {
@@ -183,6 +209,22 @@ class Profile extends React.Component {
                 >
                   <button>Edit</button>
                 </Link>
+              </div>
+            ))}
+          </div>
+          <div>
+            <h3>Your Followers</h3>
+            {this.state.followers.map((f) => (
+              <div>
+                <p>{f.username}</p>
+              </div>
+            ))}
+          </div>
+          <div>
+            <h3>Following</h3>
+            {this.state.following.map((f) => (
+              <div>
+                <p>{f.username}</p>
               </div>
             ))}
           </div>

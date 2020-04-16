@@ -36,5 +36,5 @@ end
    @user = User.find(params[:id])
  end
  def user_params
-   params.require(:user).permit(:age, :weight, :gender, :username, :dateOfbirth)
+   params.require(:user).permit(:age, :weight, :gender, :username, :dateOfbirth, :followers, :following)
  end
