@@ -25,7 +25,7 @@ class Api::WorkoutsController < ApplicationController
       if @workout.save
         render json: @workout
       else 
-        render json: {errors: @workout.errors}, status: :unprocessable_entitiy
+        render json: {errors: @workout.errors}, status: :unprocessable_entity
       end
   end
 
@@ -33,7 +33,7 @@ class Api::WorkoutsController < ApplicationController
     if @workout.update(workout_params)
       render json: @workout
     else
-      render json: {errors: @workout.errors}, status: :unprocessable_entitiy
+      render json: {errors: @workout.errors}, status: :unprocessable_entity
     end
   end
   
