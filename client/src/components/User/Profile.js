@@ -220,6 +220,7 @@ class Profile extends React.Component {
                   to={{
                     pathname: "/usershow",
                     state: {
+                      currentUser: this.state.user_id,
                       user: user,
                     },
                   }}
@@ -237,6 +238,7 @@ class Profile extends React.Component {
                   to={{
                     pathname: "/usershow",
                     state: {
+                      currentUser: this.state.user_id,
                       user: user,
                     },
                   }}

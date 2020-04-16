@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Form,
@@ -11,6 +11,9 @@ import {
 } from "semantic-ui-react";
 
 const UserShow = (props) => {
+  const [follow, setFollow] = useState("follow");
+
+  const { currentUser } = props.location.state;
   const {
     username,
     first_name,
@@ -25,6 +28,19 @@ const UserShow = (props) => {
     weight,
   } = props.location.state.user;
 
+  const followUser = (currentUser) => {
+    if (followers.indexOf(currentUser) === -1) {
+      followers.push(currentUser);
+      setFollow("UnFollow");
+      console.log(followers);
+    } else {
+      let ind = followers.indexOf(currentUser);
+      console.log(ind);
+      followers.splice(ind, 1);
+      setFollow("Follow");
+      console.log(followers);
+    }
+  };
   return (
     <>
       <Link to="/profile">
@@ -43,6 +59,11 @@ const UserShow = (props) => {
           <p>Weight: {weight}</p>
           <p>Fitness Level: {fitness_level}</p>
           <p>Followers: {followers.length}</p>{" "}
+        </div>
+        <div>
+          <button onClick={() => followUser(currentUser)}>
+            {followers.indexOf(currentUser) > -1 ? "UnFollow" : "Follow"}
+          </button>
         </div>
       </Grid.Column>
     </>

@@ -171,7 +171,10 @@ const Modal = (props) => {
                   onClick={() => hide()}
                   to={{
                     pathname: "/usershow",
-                    state: { user: users },
+                    state: {
+                      user: users,
+                      currentUser: props.user.user.id,
+                    },
                   }}
                 >
                   <H2>{users.username}</H2>
