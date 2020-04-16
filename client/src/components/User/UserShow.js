@@ -23,9 +23,8 @@ const UserShow = (props) => {
     following,
     id,
     weight,
-  } = props.location.state.user.f;
+  } = props.location.state.user;
 
-  console.log(props.location.state.user.f);
   return (
     <>
       <Link to="/profile">
@@ -33,7 +32,8 @@ const UserShow = (props) => {
       </Link>
       <Grid.Column width={4}></Grid.Column>
       <Grid.Column width={8}>
-        <Header as="h1">{username}</Header>
+        <Header as="h1">Hello</Header>
+        <Header as="h1">{username}</Header>{" "}
         <div>
           <p>First Name: {first_name}</p>
           <p>Last Name: {last_name}</p>
@@ -42,7 +42,7 @@ const UserShow = (props) => {
           <p>Gender: {gender}</p>
           <p>Weight: {weight}</p>
           <p>Fitness Level: {fitness_level}</p>
-          <p>Followers: {followers.length}</p>
+          <p>Followers: {followers.length}</p>{" "}
         </div>
       </Grid.Column>
     </>

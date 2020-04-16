@@ -4,6 +4,7 @@ import styled from "styled-components";
 import ropesImg from "../../imgs/ropes.jpg";
 import axios from "axios";
 import gymProfilePic from "../../imgs/gymProfPic.jpg";
+import { Link } from "react-router-dom";
 
 const ModalDiv = styled.div`
   z-index: -1;
@@ -166,7 +167,15 @@ const Modal = (props) => {
                 }}
               />
               <Column style={{ paddingTop: "1rem" }}>
-                <H2>{users.username}</H2>
+                <Link
+                  onClick={() => hide()}
+                  to={{
+                    pathname: "/usershow",
+                    state: { user: users },
+                  }}
+                >
+                  <H2>{users.username}</H2>
+                </Link>
                 <p style={{ fontSize: "12px" }}>{props.workout.created_at}</p>
               </Column>
             </Row>
