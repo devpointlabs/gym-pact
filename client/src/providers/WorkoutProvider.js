@@ -8,7 +8,6 @@ class WorkoutProvider extends Component {
   state = { workouts: [] };
 
   componentDidMount() {
-    const response = [];
     axios
       .get("/api/all_workouts")
       .then((res) => {
@@ -40,24 +39,48 @@ class WorkoutProvider extends Component {
         console.log(err);
       });
   }
+  // Update Workout
+  updateWorkout = (user_id, work_id, workout, history) => {
+    axios
+      .put(`/api/users/${user_id}/workouts/${work_id}`, workout)
+      .then((res) => {
+        const newArray = [...this.state.workouts];
+        console.log(newArray);
+        this.state.workouts.map((w, ind) => {
+          console.log(w.id, work_id);
+          if (w.id === work_id) {
+            console.log(workout);
+            newArray[ind] = { ...workout };
+            return res.data;
+          }
+          this.setState({ workouts: newArray });
+        });
+        console.log(this.state.workouts);
+        history.push("/profile");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   // creates new workout
-  createWorkout(workout, history) {
-    console.log(workout);
+  createWorkout = (workout, id, history) => {
     axios
-      .post("/api/workouts", { workout })
+      .post(`/api/users/${id}/workouts`, workout)
       .then((res) => {
         const { workouts } = this.state;
-        console.log(workouts);
+        res.data.title = workout.title;
+        res.data.desc = workout.desc;
+        console.log(res.data);
         this.setState({ workouts: [...workouts, res.data] });
         history.push("/");
       })
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
-  deleteWorkout(id) {
+  deleteWorkout = (id) => {
     axios
       .delete(`/api/workouts/${id}`)
       .then((res) => {
@@ -67,7 +90,7 @@ class WorkoutProvider extends Component {
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
   globalWorkouts() {}
 
@@ -77,7 +100,7 @@ class WorkoutProvider extends Component {
         value={{
           ...this.state,
           getWorkouts: this.getWorkouts,
-          showWorkout: this.showWorkout,
+          updateWorkout: this.updateWorkout,
           createWorkout: this.createWorkout,
           deleteWorkout: this.deleteWorkout,
         }}

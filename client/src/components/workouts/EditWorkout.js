@@ -3,11 +3,14 @@ import { Form, FormButton } from "semantic-ui-react";
 import { WorkoutConsumer } from "../../providers/WorkoutProvider";
 import { Link } from "react-router-dom";
 
-class WorkoutForm extends Component {
+class EditWorkout extends Component {
   state = { title: "", desc: "" };
 
   componentDidMount() {
-    // console.log(this.props.history.location.state.user.id);
+    this.setState({
+      title: this.props.history.location.state.title,
+      desc: this.props.history.location.state.desc,
+    });
   }
 
   handleChange = (e) => {
@@ -16,20 +19,17 @@ class WorkoutForm extends Component {
   };
 
   handleSubmit = (e) => {
-    const { title, desc } = this.state;
-    const { createWorkout, history } = this.props;
+    const { user, workout_id } = this.props.location.state;
+    const { history } = this.props;
     e.preventDefault();
-    createWorkout(
-      this.state,
-      this.props.history.location.state.user.id,
-      history
-    );
+    this.props.updateWorkout(user, workout_id, this.state, history);
   };
 
   render() {
     const { title, desc } = this.state;
     return (
       <Form onSubmit={this.handleSubmit}>
+        <h3>Edit Your workout name</h3>
         <Form.Input
           label="Workout Title"
           required
@@ -45,16 +45,16 @@ class WorkoutForm extends Component {
           onChange={this.handleChange}
         />
         <FormButton>Submit</FormButton>
-        <Link to="/">
+        <Link to="/profile">
           <FormButton>Cancel</FormButton>
         </Link>
       </Form>
     );
   }
 }
-const ConnectedWorkoutForm = (props) => (
+const ConnectedEditWorkout = (props) => (
   <WorkoutConsumer>
-    {(value) => <WorkoutForm {...props} {...value} />}
+    {(value) => <EditWorkout {...props} {...value} />}
   </WorkoutConsumer>
 );
-export default ConnectedWorkoutForm;
+export default ConnectedEditWorkout;
