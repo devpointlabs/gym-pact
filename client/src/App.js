@@ -14,6 +14,7 @@ import WorkoutForm from "./components/workouts/WorkoutForm";
 import EditWorkout from "./components/workouts/EditWorkout";
 import WorkoutProvider from "./providers/WorkoutProvider";
 import Profile from "./components/User/Profile";
+import UserShow from "./components/User/UserShow";
 
 const App = () => (
   <Fragment>
@@ -30,6 +31,7 @@ const App = () => (
             <Route exact path="/workoutForm" component={WorkoutForm} />
             <Route exact path="/editWorkout" component={EditWorkout} />
             <Route exact path="/profile" component={Profile} />
+            <Route exact path="/usershow" component={UserShow} />
             <Route component={NoMatch} />
           </Switch>
         </Container>

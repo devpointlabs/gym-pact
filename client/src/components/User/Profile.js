@@ -216,7 +216,16 @@ class Profile extends React.Component {
             <h3>Your Followers</h3>
             {this.state.followers.map((f) => (
               <div>
-                <p>{f.username}</p>
+                <Link
+                  to={{
+                    pathname: "/usershow",
+                    state: {
+                      user: { f },
+                    },
+                  }}
+                >
+                  <p>{f.username}</p>
+                </Link>
               </div>
             ))}
           </div>
@@ -224,7 +233,16 @@ class Profile extends React.Component {
             <h3>Following</h3>
             {this.state.following.map((f) => (
               <div>
-                <p>{f.username}</p>
+                <Link
+                  to={{
+                    pathname: "/usershow",
+                    state: {
+                      user: { f },
+                    },
+                  }}
+                >
+                  <p>{f.username}</p>
+                </Link>
               </div>
             ))}
           </div>
