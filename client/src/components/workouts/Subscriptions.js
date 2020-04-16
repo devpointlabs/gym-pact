@@ -4,27 +4,31 @@ import WorkoutCard from "./WorkoutCard";
 import axios from "axios";
 import { WorkoutConsumer } from "../../providers/WorkoutProvider";
 
-class FeedWorkouts extends Component {
-  state = { workouts: [] };
+class Subscriptions extends Component {
+  state = {
+    workouts: this.props.workouts.workouts,
+    subscriptions: [],
+    following: this.props.location.user.following,
+  };
 
   componentDidMount() {
-    axios
-      .get("/api/all_workouts")
-      .then((res) => {
-        this.setState({ workouts: res.data });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const { following } = this.state;
+    const { workouts, subscriptions } = this.state;
+    let tempArr = [];
+    workouts.forEach((w) => {
+      if (following.indexOf(w.user_id) > -1) {
+        tempArr.push(w);
+      }
+    });
+    this.setState({ subscriptions: tempArr });
   }
 
   render() {
-    const { workouts } = this.state;
     return (
       <div>
         <h1>Subscriptions</h1>
         <Container style={{ display: "flex", flexWrap: "wrap" }}>
-          {workouts.map((workout, ind) => (
+          {this.state.subscriptions.map((workout, ind) => (
             <WorkoutCard key={ind} workout={workout} />
           ))}
         </Container>
@@ -37,7 +41,7 @@ export default class ConnectedSubscriptions extends Component {
   render() {
     return (
       <WorkoutConsumer>
-        {(workout) => <FeedWorkouts {...this.props} workouts={workout} />}
+        {(workout) => <Subscriptions {...this.props} workouts={workout} />}
       </WorkoutConsumer>
     );
   }

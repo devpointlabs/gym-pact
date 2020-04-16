@@ -78,7 +78,7 @@ class Navbar extends React.Component {
               active={this.props.location.pathname === "/"}
             />
           </Link>
-          <Link to="/subscriptions">
+          <Link to={{ pathname: "/subscriptions", user: this.props.auth.user }}>
             <Menu.Item
               name="Subscribed"
               id="subscribed"
