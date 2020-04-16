@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 
 const CommentForm = (props) => {
-   const [comment, setComment] = useState('')
+   const [commentValue, setComment] = useState('')
    
 
    const handleCommentChange = (e) => {
@@ -14,9 +14,12 @@ const CommentForm = (props) => {
       
    const handleSubmit = (e) => {
          e.preventDefault()
-         axios.post(`/api/workouts/${props.workout_id}/comments`, { comment })
+         axios.post(`/api/workouts/${props.workout_id}/comments`, { comment: {text_field: commentValue, workout_id: props.workout_id } })
          .then( res => {
-            props.add(res.data)
+            props.addComment(res.data)
+         })
+         .catch( err => {
+            console.log(err)
          })
       }
 
@@ -26,7 +29,7 @@ const CommentForm = (props) => {
             <Form.Input
                label="Leave a comment..."
                name='comment'
-               value={comment}
+               value={commentValue}
                onChange={handleCommentChange}
             />
             <Form.Button>Submit</Form.Button>

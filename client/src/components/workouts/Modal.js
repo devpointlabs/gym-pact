@@ -105,7 +105,7 @@ const Modal = (props) => {
             <CommentsDiv>
               {renderComments()}
             </CommentsDiv>
-                <CommentForm  add={addComment} />
+                <CommentForm addComment={addComment} workout_id={id}/>
           </Column>
         </Row>
       </Container>
