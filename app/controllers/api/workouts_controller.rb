@@ -21,6 +21,7 @@ class Api::WorkoutsController < ApplicationController
   end
 
   def create
+    binding.pry
     @workout = current_user.workouts.new(workout_params)
       if @workout.save
         render json: @workout

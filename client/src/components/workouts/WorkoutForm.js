@@ -2,22 +2,11 @@ import React, { Component } from "react";
 import { Form, FormButton } from "semantic-ui-react";
 import { WorkoutConsumer } from "../../providers/WorkoutProvider";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
 class WorkoutForm extends Component {
   state = { title: "", desc: "" };
   componentDidMount() {
     console.log(this.props.history.location.state.user.id);
   }
-=======
-
-class WorkoutForm extends Component {
-  state = { title: "", desc: "" };
-
-  componentDidMount() {
-    // console.log(this.props.history.location.state.user.id);
-  }
-
->>>>>>> 02a5afaf3dd6446008a49b64cb9a803e7989d550
   handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value });

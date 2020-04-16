@@ -3,28 +3,20 @@ import axios from 'axios';
 
 
 class Comment extends Component {
-   state = {comments: []}
+   state = {comments: {}}
 
-   componentDidMount(comment, user_id, workout_id){
-      axios.get(`/api/workouts/${id}/comments`, comment)
-         .then( res => {
-            const { comment } = this.state
-            this.setState({...comments, [res.data]})
-         })
-         .catch( err => {
-            console.log(err)
-         })
+   componentDidMount(){
+     
    }
 
 
    render(){
-      const { comments } = this.state
+      const { ...comment } = this.props
       return(
-
          <>
-            {
-         </>
-         
+         <h4>{comment.user_id}</h4>
+         <p>{comment.text_field}</p>    
+         </>     
       )
    }
 }
