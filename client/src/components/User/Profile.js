@@ -9,6 +9,7 @@ import {
   Header,
   Button,
 } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import Dropzone from "react-dropzone";
 import axios from "axios";
 
@@ -53,6 +54,25 @@ class Profile extends React.Component {
       },
     });
   };
+  // Update Workout
+  updateWorkout = (work_id, workout) => {
+    axios
+      .put(`/api/users/${this.state.user_id}/workouts/${work_id}`, { workout })
+      .then((res) => {
+        const { workouts } = this.state.workouts.map((w) => {
+          if (w.id === work_id) {
+            return res.data;
+          }
+          return w;
+        });
+        this.setState({ workouts });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // Delete Workout
   deleteWorkout = (workout_id) => {
     axios
       .delete(`/api/users/${this.state.user_id}/workouts/${workout_id}`)
@@ -61,7 +81,6 @@ class Profile extends React.Component {
         this.setState({
           workouts: workouts.filter((w) => w.id !== workout_id),
         });
-        console.log(this.state.workouts);
         console.log(res.data.message);
       })
       .catch((err) => {
@@ -145,12 +164,25 @@ class Profile extends React.Component {
           </Grid.Row>
           <div>
             <h3>Your Workouts</h3>
-            {this.state.workouts.map((w) => (
+            {this.state.workouts.map((w, ind) => (
               <div>
                 <p>
-                  <u>{w.title}</u>: {w.desc} {w.id}
+                  <u>{w.title}</u>: {w.desc}
                 </p>
                 <button onClick={() => this.deleteWorkout(w.id)}>Delete</button>
+                <Link
+                  to={{
+                    pathname: "/editWorkout",
+                    state: {
+                      user: this.state.user_id,
+                      title: w.title,
+                      desc: w.desc,
+                      workout_id: w.id,
+                    },
+                  }}
+                >
+                  <button>Edit</button>
+                </Link>
               </div>
             ))}
           </div>
