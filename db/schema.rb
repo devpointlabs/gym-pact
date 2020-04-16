@@ -10,7 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2020_04_15_021831) do
 
   # These are extensions that must be enabled in order to support this database
@@ -25,12 +24,6 @@ ActiveRecord::Schema.define(version: 2020_04_15_021831) do
     t.index ["user_id"], name: "index_comments_on_user_id"
     t.index ["workout_id"], name: "index_comments_on_workout_id"
   end
-=======
-ActiveRecord::Schema.define(version: 2020_04_13_202406) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
->>>>>>> 02a5afaf3dd6446008a49b64cb9a803e7989d550
 
   create_table "follows", force: :cascade do |t|
     t.integer "user_id"

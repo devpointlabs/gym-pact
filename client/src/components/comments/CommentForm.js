@@ -1,42 +1,38 @@
 import React, { Component } from 'react';
 import { Form, FormButton } from 'semantic-ui-react';
 import axios from 'axios';
+import { useState } from 'react';
 
 
+const CommentForm = (props) => {
+   const [comment, setComment] = useState('')
+   
 
-class CommentForm extends Component{
-state = {comment: ''}
-
+   const handleCommentChange = (e) => {
+      setComment(e.target.value)
+   }
       
-
-      handleChange = (e) => {
-         const { name, value } = e.target;
-         this.setState({ [name]: value });
-      }
-      
-      handleSubmit = (e) => {
+   const handleSubmit = (e) => {
          e.preventDefault()
-         axios.post(`/api/workouts/${this.props.workout_id}/comments`, {...this.state })
+         axios.post(`/api/workouts/${props.workout_id}/comments`, { comment })
          .then( res => {
-            this.props.add(res.data)
+            props.add(res.data)
          })
-         this.setState({comment: ''})
       }
 
-   render(){
-      const { comment } = this.state
       return(
-         <Form onSubmit={this.handleSubmit}>
+         <>
+         <Form onSubmit={handleSubmit}>
             <Form.Input
                label="Leave a comment..."
                name='comment'
                value={comment}
-               onChange={this.handleChange}
+               onChange={handleCommentChange}
             />
             <Form.Button>Submit</Form.Button>
          </Form>
+         </>
       )
-   }
 }
 
 

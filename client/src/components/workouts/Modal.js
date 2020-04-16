@@ -13,7 +13,6 @@ const Modal = (props) => {
   const postUser = [];
   const id = props.workout.user_id;
   const [comments, setComments] = useState([])
-  const [newComment, setNewComment] = useState([])
 
   
   // componentDidmount
@@ -34,15 +33,7 @@ const Modal = (props) => {
     
 }
 
-//   const addComment = () => {
-//     axios.post(`/api/workouts/${props.workout.id}/comments`)
-//     .then( res => {
-//        setNewComment(res.data)
-//     })
-//       .catch( err => {
-//         console.log(err)
-//       })
-//  }
+  const addComment = (comment) => setComments([...comments, comment ])
 
   const renderComments = () => {
      return comments.map(comment => (
@@ -114,7 +105,7 @@ const Modal = (props) => {
             <CommentsDiv>
               {renderComments()}
             </CommentsDiv>
-                <CommentForm />
+                <CommentForm  add={addComment} />
           </Column>
         </Row>
       </Container>

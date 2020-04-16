@@ -22,6 +22,6 @@ class Api::CommentsController < ApplicationController
    end
 
    def comment_params
-      params.require(:comment).permit(:text_area, :user_id, :workout_id)
+      params.require(:comment).permit(:text_field, :user_id, :workout_id)
    end
 end
