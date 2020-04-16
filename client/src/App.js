@@ -15,6 +15,7 @@ import EditWorkout from "./components/workouts/EditWorkout";
 import WorkoutProvider from "./providers/WorkoutProvider";
 import Profile from "./components/User/Profile";
 import UserShow from "./components/User/UserShow";
+import ConnectedSubscriptions from "./components/workouts/Subscriptions";
 
 const App = () => (
   <Fragment>
@@ -32,6 +33,11 @@ const App = () => (
             <Route exact path="/editWorkout" component={EditWorkout} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/usershow" component={UserShow} />
+            <Route
+              exact
+              path="/subscriptions"
+              component={ConnectedSubscriptions}
+            />
             <Route component={NoMatch} />
           </Switch>
         </Container>

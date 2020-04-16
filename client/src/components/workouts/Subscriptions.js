@@ -22,7 +22,7 @@ class FeedWorkouts extends Component {
     const { workouts } = this.state;
     return (
       <div>
-        <h1>Gym Pact Workouts</h1>
+        <h1>Subscriptions</h1>
         <Container style={{ display: "flex", flexWrap: "wrap" }}>
           {workouts.map((workout, ind) => (
             <WorkoutCard key={ind} workout={workout} />
@@ -33,7 +33,7 @@ class FeedWorkouts extends Component {
   }
 }
 
-export default class ConnectedFeedWorkouts extends Component {
+export default class ConnectedSubscriptions extends Component {
   render() {
     return (
       <WorkoutConsumer>

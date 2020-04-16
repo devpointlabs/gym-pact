@@ -38,6 +38,8 @@ const UserShow = (props) => {
       axios
         .put(`/api/users/${id}`, user)
         .then((res) => {
+          res.data = user;
+          console.log(user);
           console.log(res.data);
         })
         .catch((err) => {
@@ -66,7 +68,6 @@ const UserShow = (props) => {
       </Link>
       <Grid.Column width={4}></Grid.Column>
       <Grid.Column width={8}>
-        <Header as="h1">Hello</Header>
         <Header as="h1">{username}</Header>{" "}
         <div>
           <p>First Name: {first_name}</p>
