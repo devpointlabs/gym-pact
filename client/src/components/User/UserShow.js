@@ -9,10 +9,11 @@ import {
   Header,
   Button,
 } from "semantic-ui-react";
+import axios from "axios";
 
 const UserShow = (props) => {
   const [follow, setFollow] = useState("follow");
-
+  const user = props.location.state.user;
   const { currentUser } = props.location.state;
   const {
     username,
@@ -33,12 +34,29 @@ const UserShow = (props) => {
       followers.push(currentUser);
       setFollow("UnFollow");
       console.log(followers);
+
+      axios
+        .put(`/api/users/${id}`, user)
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
       let ind = followers.indexOf(currentUser);
       console.log(ind);
       followers.splice(ind, 1);
       setFollow("Follow");
       console.log(followers);
+      axios
+        .put(`/api/users/${id}`, user)
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
   return (
