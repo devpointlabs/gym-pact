@@ -36,7 +36,9 @@ const UserShow = (props) => {
     if (followers.indexOf(currentUser) === -1) {
       followers.push(currentUser);
       setFollow("UnFollow");
+      setcurrentFollowers(followers);
       console.log(followers);
+      console.log(currentFollowers);
       axios
         .put(`/api/user/${id}`, user)
         .then((res) => {
