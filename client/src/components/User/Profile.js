@@ -35,6 +35,7 @@ class Profile extends React.Component {
     } = this.props;
     this.setState({
       formValues: { first_name: user.first_name, email: user.email },
+      user_id: user.id,
     });
     // get workouts for this user
     axios.get(`/api/users/${this.state.user_id}/workouts`).then((res) => {
@@ -64,7 +65,7 @@ class Profile extends React.Component {
   }
 
   onDrop = (files) => {
-    this.setState({ formValues: { ...this.state.formValues, file: files[0] } });
+    this.setState({ formValues: { ...this.state.formValues, file: files[0] } }); //adding file into state to store
   };
 
   toggleEdit = () => {
@@ -128,6 +129,22 @@ class Profile extends React.Component {
         </Grid.Column>
       </>
     );
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const {
+      formValues: { first_name, email, file },
+    } = this.state;
+    const { user, updateUser } = this.props.auth;
+    updateUser(user.id, { first_name, email, file });
+    this.setState({
+      editing: false,
+      formValues: {
+        ...this.state.formValues,
+        file: "",
+      },
+    });
   };
 
   editView = () => {
