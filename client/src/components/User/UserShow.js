@@ -6,10 +6,6 @@ import axios from "axios";
 const UserShow = (props) => {
   const { currentUser } = props.location.state;
   const user = props.location.state.user;
-  const [follow, setFollow] = useState("follow");
-  const [currentUserFollowing, setCurrentUserFollowing] = useState(
-    currentUser.following
-  );
   const {
     username,
     first_name,
@@ -23,6 +19,12 @@ const UserShow = (props) => {
     id,
     weight,
   } = props.location.state.user;
+  const [follow, setFollow] = useState(
+    followers.indexOf(currentUser.id) > -1 ? "UnFollow" : "Follow"
+  );
+  const [currentUserFollowing, setCurrentUserFollowing] = useState(
+    currentUser.following
+  );
 
   const followUser = (currentUser) => {
     if (followers.indexOf(currentUser.id) === -1) {
@@ -101,9 +103,7 @@ const UserShow = (props) => {
           <p>Followers: {followers.length}</p>{" "}
         </div>
         <div>
-          <button onClick={() => followUser(currentUser)}>
-            {followers.indexOf(currentUser.id) > -1 ? "UnFollow" : "Follow"}
-          </button>
+          <button onClick={() => followUser(currentUser)}>{follow}</button>
         </div>
       </Grid.Column>
     </>
