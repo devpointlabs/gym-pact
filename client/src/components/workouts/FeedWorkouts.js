@@ -4,9 +4,11 @@ import WorkoutCard from "./WorkoutCard";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { WorkoutConsumer } from "../../providers/WorkoutProvider";
+import { AuthConsumer } from '../../providers/AuthProvider';
+import Modal from './Modal';
 
 class FeedWorkouts extends Component {
-  state = { workouts: [] };
+  state = { workouts: [], toggleModal: false, workout: {} };
 
   componentDidMount() {
     axios
@@ -19,15 +21,40 @@ class FeedWorkouts extends Component {
       });
   }
 
+  unToggle = () => {
+    this.setState({ toggleModal: false })
+
+  }
+
+  toggle = (id) => {
+    axios.get(`/api/workouts/${id}`)
+    .then(res => {
+      this.setState({workout: res.data})
+    })
+      .then(() => { 
+        this.setState({ toggleModal: true })
+      }
+        )
+    }
+
   render() {
-    const { workouts } = this.state;
+    const { workouts, workout } = this.state;
     return (
       <div>
         <h1>Gym Pact Workouts</h1>
         <Container style={{ display: "flex", flexWrap: "wrap" }}>
-          {workouts.map((workout, ind) => (
-            <WorkoutCard key={ind} workout={workout} />
-          ))}
+          {this.state.toggleModal === true ? (
+            <Modal workout={workout} user={this.props.user} unToggle={this.unToggle}/>
+            // <div>test</div>
+          ): (
+            <div>
+            {workouts.map((workout, ind) => (
+              <div onClick={this.toggle}>
+              <WorkoutCard key={ind} workout={workout} toggle={this.toggle}/>
+              </div>
+              ))}
+            </div>
+            )}
         </Container>
       </div>
     );
@@ -37,9 +64,13 @@ class FeedWorkouts extends Component {
 export default class ConnectedFeedWorkouts extends Component {
   render() {
     return (
-      <WorkoutConsumer>
-        {(workout) => <FeedWorkouts {...this.props} workouts={workout} />}
+      <AuthConsumer>      
+        {user => (
+          <WorkoutConsumer>
+        {(workout) => <FeedWorkouts {...this.props} workouts={workout} user={user}/>}
       </WorkoutConsumer>
+        )}
+      </AuthConsumer>
     );
   }
 }

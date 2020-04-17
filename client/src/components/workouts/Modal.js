@@ -17,27 +17,28 @@ const Modal = (props) => {
   
   // componentDidmount
   
-  // useEffect(() => {
-  // }, [])
-  
-  
-  const getComments = () => {
+  useEffect(() => {
     axios.get(`/api/workouts/${props.workout.id}/comments`)
-    .then( res => {
+    .then(res => {
+      debugger
       // this.setState({comments: res.data})
-      setComments(res.data)
+      setComments(res.data) 
+      show()
       })
          .catch( err => {
             console.log(err)
          })
-    
-}
 
-  const addComment = (comment) => setComments([...comments, comment ])
+getPostUser()
+  }, [])
+  
+  const addComment = (comment) => { 
+    setComments([...comments, comment])
+  }
 
   const renderComments = () => {
      return comments.map(comment => (
-        <Comment key={comment.id} {...comment}/>
+        <Comment key={comment.id} {...comment} />
      ))
    }
 
@@ -58,29 +59,26 @@ const Modal = (props) => {
   };
 
   const [display, setDisplay] = useState("none");
+
   const show = (e) => {
     if (display == "none") {
       setDisplay("block");
       document.body.style.overflowY = "hidden";
     }
   };
+
   const hide = (e) => {
     if (display == "block") {
       setDisplay("none");
       document.body.style.overflowY = "initial";
     }
   };
+
   return (
-    <ModalDiv
-      onClick={() => {
-        getPostUser();
-        getComments();
-        show();
-      }}
-    >
-      <Background onClick={hide} style={{ display: display }}></Background>
+    <ModalDiv>
+      <Background onClick={props.unToggle} style={{ display: display }}></Background>
       <Container style={{ display: display }}>
-        <Close onClick={hide}>X</Close>
+        <Close onClick={props.unToggle}>X</Close>
         <Row>
           <Image src={ropesImg} />
           <Column style={{ paddingLeft: "1rem" }}>
@@ -125,7 +123,7 @@ export default class ConnectedModal extends React.Component {
 }
 
 const ModalDiv = styled.div`
-  z-index: -1;
+  z-index: 1;
   color: #292b4d;
 `;
 const Background = styled.div`
@@ -138,7 +136,7 @@ const Background = styled.div`
   background-color: black;
   overflow-y: hidden;
   opacity: 0.8;
-  z-index: 1;
+  z-index: -1;
 `;
 const Container = styled.div`
   position: fixed;

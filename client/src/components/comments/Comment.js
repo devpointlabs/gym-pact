@@ -3,10 +3,10 @@ import axios from 'axios';
 
 
 class Comment extends Component {
-   state = {comments: {}}
+   state = {comments: {}, user: {}}
 
    componentDidMount(){
-     
+   //   getUser show
    }
 
 
