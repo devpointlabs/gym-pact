@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Container, Grid, Card, Button } from "semantic-ui-react";
+import { Container } from "semantic-ui-react";
 import WorkoutCard from "./WorkoutCard";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { WorkoutConsumer } from "../../providers/WorkoutProvider";
 

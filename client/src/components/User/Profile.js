@@ -21,7 +21,12 @@ class Profile extends React.Component {
     editing: false,
     formValues: { first_name: "", email: "", file: "" },
     workouts: [],
-    user_id: '',
+    user_id: this.props.auth.user.id,
+    users: [],
+    followersIndex: this.props.auth.user.followers,
+    followingIndex: this.props.auth.user.following,
+    followers: [],
+    following: [],
   };
 
   componentDidMount() {
@@ -30,16 +35,37 @@ class Profile extends React.Component {
     } = this.props;
     this.setState({
       formValues: { first_name: user.first_name, email: user.email },
-      user_id: user.id
+      user_id: user.id,
     });
+    // get workouts for this user
     axios.get(`/api/users/${this.state.user_id}/workouts`).then((res) => {
-      console.log(res.data);
       this.setState({ workouts: res.data });
     });
+    // get user to compare to followers and followings
+    axios
+      .get("/api/all_users")
+      .then((res) => {
+        this.setState({ users: res.data });
+        const { followersIndex, followingIndex, users } = this.state;
+        const followerArr = [];
+        const followingArr = [];
+        users.forEach((user) => {
+          if (followingIndex.indexOf(user.id) > -1) {
+            followingArr.push(user);
+          }
+          if (followersIndex.indexOf(user.id) > -1) {
+            followerArr.push(user);
+          }
+        });
+        this.setState({ followers: followerArr, following: followingArr });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   onDrop = (files) => {
-    this.setState({ formValues: { ...this.state.formValues, file: files[0] }}); //adding file into state to store
+    this.setState({ formValues: { ...this.state.formValues, file: files[0] } }); //adding file into state to store
   };
 
   toggleEdit = () => {
@@ -107,17 +133,19 @@ class Profile extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const {formValues: { first_name, email, file}} = this.state;
-    const { user, updateUser } = this.props.auth
-    updateUser(user.id, {first_name, email, file })
+    const {
+      formValues: { first_name, email, file },
+    } = this.state;
+    const { user, updateUser } = this.props.auth;
+    updateUser(user.id, { first_name, email, file });
     this.setState({
       editing: false,
       formValues: {
         ...this.state.formValues,
-        file: '' 
-      }
-    }) 
-  }
+        file: "",
+      },
+    });
+  };
 
   editView = () => {
     // const { auth: { first_name }, } = this.props;
@@ -132,9 +160,9 @@ class Profile extends React.Component {
               return (
                 <div {...getRootProps()} style={styles.dropzone}>
                   <input {...getInputProps()} />
-                  {isDragActive ? 
+                  {isDragActive ? (
                     <p>Drag Your Image Here! </p>
-                   : (
+                  ) : (
                     <p> JPEG PDF </p>
                   )}
                 </div>
@@ -197,6 +225,42 @@ class Profile extends React.Component {
                   }}
                 >
                   <button>Edit</button>
+                </Link>
+              </div>
+            ))}
+          </div>
+          <div>
+            <h3>Your Followers</h3>
+            {this.state.followers.map((user) => (
+              <div>
+                <Link
+                  to={{
+                    pathname: "/usershow",
+                    state: {
+                      currentUser: this.state.user_id,
+                      user: user,
+                    },
+                  }}
+                >
+                  <p>{user.username}</p>
+                </Link>
+              </div>
+            ))}
+          </div>
+          <div>
+            <h3>Following</h3>
+            {this.state.following.map((user) => (
+              <div>
+                <Link
+                  to={{
+                    pathname: "/usershow",
+                    state: {
+                      currentUser: this.state.user_id,
+                      user: user,
+                    },
+                  }}
+                >
+                  <p>{user.username}</p>
                 </Link>
               </div>
             ))}

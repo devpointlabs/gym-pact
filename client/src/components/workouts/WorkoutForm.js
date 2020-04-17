@@ -45,9 +45,10 @@ class WorkoutForm extends Component {
           onChange={this.handleChange}
         />
         <FormButton>Submit</FormButton>
-        <Link to="/">
-          <FormButton>Cancel</FormButton>
-        </Link>
+
+        <FormButton onClick={() => this.props.history.goBack()}>
+          Cancel
+        </FormButton>
       </Form>
     );
   }
