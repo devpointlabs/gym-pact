@@ -1,7 +1,27 @@
 class Api::UsersController < ApplicationController
   before_action :authenticate_user!
 
-  
+  def updateFollower
+    # adds current user as a follower to the user the current user chose to follow
+    user = User.find(params[:id])
+    user.update(following: [params[:following]])
+    if user.save
+      render json: user
+    else
+      render json: { errors: user.errors.full_messages }, status: 422
+    end
+  end
+
+  def updateFollowing
+    user = User.find(params[:id])
+    user.update(following: [params[:following]])
+    if user.save
+      render json: user
+    else
+      render json: { errors: user.errors.full_messages }, status: 422
+    end
+  end
+
   def update
     user = User.find(params[:id])
     user.first_name = params[:first_name] ? params[:first_name] : user.first_name
