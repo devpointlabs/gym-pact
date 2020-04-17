@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   namespace :api do 
     get "/all_workouts", to: "workouts#global_workouts"
     get "/all_users", to: "workouts#global_users"
-    put "/user/:id", to: "users#updateFollower"
+    put "/user/:id", to: "workouts#updateFollower"
     put "/userf/:id", to: "users#updateFollowing"
 
     resources :users do

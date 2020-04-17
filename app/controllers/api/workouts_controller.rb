@@ -1,6 +1,6 @@
 class Api::WorkoutsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, except: [:global_workouts, :global_users]
+  # before_action :set_user, except: [:global_workouts, :global_users]
   before_action :set_workout, only: [:show, :edit, :update, :destroy]
 
   def show
@@ -14,6 +14,17 @@ class Api::WorkoutsController < ApplicationController
 
   def global_users
     render json: User.all
+  end
+
+def updateFollower
+    # adds current user as a follower to the user the current user chose to follow
+    user = User.find(params[:id])
+    user.update(following: [params[:following]])
+    if user.save
+      render json: user
+    else
+      render json: { errors: user.errors.full_messages }, status: 422
+    end
   end
 
   def index
@@ -52,8 +63,8 @@ class Api::WorkoutsController < ApplicationController
     @workout = current_user.workouts.find(params[:id])
   end
 
-  def set_user
-    @user = User.find(params[:user_id])
-  end 
+  # def set_user
+  #   @user = User.find(params[:user_id])
+  # end 
 
 end
