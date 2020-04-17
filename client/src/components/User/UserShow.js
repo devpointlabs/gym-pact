@@ -37,7 +37,6 @@ const UserShow = (props) => {
 
       axios
         .put(`/api/user/${id}`, user)
-        console.log(user);
         .then((res) => {
           res.data = user;
           console.log(res.data);
