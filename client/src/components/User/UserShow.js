@@ -34,12 +34,10 @@ const UserShow = (props) => {
       followers.push(currentUser);
       setFollow("UnFollow");
       console.log(followers);
-
       axios
-        .put(`/api/users/${id}`, user)
+        .put(`/api/user/${id}`, { user })
         .then((res) => {
           res.data = user;
-          console.log(user);
           console.log(res.data);
         })
         .catch((err) => {
@@ -52,8 +50,9 @@ const UserShow = (props) => {
       setFollow("Follow");
       console.log(followers);
       axios
-        .put(`/api/users/${id}`, user)
+        .put(`/api/user/${id}`, { user })
         .then((res) => {
+          res.data = user;
           console.log(res.data);
         })
         .catch((err) => {
@@ -68,7 +67,7 @@ const UserShow = (props) => {
       </Link>
       <Grid.Column width={4}></Grid.Column>
       <Grid.Column width={8}>
-        <Header as="h1">{username}</Header>{" "}
+        <Header as="h1">{username}</Header>
         <div>
           <p>First Name: {first_name}</p>
           <p>Last Name: {last_name}</p>
@@ -77,7 +76,7 @@ const UserShow = (props) => {
           <p>Gender: {gender}</p>
           <p>Weight: {weight}</p>
           <p>Fitness Level: {fitness_level}</p>
-          <p>Followers: {followers.length}</p>{" "}
+          <p>Followers: {followers.length}</p>
         </div>
         <div>
           <button onClick={() => followUser(currentUser)}>

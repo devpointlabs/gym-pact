@@ -21,7 +21,6 @@ const App = () => (
   <Fragment>
     <Navbar />
     <FetchUser>
-      {/* <Follower/>  */}
       <WorkoutProvider>
         <Container>
           <Switch>

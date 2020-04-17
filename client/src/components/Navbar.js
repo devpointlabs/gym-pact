@@ -1,9 +1,27 @@
 import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
-import { Menu } from "semantic-ui-react";
+import { Menu, Input } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
+import axios from "axios";
 
 class Navbar extends React.Component {
+  state = {
+    search: "",
+  };
+
+  activeSearch = (e) => {
+    axios
+      .get("/api/all_workouts")
+      .then((res) => {
+        console.log(e);
+        // this.setState({ search: e.target.value });
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   rightNavItems = () => {
     const {
       auth: { user, handleLogout },
@@ -85,6 +103,10 @@ class Navbar extends React.Component {
               active={this.props.location.pathname === "/subscriptions"}
             />
           </Link>
+
+          <Menu.Item id="search" name="Search">
+            <Input placeholder="Search" onChange={this.activeSearch} />
+          </Menu.Item>
         </Menu>
       </div>
     );

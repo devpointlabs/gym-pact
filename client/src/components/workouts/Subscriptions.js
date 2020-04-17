@@ -13,9 +13,10 @@ class Subscriptions extends Component {
 
   componentDidMount() {
     const { following } = this.state;
-    const { workouts, subscriptions } = this.state;
+    const { workouts } = this.state;
     let tempArr = [];
     workouts.forEach((w) => {
+      // console.log(w.user_id);
       if (following.indexOf(w.user_id) > -1) {
         tempArr.push(w);
       }
