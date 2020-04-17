@@ -1,6 +1,7 @@
 class Api::CommentsController < ApplicationController
    before_action :authenticate_user!
-   before_action :set_workout, only: [:index]
+   before_action :set_workout, only: [:index, :destroy]
+   before_action :set_comment, only: [:destroy]
    
    def index  
       render json: @workout.comments 
@@ -15,6 +16,15 @@ class Api::CommentsController < ApplicationController
       end
    end
 
+   def destroy
+      @comment.destroy
+      if @comment.destroy
+         render json: { message: "Commment Deleted"}
+      else 
+         render json: { message: "Commment Unable to Delete"}
+      end
+   end
+
    private
 
    def set_workout
@@ -23,5 +33,9 @@ class Api::CommentsController < ApplicationController
 
    def comment_params
       params.require(:comment).permit(:text_field, :user_id, :workout_id)
+   end
+
+   def set_comment 
+      @comment = Comment.find(params[:id])
    end
 end

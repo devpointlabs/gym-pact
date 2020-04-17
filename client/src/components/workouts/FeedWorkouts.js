@@ -28,6 +28,7 @@ class FeedWorkouts extends Component {
   toggle = (id) => {
     axios.get(`/api/workouts/${id}`)
     .then(res => {
+      debugger
       this.setState({workout: res.data})
     })
       .then(() => { 

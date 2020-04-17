@@ -4,7 +4,8 @@ class Api::WorkoutsController < ApplicationController
   before_action :set_workout, only: [:show, :edit, :update, :destroy]
 
   def show
-    @workout = Workout.find(params[:id])
+    # binding.pry
+    # @workout = Workout.find(params[:id])
     render json: @workout
   end
 
@@ -21,7 +22,6 @@ class Api::WorkoutsController < ApplicationController
   end
 
   def create
-    binding.pry
     @workout = current_user.workouts.new(workout_params)
       if @workout.save
         render json: @workout
@@ -46,7 +46,7 @@ class Api::WorkoutsController < ApplicationController
   private
 
   def workout_params
-    params.require(:workout).permit(:title, :desc)
+    params.require(:workout).permit(:title, :desc, :user_id)
   end
 
   def set_workout
