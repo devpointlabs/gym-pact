@@ -56,6 +56,7 @@ class Api::WorkoutsController < ApplicationController
   end
 
   def updateFollowing
+    # add current user as a following entry for viewed user
     user = User.find(params[:id])
     user.update(following: params[:following])
     if user.save
