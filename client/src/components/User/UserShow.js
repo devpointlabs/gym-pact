@@ -54,7 +54,7 @@ const UserShow = (props) => {
       setFollow("Follow");
       console.log(followers);
       axios
-        .put(`/api/userf/${id}`, user)
+        .put(`/api/user/${id}`, user)
         .then((res) => {
           res.data = user;
           console.log(res.data);
