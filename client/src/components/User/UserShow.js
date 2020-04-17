@@ -13,6 +13,9 @@ import axios from "axios";
 
 const UserShow = (props) => {
   const [follow, setFollow] = useState("follow");
+  const [currentFollowers, setcurrentFollowers] = useState([
+    props.location.state.user.followers,
+  ]);
   const user = props.location.state.user;
   const { currentUser } = props.location.state;
   const {
@@ -35,9 +38,10 @@ const UserShow = (props) => {
       setFollow("UnFollow");
       console.log(followers);
       axios
-        .put(`/api/user/${id}`, { user })
+        .put(`/api/user/${id}`, user)
         .then((res) => {
           res.data = user;
+          console.log(user);
           console.log(res.data);
         })
         .catch((err) => {
@@ -50,7 +54,7 @@ const UserShow = (props) => {
       setFollow("Follow");
       console.log(followers);
       axios
-        .put(`/api/user/${id}`, { user })
+        .put(`/api/userf/${id}`, user)
         .then((res) => {
           res.data = user;
           console.log(res.data);
