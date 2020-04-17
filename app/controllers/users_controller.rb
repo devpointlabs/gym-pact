@@ -4,7 +4,7 @@ class Api::UsersController < ApplicationController
   def updateFollower
     # adds current user as a follower to the user the current user chose to follow
     user = User.find(params[:id])
-    user.update(following: [params[:following]])
+    user.update(followers: [params[:followers]])
     if user.save
       render json: user
     else

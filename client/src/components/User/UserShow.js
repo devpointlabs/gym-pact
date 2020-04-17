@@ -36,10 +36,10 @@ const UserShow = (props) => {
       console.log(followers);
 
       axios
-        .put(`/api/users/${id}`, user)
+        .put(`/api/user/${id}`, user)
+        console.log(user);
         .then((res) => {
           res.data = user;
-          console.log(user);
           console.log(res.data);
         })
         .catch((err) => {
@@ -52,7 +52,7 @@ const UserShow = (props) => {
       setFollow("Follow");
       console.log(followers);
       axios
-        .put(`/api/users/${id}`, user)
+        .put(`/api/user/${id}`, user)
         .then((res) => {
           console.log(res.data);
         })
