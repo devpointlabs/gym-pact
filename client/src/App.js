@@ -13,12 +13,14 @@ import WorkoutShow from "./components/workouts/WorkoutShow";
 import WorkoutForm from "./components/workouts/WorkoutForm";
 import EditWorkout from "./components/workouts/EditWorkout";
 import WorkoutProvider from "./providers/WorkoutProvider";
-import Profile from "./components/User/Profile";
+import Profile from './components/User/Profile';
+// import Follower from "./components/Follower";
 
 const App = () => (
   <Fragment>
     <Navbar />
     <FetchUser>
+    {/* <Follower/>  */}
       <WorkoutProvider>
         <Container>
           <Switch>

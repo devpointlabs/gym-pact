@@ -21,7 +21,7 @@ class Profile extends React.Component {
     editing: false,
     formValues: { first_name: "", email: "", file: "" },
     workouts: [],
-    user_id: this.props.auth.user.id,
+    user_id: '',
   };
 
   componentDidMount() {
@@ -30,6 +30,7 @@ class Profile extends React.Component {
     } = this.props;
     this.setState({
       formValues: { first_name: user.first_name, email: user.email },
+      user_id: user.id
     });
     axios.get(`/api/users/${this.state.user_id}/workouts`).then((res) => {
       console.log(res.data);
@@ -38,7 +39,7 @@ class Profile extends React.Component {
   }
 
   onDrop = (files) => {
-    this.setState({ formValues: { ...this.state.formValues, file: files[0] } });
+    this.setState({ formValues: { ...this.state.formValues, file: files[0] }}); //adding file into state to store
   };
 
   toggleEdit = () => {
@@ -104,6 +105,20 @@ class Profile extends React.Component {
     );
   };
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const {formValues: { first_name, email, file}} = this.state;
+    const { user, updateUser } = this.props.auth
+    updateUser(user.id, {first_name, email, file })
+    this.setState({
+      editing: false,
+      formValues: {
+        ...this.state.formValues,
+        file: '' 
+      }
+    }) 
+  }
+
   editView = () => {
     // const { auth: { first_name }, } = this.props;
     const {
@@ -117,9 +132,9 @@ class Profile extends React.Component {
               return (
                 <div {...getRootProps()} style={styles.dropzone}>
                   <input {...getInputProps()} />
-                  {isDragActive ? (
+                  {isDragActive ? 
                     <p>Drag Your Image Here! </p>
-                  ) : (
+                   : (
                     <p> JPEG PDF </p>
                   )}
                 </div>
