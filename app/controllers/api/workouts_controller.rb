@@ -9,7 +9,7 @@ class Api::WorkoutsController < ApplicationController
   end
 
   def global_workouts
-    render json: Workout.all
+    render json: Workout.order("created_at DESC").all
   end
 
   def global_users

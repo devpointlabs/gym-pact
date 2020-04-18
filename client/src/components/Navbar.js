@@ -1,9 +1,27 @@
 import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
-import { Menu } from "semantic-ui-react";
+import { Menu, Input } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
+import axios from "axios";
 
 class Navbar extends React.Component {
+  state = {
+    searchResults: [],
+    searchInput: "",
+  };
+  filter = (e) => {
+    console.log(e.target.value);
+    this.setState({ searchInput: e.target.value });
+    axios
+      .get("/api/all_workouts")
+      .then((res) => {
+        this.setState({ searchResults: res.data });
+        console.log(this.state.searchResults, this.state.searchInput);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   rightNavItems = () => {
     const {
       auth: { user, handleLogout },
@@ -70,7 +88,9 @@ class Navbar extends React.Component {
           </Link>
           {this.rightNavItems()}
         </Menu>
-        <Menu>
+        <Menu
+          style={{ display: "flex", justifyContent: "center", width: "100%" }}
+        >
           <Link to="/">
             <Menu.Item
               name="Recent"
@@ -85,6 +105,16 @@ class Navbar extends React.Component {
               active={this.props.location.pathname === "/subscriptions"}
             />
           </Link>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
+            <Menu.Item>
+              <Input onChange={this.filter} placeholder="search" />
+            </Menu.Item>
+          </div>
         </Menu>
       </div>
     );

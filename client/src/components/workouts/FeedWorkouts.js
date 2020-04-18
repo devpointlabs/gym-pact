@@ -22,8 +22,14 @@ class FeedWorkouts extends Component {
     const { workouts } = this.state;
     return (
       <div>
-        <h1>Gym Pact Workouts</h1>
-        <Container style={{ display: "flex", flexWrap: "wrap" }}>
+        <h1 style={{ textAlign: "center" }}>Gym Pact Workouts</h1>
+        <Container
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
           {workouts.map((workout, ind) => (
             <WorkoutCard key={ind} workout={workout} />
           ))}
