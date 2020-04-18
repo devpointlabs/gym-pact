@@ -22,7 +22,7 @@ class Profile extends React.Component {
     formValues: { first_name: "", email: "", file: "" },
     workouts: [],
     user_id: this.props.auth.user.id,
-    users: [],
+    users: [0],
     followersIndex: this.props.auth.user.followers,
     followingIndex: this.props.auth.user.following,
     followers: [],
