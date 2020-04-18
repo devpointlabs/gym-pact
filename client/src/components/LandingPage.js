@@ -5,9 +5,12 @@ import {
    CallBtn,
    Left,
    Landing,
-   Right
+   Right,
+   SignUp,
+   H2,
  } from './styles/LandingStyles';
- import { List, ListContent } from 'semantic-ui-react';
+ import { List, ListContent, Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
  
 
@@ -28,15 +31,21 @@ const LandingPage = () => (
                 <List.Content>Follow your friends and admirers</List.Content>
              </List.Item>
              <List.Item>
-                <List.Icon name='idea' size='large' />
+                <List.Icon name='block layout' size='large' />
                 <List.Content>Scroll through your workout feed for new ideas</List.Content>
              </List.Item>
              <List.Item>
-                <List.Icon name='balance' size='large' />
+                <List.Icon name='dot circle outline' size='large' />
                 <List.Content>Reflect your work in your profile</List.Content>
              </List.Item>
           </List>
-       </Container>
+          <SignUp>
+               <Link to='login' >
+                  <H2>Sign Up</H2>
+                     <Icon name='double angle right' size='large'/>
+                  </Link>
+          </SignUp>
+          </Container>
     </Left>
     <Right></Right>
  </Landing>

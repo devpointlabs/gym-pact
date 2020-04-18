@@ -6,6 +6,7 @@ export const Landing = styled.div`
 display: grid;
 grid-template-columns: 50% 50%;
 height: 100vh;
+font-color: #292B4D !important;
 `
 
 export const BackgroundLeft = styled.div`
@@ -33,4 +34,14 @@ font-size: 5rem;
 `
 export const CallBtn = styled.button`
 
+`
+export const SignUp = styled.div`
+display: inline-block;
+grid-template-columns: 50% 50%;
+margin: 0 50px 0 50px;
+font-color: red;
+align-self: center;
+`
+export const H2 = styled.h2`
+display: grid;
 `
