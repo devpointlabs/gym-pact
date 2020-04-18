@@ -23,15 +23,15 @@ const Modal = (props) => {
     axios.get(`/api/workouts/${props.workout.id}/comments`)
     .then(res => {
       // this.setState({comments: res.data})
-      setComments(res.data) 
-      // show()
+      setComments(res.data)
+      show()
       })
          .catch( err => {
             console.log(err)
          })
 
-getPostUser()
-  }, [])
+// getPostUser()
+  }, [props.workout.id])
   
   const addComment = (comment) => { 
     setComments([...comments, comment])
@@ -49,41 +49,44 @@ getPostUser()
   const renderComments = () => {
     // if (!comments) return null;
      return comments.map(comment => (
-        <Comment key={comment.id} {...comment} deleteComment={deleteComment}/>
+        <Comment key={comment.id} {...comment} deleteComment={deleteComment} workout={props.workout} user={props.user} />
      ))
    }
 
-  const getPostUser = () => {
-    axios
-      .get("/api/all_users")
-      .then((res) => {
-        response.push(res.data);
-        response.forEach((res) => {
-          res.filter((user) => {
-            return user.id === id ? setUsers(user) : null;
-          });
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  // const getPostUser = () => {
+  //   axios
+  //     .get("/api/all_users")
+  //     .then((res) => {
+  //       response.push(res.data);
+  //       console.log(users)
+  //       response.forEach((res) => {
+  //         res.filter((user) => {
+  //           debugger
+  //           return user.id === id ? setUsers(user) : null;
+  //         });
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  //     console.log(users)
+  // };
+
+  const [display, setDisplay] = useState("initial");
+
+  const show = (e) => {
+    if (display == "none") {
+      setDisplay("block");
+      document.body.style.overflowY = "hidden";
+    }
   };
 
-  const [display, setDisplay] = useState("none");
-
-  // const show = (e) => {
-  //   if (display == "none") {
-  //     setDisplay("block");
-  //     document.body.style.overflowY = "hidden";
-  //   }
-  // };
-
-  // const hide = (e) => {
-  //   if (display == "block") {
-  //     setDisplay("none");
-  //     document.body.style.overflowY = "initial";
-  //   }
-  // };
+  const hide = (e) => {
+    if (display == "block") {
+      setDisplay("none");
+      document.body.style.overflowY = "initial";
+    }
+  };
 
   return (
     <ModalDiv>
@@ -110,7 +113,7 @@ getPostUser()
                     pathname: "/usershow",
                     state: {
                       user: props.user,
-                      currentUser: props.user.user.id,
+                      currentUser: props.user.id,
                     },
                   }}
                 >
@@ -121,11 +124,11 @@ getPostUser()
             </Row>
             <H1>{props.workout.title}</H1>
             <Desc>{props.workout.desc}</Desc>
-            <CommentCounter>Be the first to leave a comment...</CommentCounter>
+            <CommentCounter>{comments.length === 0 ? "Be the first to leave a comment..." : "Add a comment below..."}</CommentCounter>
             <CommentsDiv>
               {comments.length === 0 ? "There are no comments" : renderComments()}
             </CommentsDiv>
-                <CommentForm addComment={addComment} workout_id={id}/>
+                <CommentForm addComment={addComment} workout_id={props.workout.id}/>
           </Column>
         </Row>
       </Container>

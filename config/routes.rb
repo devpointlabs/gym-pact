@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     
     get "/all_workouts", to: "workouts#global_workouts"
     get "/all_users", to: "workouts#global_users"
+    get "/get_workout/:id", to: "workouts#get_single_workout"
     
   end
 end

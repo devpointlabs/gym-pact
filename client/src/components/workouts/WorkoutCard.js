@@ -7,8 +7,7 @@ import ConnectedModal from "./Modal";
 
 const WorkoutCard = ({ workout, toggle }) => (
   // workoutShow
-  <>
-    <Card style={{ margin: "1rem" }} onClick={() => toggle(workout.id)} >
+    <Card style={{ margin: "1rem" }} onClick={ () => toggle(workout.id)} >
       <div>
         {/* <ConnectedModal workout={workout}> */}
           <Image src={ropesImg} style={{ cursor: "pointer" }} />
@@ -20,7 +19,6 @@ const WorkoutCard = ({ workout, toggle }) => (
         <Card.Meta>Comments</Card.Meta>
       </CardContent>
     </Card>
-  </>
 );
 
 export default WorkoutCard;

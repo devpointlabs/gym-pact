@@ -27,15 +27,17 @@ class FeedWorkouts extends Component {
   }
   
   toggle = (id) => {
-    axios.get(`/api/workouts/${id}`)
+    axios.get(`/api/get_workout/${id}`)
     .then(res => {
       console.log('toggle')
+      console.log(res.data)
       this.setState({workout: res.data})
     })
       .then(() => { 
         this.setState({ toggleModal: true })
       }
         )
+        .catch(console.log("Didn't work"))
     }
 
   render() {
@@ -49,10 +51,8 @@ class FeedWorkouts extends Component {
             // <div>test</div>
           ) : (
             <div>
-            {workouts.map((workout, ind) => (
-              <div onClick={this.toggle}>
-              <WorkoutCard key={ind} workout={workout} toggle={this.toggle}/>
-              </div>
+            {workouts.map((workout) => (
+              <WorkoutCard key={workout.id} workout={workout} toggle={this.toggle}/>
               ))}
             </div>
             )}

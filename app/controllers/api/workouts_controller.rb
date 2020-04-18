@@ -1,11 +1,16 @@
 class Api::WorkoutsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, except: [:global_workouts, :global_users, :show]
+  before_action :set_user, except: [:global_workouts, :global_users, :get_single_workout]
   before_action :set_workout, only: [:show, :edit, :update, :destroy]
 
   def show
     # binding.pry
     # @workout = Workout.find(params[:id])
+    render json: @workout
+  end
+
+  def get_single_workout
+    @workout = Workout.find(params[:id])
     render json: @workout
   end
 

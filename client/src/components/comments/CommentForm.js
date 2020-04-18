@@ -13,7 +13,7 @@ const CommentForm = (props) => {
    }
       
    const handleSubmit = (e) => {
-         e.preventDefault()
+      e.preventDefault()
          axios.post(`/api/workouts/${props.workout_id}/comments`, { comment: {text_field: commentValue, workout_id: props.workout_id } })
          .then( res => {
             props.addComment(res.data)
