@@ -111,7 +111,6 @@ const Input = styled.input`
 const Modal = (props) => {
   const [users, setUsers] = useState([]);
   const response = [];
-  const postUser = [];
   const id = props.workout.user_id;
 
   const getPostUser = () => {
@@ -173,7 +172,7 @@ const Modal = (props) => {
                     pathname: "/usershow",
                     state: {
                       user: users,
-                      currentUser: props.user.user.id,
+                      currentUser: props.user.user,
                     },
                   }}
                 >
