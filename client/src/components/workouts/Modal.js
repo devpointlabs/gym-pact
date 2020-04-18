@@ -24,7 +24,7 @@ const Modal = (props) => {
     .then(res => {
       // this.setState({comments: res.data})
       setComments(res.data) 
-      show()
+      // show()
       })
          .catch( err => {
             console.log(err)
@@ -71,19 +71,19 @@ getPostUser()
 
   const [display, setDisplay] = useState("none");
 
-  const show = (e) => {
-    if (display == "none") {
-      setDisplay("block");
-      document.body.style.overflowY = "hidden";
-    }
-  };
+  // const show = (e) => {
+  //   if (display == "none") {
+  //     setDisplay("block");
+  //     document.body.style.overflowY = "hidden";
+  //   }
+  // };
 
-  const hide = (e) => {
-    if (display == "block") {
-      setDisplay("none");
-      document.body.style.overflowY = "initial";
-    }
-  };
+  // const hide = (e) => {
+  //   if (display == "block") {
+  //     setDisplay("none");
+  //     document.body.style.overflowY = "initial";
+  //   }
+  // };
 
   return (
     <ModalDiv>

@@ -28,6 +28,7 @@ class WorkoutProvider extends Component {
       });
   }
   showWorkout(user, id) {
+    // THIS MIGHT BE IT
     axios
       .get(`/api/workouts/${id}`, { user })
       .then((res) => {
@@ -65,7 +66,9 @@ class WorkoutProvider extends Component {
         console.log(err);
       });
   };
-  globalWorkouts() {}
+   
+  globalWorkouts() { }
+  
   render() {
     return (
       <WorkoutContext.Provider

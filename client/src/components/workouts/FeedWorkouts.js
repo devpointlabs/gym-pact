@@ -21,14 +21,15 @@ class FeedWorkouts extends Component {
   }
 
   unToggle = () => {
+    console.log('untoggle')
     this.setState({ toggleModal: false })
-
+    
   }
-
+  
   toggle = (id) => {
     axios.get(`/api/workouts/${id}`)
     .then(res => {
-      debugger
+      console.log('toggle')
       this.setState({workout: res.data})
     })
       .then(() => { 
@@ -46,7 +47,7 @@ class FeedWorkouts extends Component {
           {this.state.toggleModal === true ? (
             <Modal workout={workout} user={this.props.user} unToggle={this.unToggle}/>
             // <div>test</div>
-          ): (
+          ) : (
             <div>
             {workouts.map((workout, ind) => (
               <div onClick={this.toggle}>
