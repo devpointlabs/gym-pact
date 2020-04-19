@@ -169,7 +169,6 @@ const Modal = (props) => {
                 <Link
                   onClick={() => {
                     hide();
-                    props.clearSearch();
                   }}
                   to={{
                     pathname: "/usershow",

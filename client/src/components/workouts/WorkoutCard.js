@@ -10,7 +10,7 @@ const WorkoutCard = ({ workout, clearSearch }) => (
   <>
     <Card style={{ margin: "1rem" }}>
       <div>
-        <ConnectedModal clearSearch={clearSearch} workout={workout}>
+        <ConnectedModal workout={workout}>
           <Image src={ropesImg} style={{ cursor: "pointer" }} />
         </ConnectedModal>
       </div>

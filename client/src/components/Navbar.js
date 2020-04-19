@@ -149,11 +149,7 @@ class Navbar extends React.Component {
             </div>
             <Container style={{ display: "flex", flexWrap: "wrap" }}>
               {this.state.searchResults.map((workout, ind) => (
-                <WorkoutCard
-                  key={ind}
-                  workout={workout}
-                  clearSearch={this.clearSearch}
-                />
+                <WorkoutCard key={ind} workout={workout} />
               ))}
             </Container>
           </div>
