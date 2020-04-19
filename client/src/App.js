@@ -13,6 +13,7 @@ import WorkoutShow from "./components/workouts/WorkoutShow";
 import WorkoutForm from "./components/workouts/WorkoutForm";
 import EditWorkout from "./components/workouts/EditWorkout";
 import WorkoutProvider from "./providers/WorkoutProvider";
+import LandingPage from './components/LandingPage';
 import Profile from "./components/User/Profile";
 import UserShow from "./components/User/UserShow";
 import ConnectedSubscriptions from "./components/workouts/Subscriptions";
@@ -23,8 +24,9 @@ const App = () => (
     <FetchUser>
       {/* <Follower/>  */}
       <WorkoutProvider>
-        <Container>
+        {/* <Container> */}
           <Switch>
+            <Route exact path="/landing" component={LandingPage} />
             <ProtectedRoute exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
@@ -41,7 +43,7 @@ const App = () => (
             />
             <Route component={NoMatch} />
           </Switch>
-        </Container>
+        {/* </Container> */}
       </WorkoutProvider>
     </FetchUser>
   </Fragment>

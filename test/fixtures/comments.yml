@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  workout: one
+  text_field: MyText
+
+two:
+  user: two
+  workout: two
+  text_field: MyText
