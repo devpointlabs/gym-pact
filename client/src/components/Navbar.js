@@ -134,11 +134,19 @@ class Navbar extends React.Component {
           </div>
         </Menu>
         <div style={{ display: this.state.searchActive }}>
-          <div style={{ backgroundColor: "#ddd" }}>
+          <div
+            style={{
+              backgroundColor: "#ddd",
+              height: "39vh",
+              overflow: "scroll",
+            }}
+          >
             <div
               style={{
                 display: "flex",
                 width: "100%",
+                position: "fixed",
+                padding: "0.5rem 2rem",
                 justifyContent: "space-between",
               }}
             >
@@ -147,7 +155,13 @@ class Navbar extends React.Component {
                 close
               </p>
             </div>
-            <Container style={{ display: "flex", flexWrap: "wrap" }}>
+            <Container
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+              }}
+            >
               {this.state.searchResults.map((workout, ind) => (
                 <WorkoutCard key={ind} workout={workout} />
               ))}
