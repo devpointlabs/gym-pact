@@ -45,9 +45,10 @@ class EditWorkout extends Component {
           onChange={this.handleChange}
         />
         <FormButton>Submit</FormButton>
-        <Link to="/profile">
-          <FormButton>Cancel</FormButton>
-        </Link>
+
+        <FormButton onClick={() => this.props.history.goBack()}>
+          Cancel
+        </FormButton>
       </Form>
     );
   }

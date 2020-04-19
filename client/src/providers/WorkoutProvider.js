@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+
 const WorkoutContext = React.createContext();
 export const WorkoutConsumer = WorkoutContext.Consumer;
-
 class WorkoutProvider extends Component {
   state = { workouts: [] };
-
   componentDidMount() {
     axios
       .get("/api/all_workouts")
@@ -28,8 +27,8 @@ class WorkoutProvider extends Component {
         console.log(err);
       });
   }
-
   showWorkout(user, id) {
+    // THIS MIGHT BE IT
     axios
       .get(`/api/workouts/${id}`, { user })
       .then((res) => {
@@ -39,32 +38,9 @@ class WorkoutProvider extends Component {
         console.log(err);
       });
   }
-  // Update Workout
-  updateWorkout = (user_id, work_id, workout, history) => {
-    axios
-      .put(`/api/users/${user_id}/workouts/${work_id}`, workout)
-      .then((res) => {
-        const newArray = [...this.state.workouts];
-        console.log(newArray);
-        this.state.workouts.map((w, ind) => {
-          console.log(w.id, work_id);
-          if (w.id === work_id) {
-            console.log(workout);
-            newArray[ind] = { ...workout };
-            return res.data;
-          }
-          this.setState({ workouts: newArray });
-        });
-        console.log(this.state.workouts);
-        history.push("/profile");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   // creates new workout
   createWorkout = (workout, id, history) => {
+    debugger
     axios
       .post(`/api/users/${id}/workouts`, workout)
       .then((res) => {
@@ -79,7 +55,6 @@ class WorkoutProvider extends Component {
         console.log(err);
       });
   };
-
   deleteWorkout = (id) => {
     axios
       .delete(`/api/workouts/${id}`)
@@ -91,9 +66,9 @@ class WorkoutProvider extends Component {
         console.log(err);
       });
   };
-
-  globalWorkouts() {}
-
+   
+  globalWorkouts() { }
+  
   render() {
     return (
       <WorkoutContext.Provider
@@ -110,5 +85,4 @@ class WorkoutProvider extends Component {
     );
   }
 }
-
 export default WorkoutProvider;

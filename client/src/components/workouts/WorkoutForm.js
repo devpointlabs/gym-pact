@@ -2,36 +2,34 @@ import React, { Component } from "react";
 import { Form, FormButton } from "semantic-ui-react";
 import { WorkoutConsumer } from "../../providers/WorkoutProvider";
 import { Link } from "react-router-dom";
-
 class WorkoutForm extends Component {
   state = { title: "", desc: "" };
 
+  
   componentDidMount() {
-    // console.log(this.props.history.location.state.user.id);
+    console.log(this.props.history.location.state.user.id);
   }
-
   handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   };
-
   handleSubmit = (e) => {
     const { title, desc } = this.state;
     const { createWorkout, history } = this.props;
+    const wholeWorkout = { title: this.state.title, desc: this.state.desc, user_id: this.props.history.location.state.user.id }
     e.preventDefault();
     createWorkout(
-      this.state,
+      wholeWorkout,
       this.props.history.location.state.user.id,
       history
     );
   };
-
   render() {
     const { title, desc } = this.state;
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Input
-          label="Workout Title"
+          label="Workout Title" 
           required
           name="title"
           value={title}
@@ -45,9 +43,10 @@ class WorkoutForm extends Component {
           onChange={this.handleChange}
         />
         <FormButton>Submit</FormButton>
-        <Link to="/">
-          <FormButton>Cancel</FormButton>
-        </Link>
+
+        <FormButton onClick={() => this.props.history.goBack()}>
+          Cancel
+        </FormButton>
       </Form>
     );
   }

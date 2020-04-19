@@ -2,11 +2,9 @@ import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
 import { Menu } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
-import Follower from "./Follower";
 
 class Navbar extends React.Component {
   rightNavItems = () => {
-    console.log(this.props);
     const {
       auth: { user, handleLogout },
       location,
@@ -30,7 +28,10 @@ class Navbar extends React.Component {
             </Menu.Item>
           </Link>
           <Link to="/profile">
-            <Menu.Item name="profile" />
+            <Menu.Item
+              name="profile"
+              active={location.pathname === "/profile"}
+            />
           </Link>
         </Menu.Menu>
       );
@@ -62,12 +63,28 @@ class Navbar extends React.Component {
         <Menu pointing secondary>
           <Link to="/">
             <Menu.Item
-              name="home"
+              name="Feed"
               id="home"
               active={this.props.location.pathname === "/"}
             />
           </Link>
           {this.rightNavItems()}
+        </Menu>
+        <Menu>
+          <Link to="/">
+            <Menu.Item
+              name="Recent"
+              id="feed"
+              active={this.props.location.pathname === "/"}
+            />
+          </Link>
+          <Link to={{ pathname: "/subscriptions", user: this.props.auth.user }}>
+            <Menu.Item
+              name="Subscribed"
+              id="subscribed"
+              active={this.props.location.pathname === "/subscriptions"}
+            />
+          </Link>
         </Menu>
       </div>
     );

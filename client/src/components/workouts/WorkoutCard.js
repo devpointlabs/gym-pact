@@ -5,14 +5,13 @@ import ropesImg from "../../imgs/ropes.jpg";
 import Modal from "./Modal";
 import ConnectedModal from "./Modal";
 
-const WorkoutCard = ({ workout }) => (
+const WorkoutCard = ({ workout, toggle }) => (
   // workoutShow
-  <>
-    <Card style={{ margin: "1rem" }}>
+    <Card style={{ margin: "1rem" }} onClick={ () => toggle(workout.id)} >
       <div>
-        <ConnectedModal workout={workout}>
+        {/* <ConnectedModal workout={workout}> */}
           <Image src={ropesImg} style={{ cursor: "pointer" }} />
-        </ConnectedModal>
+        {/* </ConnectedModal> */}
       </div>
       <CardContent>
         <Card.Header>{workout.title}</Card.Header>
@@ -20,7 +19,6 @@ const WorkoutCard = ({ workout }) => (
         <Card.Meta>Comments</Card.Meta>
       </CardContent>
     </Card>
-  </>
 );
 
 export default WorkoutCard;
