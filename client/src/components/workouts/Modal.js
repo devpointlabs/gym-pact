@@ -167,7 +167,10 @@ const Modal = (props) => {
               />
               <Column style={{ paddingTop: "1rem" }}>
                 <Link
-                  onClick={() => hide()}
+                  onClick={() => {
+                    hide();
+                    props.clearSearch();
+                  }}
                   to={{
                     pathname: "/usershow",
                     state: {

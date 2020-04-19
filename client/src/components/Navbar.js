@@ -36,7 +36,9 @@ class Navbar extends React.Component {
       this.setState({ searchResults: [] });
     }
   };
-
+  clearSearch = () => {
+    this.setState({ searchActive: "none" });
+  };
   rightNavItems = () => {
     const {
       auth: { user, handleLogout },
@@ -133,10 +135,25 @@ class Navbar extends React.Component {
         </Menu>
         <div style={{ display: this.state.searchActive }}>
           <div style={{ backgroundColor: "#ddd" }}>
-            <h3>SearchResults</h3>
+            <div
+              style={{
+                display: "flex",
+                width: "100%",
+                justifyContent: "space-between",
+              }}
+            >
+              <p>SearchResults</p>
+              <p style={{ cursor: "pointer" }} onClick={this.clearSearch}>
+                close
+              </p>
+            </div>
             <Container style={{ display: "flex", flexWrap: "wrap" }}>
               {this.state.searchResults.map((workout, ind) => (
-                <WorkoutCard key={ind} workout={workout} />
+                <WorkoutCard
+                  key={ind}
+                  workout={workout}
+                  clearSearch={this.clearSearch}
+                />
               ))}
             </Container>
           </div>

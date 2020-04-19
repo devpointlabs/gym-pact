@@ -5,12 +5,12 @@ import ropesImg from "../../imgs/ropes.jpg";
 import Modal from "./Modal";
 import ConnectedModal from "./Modal";
 
-const WorkoutCard = ({ workout }) => (
+const WorkoutCard = ({ workout, clearSearch }) => (
   // workoutShow
   <>
     <Card style={{ margin: "1rem" }}>
       <div>
-        <ConnectedModal workout={workout}>
+        <ConnectedModal clearSearch={clearSearch} workout={workout}>
           <Image src={ropesImg} style={{ cursor: "pointer" }} />
         </ConnectedModal>
       </div>
