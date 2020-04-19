@@ -8,16 +8,14 @@ import WorkoutCard from "./workouts/WorkoutCard";
 class Navbar extends React.Component {
   state = {
     searchResults: [],
-    searchInput: " ",
-    searchActive: false,
+    searchInput: "",
+    searchActive: "none",
   };
   filter = (e) => {
     const { searchInput, searchResults } = this.state;
     this.setState({ searchInput: e.target.value });
-    if (searchInput.length > 0 && e.keyCode != 8) {
-      this.setState((prevState) => ({
-        searchActive: prevState.searchActive,
-      }));
+    if (e.which != 8 && e.which != 16) {
+      this.setState({ searchActive: "block" });
       axios
         .get("/api/all_workouts")
         .then((res) => {
@@ -34,6 +32,7 @@ class Navbar extends React.Component {
           console.log(err);
         });
     } else if (e.which == 8) {
+      this.setState({ searchActive: "none" });
       this.setState({ searchResults: [] });
     }
   };
@@ -132,13 +131,15 @@ class Navbar extends React.Component {
             </Menu.Item>
           </div>
         </Menu>
-        <div>
-          <h3>SearchResults</h3>
-          <Container style={{ display: "flex", flexWrap: "wrap" }}>
-            {this.state.searchResults.map((workout, ind) => (
-              <WorkoutCard key={ind} workout={workout} />
-            ))}
-          </Container>
+        <div style={{ display: this.state.searchActive }}>
+          <div style={{ backgroundColor: "#ddd" }}>
+            <h3>SearchResults</h3>
+            <Container style={{ display: "flex", flexWrap: "wrap" }}>
+              {this.state.searchResults.map((workout, ind) => (
+                <WorkoutCard key={ind} workout={workout} />
+              ))}
+            </Container>
+          </div>
         </div>
       </div>
     );
