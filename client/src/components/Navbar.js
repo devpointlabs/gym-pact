@@ -1,9 +1,9 @@
 import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
-import { Menu, Input, Container } from "semantic-ui-react";
+import { Menu, Input } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
-import WorkoutCard from "./workouts/WorkoutCard";
+import SearchBar from "./SearchBar";
 
 class Navbar extends React.Component {
   state = {
@@ -133,41 +133,11 @@ class Navbar extends React.Component {
             </Menu.Item>
           </div>
         </Menu>
-        <div style={{ display: this.state.searchActive }}>
-          <div
-            style={{
-              backgroundColor: "#ddd",
-              height: "39vh",
-              overflow: "scroll",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                width: "100%",
-                position: "fixed",
-                padding: "0.5rem 2rem",
-                justifyContent: "space-between",
-              }}
-            >
-              <p>SearchResults</p>
-              <p style={{ cursor: "pointer" }} onClick={this.clearSearch}>
-                close
-              </p>
-            </div>
-            <Container
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "center",
-              }}
-            >
-              {this.state.searchResults.map((workout, ind) => (
-                <WorkoutCard key={ind} workout={workout} />
-              ))}
-            </Container>
-          </div>
-        </div>
+        <SearchBar
+          searchActive={this.state.searchActive}
+          searchResults={this.state.searchResults}
+          clearSearch={this.clearSearch}
+        />
       </div>
     );
   }
