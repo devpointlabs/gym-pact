@@ -4,10 +4,171 @@ import styled from "styled-components";
 import ropesImg from "../../imgs/ropes.jpg";
 import axios from "axios";
 import gymProfilePic from "../../imgs/gymProfPic.jpg";
+import Comment from "../comments/Comment";
+import CommentForm from "../comments/CommentForm";
 import { Link } from "react-router-dom";
 
+const Modal = (props) => {
+  const [users, setUsers] = useState([]);
+  const response = [];
+  const postUser = [];
+  const id = props.workout.user_id;
+  const [comments, setComments] = useState([]);
+
+  // componentDidmount
+
+  useEffect(() => {
+    axios
+      .get(`/api/workouts/${props.workout.id}/comments`)
+      .then((res) => {
+        // this.setState({comments: res.data})
+        setComments(res.data);
+        show();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    getPostUser();
+  }, [props.workout.id]);
+
+  const addComment = (comment) => {
+    setComments([...comments, comment]);
+  };
+
+  const deleteComment = (comment) => {
+    axios
+      .delete(`/api/workouts/${comment.workout_id}/comments/${comment.id}`)
+      .then((res) => {
+        console.log(res);
+      });
+    setComments(comments.filter((c) => c.id !== comment.id));
+  };
+
+  const renderComments = () => {
+    // if (!comments) return null;
+    return comments.map((comment) => (
+      <Comment
+        key={comment.id}
+        {...comment}
+        deleteComment={deleteComment}
+        workout={props.workout}
+        user={props.user}
+      />
+    ));
+  };
+
+  // Carson and Harlan Commented this out because of conflicts with Comments
+  // between Carson, Harlan and Jon we will need to test this.
+  //
+  const getPostUser = () => {
+    axios
+      .get("/api/all_users")
+      .then((res) => {
+        response.push(res.data);
+        console.log(users);
+        response.forEach((res) => {
+          res.filter((user) => {
+            // debugger;
+            return user.id === id ? setUsers(user) : null;
+          });
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    console.log(users);
+  };
+
+  const [display, setDisplay] = useState("initial");
+
+  const show = (e) => {
+    if (display == "none") {
+      setDisplay("block");
+      document.body.style.overflowY = "hidden";
+    }
+  };
+
+  const hide = (e) => {
+    if (display == "block") {
+      setDisplay("none");
+      document.body.style.overflowY = "initial";
+    }
+  };
+
+  return (
+    <ModalDiv>
+      <Background
+        onClick={props.unToggle}
+        style={{ display: display }}
+      ></Background>
+      <Container style={{ display: display }}>
+        <Close onClick={props.unToggle}>X</Close>
+        <Row>
+          <Image src={ropesImg} />
+          <Column style={{ paddingLeft: "1rem" }}>
+            <Row style={{ width: "20rem" }}>
+              <img
+                src={gymProfilePic}
+                style={{
+                  width: "50px",
+                  height: "50px",
+                  margin: "0.5rem",
+                  borderRadius: "50%",
+                }}
+              />
+              <Column style={{ paddingTop: "1rem" }}>
+                <Link
+                  onClick={() => hide()}
+                  to={{
+                    pathname: "/usershow",
+                    state: {
+                      user: users,
+                      currentUser: props.user.user,
+                    },
+                  }}
+                >
+                  <H2>{users.username}</H2>
+                </Link>
+                <p style={{ fontSize: "12px" }}>{props.workout.created_at}</p>
+              </Column>
+            </Row>
+            <H1>{props.workout.title}</H1>
+            <Desc>{props.workout.desc}</Desc>
+            <CommentCounter>
+              {comments.length === 0
+                ? "Be the first to leave a comment..."
+                : comments.length + " comments"}
+            </CommentCounter>
+            <CommentsDiv>
+              {comments.length === 0
+                ? "There are no comments"
+                : renderComments()}
+            </CommentsDiv>
+            <CommentForm
+              addComment={addComment}
+              workout_id={props.workout.id}
+            />
+          </Column>
+        </Row>
+      </Container>
+      {props.children}
+    </ModalDiv>
+  );
+};
+
+export default class ConnectedModal extends React.Component {
+  render() {
+    return (
+      <AuthConsumer>
+        {(user) => <Modal {...this.props} user={user} />}
+      </AuthConsumer>
+    );
+  }
+}
+
 const ModalDiv = styled.div`
-  z-index: -1;
+  z-index: 1;
   color: #292b4d;
 `;
 const Background = styled.div`
@@ -20,7 +181,7 @@ const Background = styled.div`
   background-color: black;
   overflow-y: hidden;
   opacity: 0.8;
-  z-index: 1;
+  z-index: -1;
 `;
 const Container = styled.div`
   position: fixed;
@@ -69,6 +230,7 @@ const H2 = styled.h2`
   font-size: 20px;
   margin: 0.4rem 1rem;
   z-index: 12;
+  color: red;
 `;
 const Desc = styled.p`
   min-height: 10vh;
@@ -107,101 +269,3 @@ const Input = styled.input`
   border-style: solid;
   border-color: #ddd;
 `;
-
-const Modal = (props) => {
-  const [users, setUsers] = useState([]);
-  const response = [];
-  const id = props.workout.user_id;
-
-  const getPostUser = () => {
-    axios
-      .get("/api/all_users")
-      .then((res) => {
-        response.push(res.data);
-        response.forEach((res) => {
-          res.filter((user) => {
-            return user.id === id ? setUsers(user) : null;
-          });
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const [display, setDisplay] = useState("none");
-  const show = (e) => {
-    if (display == "none") {
-      setDisplay("block");
-      document.body.style.overflowY = "hidden";
-    }
-  };
-  const hide = (e) => {
-    if (display == "block") {
-      setDisplay("none");
-      document.body.style.overflowY = "initial";
-    }
-  };
-  return (
-    <ModalDiv
-      onClick={() => {
-        getPostUser();
-        show();
-      }}
-    >
-      <Background onClick={hide} style={{ display: display }}></Background>
-      <Container style={{ display: display }}>
-        <Close onClick={hide}>X</Close>
-        <Row>
-          <Image src={ropesImg} />
-          <Column style={{ paddingLeft: "1rem" }}>
-            <Row style={{ width: "20rem" }}>
-              <img
-                src={gymProfilePic}
-                style={{
-                  width: "50px",
-                  height: "50px",
-                  margin: "0.5rem",
-                  borderRadius: "50%",
-                }}
-              />
-              <Column style={{ paddingTop: "1rem" }}>
-                <Link
-                  onClick={() => {
-                    hide();
-                  }}
-                  to={{
-                    pathname: "/usershow",
-                    state: {
-                      user: users,
-                      currentUser: props.user.user,
-                    },
-                  }}
-                >
-                  <H2>{users.username}</H2>
-                </Link>
-                <p style={{ fontSize: "12px" }}>{props.workout.created_at}</p>
-              </Column>
-            </Row>
-            <H1>{props.workout.title}</H1>
-            <Desc>{props.workout.desc}</Desc>
-            <CommentCounter>Be the first to leave a comment...</CommentCounter>
-            <CommentsDiv></CommentsDiv>
-            <Input type="text" placeholder="Write a comment..." />
-          </Column>
-        </Row>
-      </Container>
-      {props.children}
-    </ModalDiv>
-  );
-};
-
-export default class ConnectedModal extends React.Component {
-  render() {
-    return (
-      <AuthConsumer>
-        {(user) => <Modal {...this.props} user={user} />}
-      </AuthConsumer>
-    );
-  }
-}

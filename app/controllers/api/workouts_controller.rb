@@ -1,9 +1,16 @@
 class Api::WorkoutsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, except: [:global_workouts, :global_users, :updateFollowing, :updateFollower]
+
+  before_action :set_user, except: [:global_workouts, :global_users, :get_single_workout, :updateFollowing, :updateFollow]
   before_action :set_workout, only: [:show, :edit, :update, :destroy]
 
   def show
+    # binding.pry
+    # @workout = Workout.find(params[:id])
+    render json: @workout
+  end
+
+  def get_single_workout
     @workout = Workout.find(params[:id])
     render json: @workout
   end
@@ -36,7 +43,7 @@ class Api::WorkoutsController < ApplicationController
       render json: {errors: @workout.errors}, status: :unprocessable_entity
     end
   end
-  
+
   def destroy
     Workout.find(params[:id]).destroy
     render json: {message: 'Workout deleted'}
@@ -69,7 +76,7 @@ class Api::WorkoutsController < ApplicationController
   private
 
   def workout_params
-    params.require(:workout).permit(:title, :desc)
+    params.require(:workout).permit(:title, :desc, :user_id)
   end
 
   def set_workout
