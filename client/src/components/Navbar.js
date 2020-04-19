@@ -1,27 +1,43 @@
 import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
-import { Menu, Input } from "semantic-ui-react";
+import { Menu, Input, Container } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
+import WorkoutCard from "./workouts/WorkoutCard";
 
 class Navbar extends React.Component {
   state = {
     searchResults: [],
-    searchInput: "",
+    searchInput: " ",
+    searchActive: false,
   };
   filter = (e) => {
-    console.log(e.target.value);
+    const { searchInput, searchResults } = this.state;
     this.setState({ searchInput: e.target.value });
-    axios
-      .get("/api/all_workouts")
-      .then((res) => {
-        this.setState({ searchResults: res.data });
-        console.log(this.state.searchResults, this.state.searchInput);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (searchInput.length > 0 && e.keyCode != 8) {
+      this.setState((prevState) => ({
+        searchActive: prevState.searchActive,
+      }));
+      axios
+        .get("/api/all_workouts")
+        .then((res) => {
+          this.setState({
+            searchResults: res.data.filter((w) => {
+              return w.title
+                .toLowerCase()
+                .includes(this.state.searchInput.toLowerCase());
+            }),
+          });
+          console.log(this.state.searchResults, this.state.searchInput);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else if (e.which == 8) {
+      this.setState({ searchResults: [] });
+    }
   };
+
   rightNavItems = () => {
     const {
       auth: { user, handleLogout },
@@ -112,10 +128,18 @@ class Navbar extends React.Component {
             }}
           >
             <Menu.Item>
-              <Input onChange={this.filter} placeholder="search" />
+              <Input onKeyDown={this.filter} placeholder="search" />
             </Menu.Item>
           </div>
         </Menu>
+        <div>
+          <h3>SearchResults</h3>
+          <Container style={{ display: "flex", flexWrap: "wrap" }}>
+            {this.state.searchResults.map((workout, ind) => (
+              <WorkoutCard key={ind} workout={workout} />
+            ))}
+          </Container>
+        </div>
       </div>
     );
   }
