@@ -53,6 +53,9 @@ const Modal = (props) => {
      ))
    }
 
+  // Carson and Harlan Commented this out because of conflicts with Comments
+  // between Carson, Harlan and Jon we will need to test this. 
+  //
   // const getPostUser = () => {
   //   axios
   //     .get("/api/all_users")
@@ -93,7 +96,7 @@ const Modal = (props) => {
       <Background onClick={props.unToggle} style={{ display: display }}></Background>
       <Container style={{ display: display }}>
         <Close onClick={props.unToggle}>X</Close>
-        <Row>
+       <Row>
           <Image src={ropesImg} />
           <Column style={{ paddingLeft: "1rem" }}>
             <Row style={{ width: "20rem" }}>
@@ -108,16 +111,16 @@ const Modal = (props) => {
               />
               <Column style={{ paddingTop: "1rem" }}>
                 <Link
-                  onClick={() => props.unToggle}
+                  onClick={() => hide()}
                   to={{
                     pathname: "/usershow",
                     state: {
-                      user: props.user,
-                      currentUser: props.user.id,
+                      user: users,
+                      currentUser: props.user.user,
                     },
                   }}
                 >
-                  <H2>{props.user.username}</H2>
+                  <H2>{users.username}</H2>
                 </Link>
                 <p style={{ fontSize: "12px" }}>{props.workout.created_at}</p>
               </Column>
@@ -248,5 +251,3 @@ const Input = styled.input`
   border-style: solid;
   border-color: #ddd;
 `;
-
-

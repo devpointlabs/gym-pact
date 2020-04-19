@@ -1,6 +1,7 @@
 class Api::WorkoutsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, except: [:global_workouts, :global_users, :get_single_workout]
+
+  before_action :set_user, except: [:global_workouts, :global_users, :get_single_workout, :updateFollowing, :updateFollow]
   before_action :set_workout, only: [:show, :edit, :update, :destroy]
 
   def show
@@ -46,6 +47,30 @@ class Api::WorkoutsController < ApplicationController
   def destroy
     Workout.find(params[:id]).destroy
     render json: {message: 'Workout deleted'}
+  end
+
+# followers
+
+  def updateFollower
+    # adds current user as a follower to the user the current user chose to follow
+    user = User.find(params[:id])
+    user.update(followers: params[:followers])
+    if user.save
+      render json: user
+    else
+      render json: { errors: user.errors.full_messages }, status: 422
+    end
+  end
+
+  def updateFollowing
+    # add current user as a following entry for viewed user
+    user = User.find(params[:id])
+    user.update(following: params[:following])
+    if user.save
+      render json: user
+    else
+      render json: { errors: user.errors.full_messages }, status: 422
+    end
   end
 
   private

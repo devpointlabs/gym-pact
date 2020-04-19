@@ -21,6 +21,7 @@ class Profile extends React.Component {
     editing: false,
     formValues: { first_name: "", email: "", file: "" },
     workouts: [],
+    currentUser: this.props.auth.user,
     user_id: this.props.auth.user.id,
     users: [],
     followersIndex: this.props.auth.user.followers,
@@ -237,7 +238,7 @@ class Profile extends React.Component {
                   to={{
                     pathname: "/usershow",
                     state: {
-                      currentUser: this.state.user_id,
+                      currentUser: this.state.currentUser,
                       user: user,
                     },
                   }}
@@ -255,7 +256,7 @@ class Profile extends React.Component {
                   to={{
                     pathname: "/usershow",
                     state: {
-                      currentUser: this.state.user_id,
+                      currentUser: this.state.currentUser,
                       user: user,
                     },
                   }}
