@@ -30,7 +30,12 @@ class SearchBar extends Component {
   };
   render() {
     return (
-      <div style={{ display: this.props.searchActive }}>
+      <div
+        style={{
+          display: this.props.searchActive,
+          position: "relative",
+        }}
+      >
         <div
           style={{
             backgroundColor: "#ddd",

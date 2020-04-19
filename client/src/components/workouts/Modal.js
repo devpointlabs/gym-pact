@@ -181,7 +181,7 @@ const Background = styled.div`
   background-color: black;
   overflow-y: hidden;
   opacity: 0.8;
-  z-index: -1;
+  z-index: 1;
 `;
 const Container = styled.div`
   position: fixed;
@@ -230,7 +230,6 @@ const H2 = styled.h2`
   font-size: 20px;
   margin: 0.4rem 1rem;
   z-index: 12;
-  color: red;
 `;
 const Desc = styled.p`
   min-height: 10vh;
