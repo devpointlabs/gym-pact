@@ -30,7 +30,6 @@ const App = () => (
           <ProtectedRoute exact path="/home" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
-          <Route exact path="/feedworkouts" component={FeedWorkouts} />
           <Route exact path="/workoutshow" component={WorkoutShow} />
           <Route exact path="/workoutform" component={WorkoutForm} />
           <Route exact path="/editworkout" component={EditWorkout} />

@@ -39,7 +39,9 @@ class Profile extends React.Component {
       user_id: user.id,
     });
     // get workouts for this user
+    console.log(`/api/users/${this.state.user_id}/workouts`);
     axios.get(`/api/users/${this.state.user_id}/workouts`).then((res) => {
+      console.log(res.data);
       this.setState({ workouts: res.data });
     });
     // get user to compare to followers and followings
