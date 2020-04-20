@@ -24,7 +24,7 @@ class Api::WorkoutsController < ApplicationController
   end
 
   def index
-    render json: current_user.workouts
+    render json: current_user.workouts.order("created_at DESC")
   end
 
   def create
