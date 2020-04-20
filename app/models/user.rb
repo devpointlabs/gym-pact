@@ -11,16 +11,11 @@ class User < ActiveRecord::Base
   has_many :workouts
 
   has_many :comments
-  has_many :workouts, through: :comments
+  # Do we really need this below?: 
+  # has_many :workouts, through: :comments
 
 
-  def follow(user_id)
-    following_relationships.create(following_id: user_id)
-  end
-
-  def unfollow(user_id)
-    following_relationships.find_by(following_id: user_id).destroy
-  end
+  
 end
 
 
