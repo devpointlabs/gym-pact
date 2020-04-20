@@ -10,14 +10,8 @@ class FeedWorkouts extends Component {
   state = { workouts: [], toggleModal: false, workout: {} };
 
   componentDidMount() {
-    axios
-      .get("/api/all_workouts")
-      .then((res) => {
-        this.setState({ workouts: res.data });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    console.log("componenet is moutned");
+    this.setState({ workouts: this.props.workouts.workouts });
   }
 
   unToggle = () => {

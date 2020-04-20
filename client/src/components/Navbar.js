@@ -39,6 +39,46 @@ class Navbar extends React.Component {
   clearSearch = () => {
     this.setState({ searchActive: "none" });
   };
+  searchSection = () => {
+    const {
+      auth: { user, handleLogout },
+      location,
+    } = this.props;
+    if (user) {
+      return (
+        <Menu
+          style={{ display: "flex", justifyContent: "center", width: "100%" }}
+        >
+          <Link to="/home">
+            <Menu.Item
+              name="Recent"
+              id="feed"
+              active={this.props.location.pathname === "/home"}
+            />
+          </Link>
+          <Link to={{ pathname: "/subscriptions", user: this.props.auth.user }}>
+            <Menu.Item
+              name="Subscribed"
+              id="subscribed"
+              active={this.props.location.pathname === "/subscriptions"}
+            />
+          </Link>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
+            <Menu.Item>
+              <Input onKeyDown={this.filter} placeholder="search" />
+            </Menu.Item>
+          </div>
+        </Menu>
+      );
+    } else {
+      return null;
+    }
+  };
   rightNavItems = () => {
     const {
       auth: { user, handleLogout },
@@ -54,11 +94,11 @@ class Navbar extends React.Component {
           />
           <Link
             to={{
-              pathname: "/workoutForm",
+              pathname: "/workoutform",
               state: { user: user },
             }}
           >
-            <Menu.Item active={location.pathname === "/workoutForm"}>
+            <Menu.Item active={location.pathname === "/workoutform"}>
               + New Workout
             </Menu.Item>
           </Link>
@@ -96,43 +136,16 @@ class Navbar extends React.Component {
     return (
       <div>
         <Menu pointing secondary>
-          <Link to="/">
+          <Link to="/home">
             <Menu.Item
               name="Feed"
               id="home"
-              active={this.props.location.pathname === "/"}
+              active={this.props.location.pathname === "/home"}
             />
           </Link>
           {this.rightNavItems()}
         </Menu>
-        <Menu
-          style={{ display: "flex", justifyContent: "center", width: "100%" }}
-        >
-          <Link to="/">
-            <Menu.Item
-              name="Recent"
-              id="feed"
-              active={this.props.location.pathname === "/"}
-            />
-          </Link>
-          <Link to={{ pathname: "/subscriptions", user: this.props.auth.user }}>
-            <Menu.Item
-              name="Subscribed"
-              id="subscribed"
-              active={this.props.location.pathname === "/subscriptions"}
-            />
-          </Link>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-            }}
-          >
-            <Menu.Item>
-              <Input onKeyDown={this.filter} placeholder="search" />
-            </Menu.Item>
-          </div>
-        </Menu>
+        {this.searchSection()}
         <SearchBar
           searchActive={this.state.searchActive}
           searchResults={this.state.searchResults}
