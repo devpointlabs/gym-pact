@@ -20,9 +20,7 @@ Rails.application.routes.draw do
     
     put "/user/:id", to: "workouts#updateFollower"
     put "/userf/:id", to: "workouts#updateFollowing"
-    
-    # get 'relationships/follow_user'
-    # get 'relationships/unfollow_user'
+
 
     
   end

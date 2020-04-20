@@ -67,6 +67,7 @@ class SearchBar extends Component {
             <div>
               {this.state.toggleModal === true ? (
                 <Modal
+                  clearSearch={this.props.clearSearch}
                   workout={this.state.workout}
                   user={this.props.user}
                   unToggle={this.unToggle}
