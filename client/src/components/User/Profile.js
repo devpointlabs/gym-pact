@@ -209,7 +209,7 @@ class Profile extends React.Component {
           <div>
             <h3>Your Workouts</h3>
             {this.state.workouts.map((w, ind) => (
-              <div>
+              <div key={ind}>
                 <p>
                   <u>{w.title}</u>: {w.desc}
                 </p>
@@ -232,8 +232,8 @@ class Profile extends React.Component {
           </div>
           <div>
             <h3>Your Followers</h3>
-            {this.state.followers.map((user) => (
-              <div>
+            {this.state.followers.map((user, ind) => (
+              <div key={ind}>
                 <Link
                   to={{
                     pathname: "/usershow",
@@ -250,8 +250,8 @@ class Profile extends React.Component {
           </div>
           <div>
             <h3>Following</h3>
-            {this.state.following.map((user) => (
-              <div>
+            {this.state.following.map((user, ind) => (
+              <div key={ind}>
                 <Link
                   to={{
                     pathname: "/usershow",
