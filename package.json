@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "react-lodash": "^0.1.2",
     "semantic-ui-calendar-react": "^0.15.3",
     "styled-components": "^5.1.0"
   }

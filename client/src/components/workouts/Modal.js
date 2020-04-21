@@ -14,6 +14,7 @@ const Modal = (props) => {
   const postUser = [];
   const id = props.workout.user_id;
   const [comments, setComments] = useState([]);
+  const [clear, setClear] = useState();
 
   // componentDidmount
 
@@ -119,7 +120,9 @@ const Modal = (props) => {
               />
               <Column style={{ paddingTop: "1rem" }}>
                 <Link
-                  onClick={() => hide()}
+                  onClick={() => {
+                    props.unToggle();
+                  }}
                   to={{
                     pathname: "/usershow",
                     state: {
