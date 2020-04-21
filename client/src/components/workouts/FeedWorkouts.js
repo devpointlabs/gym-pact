@@ -6,14 +6,26 @@ import { WorkoutConsumer } from "../../providers/WorkoutProvider";
 import { AuthConsumer } from "../../providers/AuthProvider";
 import Modal from "./Modal";
 
+let position = 5;
+let height = window.innerHeight;
+
 class FeedWorkouts extends Component {
   state = { workouts: [], toggleModal: false, workout: {} };
 
   componentDidMount() {
     axios.get("/api/all_workouts").then((res) => {
-      this.setState({ workouts: res.data });
+      this.setState({ workouts: res.data.splice(0, position) });
     });
   }
+
+  // dynamically load workouts
+  dynamicLoad = () => {
+    axios.get("/api/all_workouts").then((res) => {
+      this.setState({ workouts: res.data.splice(0, position) });
+      console.log("Height is", height);
+    });
+    height += window.innerHeight * 1.85;
+  };
 
   unToggle = () => {
     console.log("untoggle");
@@ -35,6 +47,13 @@ class FeedWorkouts extends Component {
   };
 
   render() {
+    // load more workouts on scroll
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > height) {
+        position += 5;
+        this.dynamicLoad();
+      }
+    });
     const { workouts, workout } = this.state;
     return (
       <div>
