@@ -4,76 +4,81 @@ import styled from "styled-components";
 import ropesImg from "../../imgs/ropes.jpg";
 import axios from "axios";
 import gymProfilePic from "../../imgs/gymProfPic.jpg";
-import Comment from '../comments/Comment';
-import CommentForm from '../comments/CommentForm';
+import Comment from "../comments/Comment";
+import CommentForm from "../comments/CommentForm";
 import { Link } from "react-router-dom";
-
 
 const Modal = (props) => {
   const [users, setUsers] = useState([]);
   const response = [];
   const postUser = [];
   const id = props.workout.user_id;
-  const [comments, setComments] = useState([])
+  const [comments, setComments] = useState([]);
 
-  
   // componentDidmount
-  
-  useEffect(() => {
-    axios.get(`/api/workouts/${props.workout.id}/comments`)
-    .then(res => {
-      // this.setState({comments: res.data})
-      setComments(res.data)
-      show()
-      })
-         .catch( err => {
-            console.log(err)
-         })
 
-// getPostUser()
-  }, [props.workout.id])
-  
-  const addComment = (comment) => { 
-    setComments([...comments, comment])
-  }
+  useEffect(() => {
+    axios
+      .get(`/api/workouts/${props.workout.id}/comments`)
+      .then((res) => {
+        // this.setState({comments: res.data})
+        setComments(res.data);
+        show();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    getPostUser();
+  }, [props.workout.id]);
+
+  const addComment = (comment) => {
+    setComments([...comments, comment]);
+  };
 
   const deleteComment = (comment) => {
-    axios.delete(`/api/workouts/${comment.workout_id}/comments/${comment.id}`)
-      .then(res => {
-        console.log(res)
-      })
-      setComments(comments.filter(c => c.id !== comment.id))
-  }
-
+    axios
+      .delete(`/api/workouts/${comment.workout_id}/comments/${comment.id}`)
+      .then((res) => {
+        console.log(res);
+      });
+    setComments(comments.filter((c) => c.id !== comment.id));
+  };
 
   const renderComments = () => {
     // if (!comments) return null;
-     return comments.map(comment => (
-        <Comment key={comment.id} {...comment} deleteComment={deleteComment} workout={props.workout} user={props.user} />
-     ))
-   }
+    return comments.map((comment) => (
+      <Comment
+        key={comment.id}
+        {...comment}
+        deleteComment={deleteComment}
+        workout={props.workout}
+        user={props.user}
+      />
+    ));
+  };
 
   // Carson and Harlan Commented this out because of conflicts with Comments
-  // between Carson, Harlan and Jon we will need to test this. 
+  // between Carson, Harlan and Jon we will need to test this.
   //
-  // const getPostUser = () => {
-  //   axios
-  //     .get("/api/all_users")
-  //     .then((res) => {
-  //       response.push(res.data);
-  //       console.log(users)
-  //       response.forEach((res) => {
-  //         res.filter((user) => {
-  //           debugger
-  //           return user.id === id ? setUsers(user) : null;
-  //         });
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  //     console.log(users)
-  // };
+  const getPostUser = () => {
+    axios
+      .get("/api/all_users")
+      .then((res) => {
+        response.push(res.data);
+        console.log(users);
+        response.forEach((res) => {
+          res.filter((user) => {
+            // debugger;
+            return user.id === id ? setUsers(user) : null;
+          });
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    console.log(users);
+  };
 
   const [display, setDisplay] = useState("initial");
 
@@ -93,10 +98,13 @@ const Modal = (props) => {
 
   return (
     <ModalDiv>
-      <Background onClick={props.unToggle} style={{ display: display }}></Background>
+      <Background
+        onClick={props.unToggle}
+        style={{ display: display }}
+      ></Background>
       <Container style={{ display: display }}>
         <Close onClick={props.unToggle}>X</Close>
-       <Row>
+        <Row>
           <Image src={ropesImg} />
           <Column style={{ paddingLeft: "1rem" }}>
             <Row style={{ width: "20rem" }}>
@@ -127,11 +135,20 @@ const Modal = (props) => {
             </Row>
             <H1>{props.workout.title}</H1>
             <Desc>{props.workout.desc}</Desc>
-            <CommentCounter>{comments.length === 0 ? "Be the first to leave a comment..." : "Add a comment below..."}</CommentCounter>
+            <CommentCounter>
+              {comments.length === 0
+                ? "Be the first to leave a comment..."
+                : comments.length + " comments"}
+            </CommentCounter>
             <CommentsDiv>
-              {comments.length === 0 ? "There are no comments" : renderComments()}
+              {comments.length === 0
+                ? "There are no comments"
+                : renderComments()}
             </CommentsDiv>
-                <CommentForm addComment={addComment} workout_id={props.workout.id}/>
+            <CommentForm
+              addComment={addComment}
+              workout_id={props.workout.id}
+            />
           </Column>
         </Row>
       </Container>
@@ -164,7 +181,7 @@ const Background = styled.div`
   background-color: black;
   overflow-y: hidden;
   opacity: 0.8;
-  z-index: -1;
+  z-index: 1;
 `;
 const Container = styled.div`
   position: fixed;

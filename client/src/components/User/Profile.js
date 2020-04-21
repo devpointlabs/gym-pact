@@ -39,7 +39,9 @@ class Profile extends React.Component {
       user_id: user.id,
     });
     // get workouts for this user
+    console.log(`/api/users/${this.state.user_id}/workouts`);
     axios.get(`/api/users/${this.state.user_id}/workouts`).then((res) => {
+      console.log(res.data);
       this.setState({ workouts: res.data });
     });
     // get user to compare to followers and followings
@@ -209,7 +211,7 @@ class Profile extends React.Component {
           <div>
             <h3>Your Workouts</h3>
             {this.state.workouts.map((w, ind) => (
-              <div>
+              <div key={ind}>
                 <p>
                   <u>{w.title}</u>: {w.desc}
                 </p>
@@ -232,8 +234,8 @@ class Profile extends React.Component {
           </div>
           <div>
             <h3>Your Followers</h3>
-            {this.state.followers.map((user) => (
-              <div>
+            {this.state.followers.map((user, ind) => (
+              <div key={ind}>
                 <Link
                   to={{
                     pathname: "/usershow",
@@ -250,8 +252,8 @@ class Profile extends React.Component {
           </div>
           <div>
             <h3>Following</h3>
-            {this.state.following.map((user) => (
-              <div>
+            {this.state.following.map((user, ind) => (
+              <div key={ind}>
                 <Link
                   to={{
                     pathname: "/usershow",

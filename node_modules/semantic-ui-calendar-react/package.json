@@ -1,0 +1,93 @@
+{
+  "name": "semantic-ui-calendar-react",
+  "sideEffects": false,
+  "version": "0.15.3",
+  "description": "date/time picker built from semantic-ui elements",
+  "main": "dist/commonjs/index.js",
+  "scripts": {
+    "test": "yarn env-cmd ./test/.env yarn mocha -r ts-node/register ./test/setup.js ./test/**/*.{js,jsx,ts,tsx}",
+    "start": "yarn webpack-dev-server",
+    "prebuild": "yarn test && yarn lint && yarn rimraf dist/*",
+    "build": "yarn build:commonjs && yarn build:es6 && yarn build:amd && yarn build:umd && yarn build:declarations",
+    "build:commonjs": "yarn tsc --module commonjs --outDir ./dist/commonjs",
+    "build:es6": "yarn tsc --module es6 --outDir ./dist/es6",
+    "build:amd": "yarn tsc --module amd --outDir ./dist/amd",
+    "build:umd": "yarn webpack --config webpack.umd.config.js",
+    "build:declarations": "yarn tsc --declaration --emitDeclarationOnly --outDir ./dist/types",
+    "publish-npm": "yarn test && yarn build && npm publish",
+    "build:example": "yarn test && yarn lint && yarn webpack --production",
+    "lint": "yarn tslint src/**"
+  },
+  "keywords": [
+    "semantic",
+    "react",
+    "calendar",
+    "datepicker"
+  ],
+  "types": "./dist/types/index.d.ts",
+  "author": "Artem Fedulov <arfedulov@gmail.com>",
+  "homepage": "https://github.com/arfedulov/semantic-ui-calendar-react#readme",
+  "bugs": {
+    "url": "https://github.com/arfedulov/semantic-ui-calendar-react/issues"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arfedulov/semantic-ui-calendar-react.git"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "semantic-ui-react": ">=0.84.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-export-default-from": "^7.0.0",
+    "@babel/plugin-proposal-export-namespace-from": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "@types/lodash": "^4.14.119",
+    "@types/prop-types": "^15.7.1",
+    "@types/react": "^16.7.18",
+    "@types/react-dom": "^16.0.11",
+    "babel-loader": "^8.0.4",
+    "babel-plugin-transform-react-handled-props": "^1.0.0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.14",
+    "babel-preset-airbnb": "^3.2.0",
+    "chai": "^4.1.2",
+    "cpy-cli": "^2.0.0",
+    "env-cmd": "^8.0.2",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "jsdom": "^13.1.0",
+    "mkdirp": "^0.5.1",
+    "mocha": "^5.2.0",
+    "mockdate": "^2.0.2",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "rimraf": "^2.6.2",
+    "semantic-ui-react": "^0.86.0",
+    "sinon": "^7.2.2",
+    "ts-loader": "^5.3.1",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "typescript": "^3.2.2",
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
+  },
+  "dependencies": {
+    "keyboard-key": "^1.0.2",
+    "lodash": "^4.17.15",
+    "moment": "^2.22.2",
+    "prop-types": "^15.6.2"
+  }
+}

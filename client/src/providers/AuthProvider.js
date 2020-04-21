@@ -13,7 +13,7 @@ export class AuthProvider extends React.Component {
       .post("/api/auth", user)
       .then((res) => {
         this.setState({ user: res.data.data });
-        history.push("/");
+        history.push("/home");
       })
       .catch((res) => {
         console.log(res);
@@ -25,7 +25,7 @@ export class AuthProvider extends React.Component {
       .post("/api/auth/sign_in", user)
       .then((res) => {
         this.setState({ user: res.data.data });
-        history.push("/");
+        history.push("/home");
       })
       .catch((res) => {
         console.log(res);

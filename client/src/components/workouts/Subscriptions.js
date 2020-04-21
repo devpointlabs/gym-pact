@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Container } from "semantic-ui-react";
 import WorkoutCard from "./WorkoutCard";
 import axios from "axios";
+import Modal from "./Modal";
 import { WorkoutConsumer } from "../../providers/WorkoutProvider";
 
 class Subscriptions extends Component {
@@ -9,6 +10,27 @@ class Subscriptions extends Component {
     workouts: this.props.workouts.workouts,
     subscriptions: [],
     following: this.props.location.user.following,
+    toggleModal: false,
+    workout: {},
+  };
+
+  unToggle = () => {
+    console.log("untoggle");
+    this.setState({ toggleModal: false });
+  };
+
+  toggle = (id) => {
+    axios
+      .get(`/api/get_workout/${id}`)
+      .then((res) => {
+        console.log("toggle");
+        console.log(res.data);
+        this.setState({ workout: res.data });
+      })
+      .then(() => {
+        this.setState({ toggleModal: true });
+      })
+      .catch(console.log("Didn't work"));
   };
 
   componentDidMount() {
@@ -27,10 +49,25 @@ class Subscriptions extends Component {
     return (
       <div>
         <h1>Subscriptions</h1>
+
         <Container style={{ display: "flex", flexWrap: "wrap" }}>
-          {this.state.subscriptions.map((workout, ind) => (
-            <WorkoutCard key={ind} workout={workout} />
-          ))}
+          {this.state.toggleModal === true ? (
+            <Modal
+              workout={this.state.workout}
+              user={this.props.user}
+              unToggle={this.unToggle}
+            />
+          ) : (
+            <div>
+              {this.state.subscriptions.map((workout) => (
+                <WorkoutCard
+                  key={workout.id}
+                  workout={workout}
+                  toggle={this.toggle}
+                />
+              ))}
+            </div>
+          )}
         </Container>
       </div>
     );
