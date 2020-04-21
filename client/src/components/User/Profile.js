@@ -233,7 +233,12 @@ class Profile extends React.Component {
             ))}
           </div>
           <div>
-            <h3>Your Followers</h3>
+            <h3>
+              <span style={{ color: "#353765", textDecoration: "underline" }}>
+                {this.state.followers.length}
+              </span>{" "}
+              Followers
+            </h3>
             {this.state.followers.map((user, ind) => (
               <div key={ind}>
                 <Link
@@ -251,7 +256,12 @@ class Profile extends React.Component {
             ))}
           </div>
           <div>
-            <h3>Following</h3>
+            <h3>
+              Following{" "}
+              <span style={{ color: "#353765", textDecoration: "underline" }}>
+                {this.state.following.length}
+              </span>
+            </h3>
             {this.state.following.map((user, ind) => (
               <div key={ind}>
                 <Link

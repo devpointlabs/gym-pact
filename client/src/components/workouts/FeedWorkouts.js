@@ -50,6 +50,7 @@ class FeedWorkouts extends Component {
     // load more workouts on scroll
     window.addEventListener("scroll", () => {
       if (window.scrollY > height) {
+        // splice the array for more entries
         position += 5;
         this.dynamicLoad();
       }
