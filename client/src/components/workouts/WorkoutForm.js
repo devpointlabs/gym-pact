@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import { Form, FormButton } from "semantic-ui-react";
 import { WorkoutConsumer } from "../../providers/WorkoutProvider";
 import { Link } from "react-router-dom";
+import { 
+  SubmitButton,
+  Background,
+  Inputs, 
+  } from '../../components/styles/SharedStyles';
+
 class WorkoutForm extends Component {
   state = { title: "", desc: "" };
   componentDidMount() {
@@ -24,26 +30,30 @@ class WorkoutForm extends Component {
   render() {
     const { title, desc } = this.state;
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <Form.Input
-          label="Workout Title"
-          required
-          name="title"
-          value={title}
-          onChange={this.handleChange}
-        />
-        <Form.Input
-          label="Workout Description"
-          required
-          name="desc"
-          value={desc}
-          onChange={this.handleChange}
-        />
-        <FormButton>Submit</FormButton>
-        <Link to="/">
-          <FormButton>Cancel</FormButton>
-        </Link>
-      </Form>
+      <Background>
+        <Inputs>
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Input
+            label="Workout Title"
+            required
+            name="title"
+            value={title}
+            onChange={this.handleChange}
+            />
+          <Form.Input
+            label="Workout Description"
+            required
+            name="desc"
+            value={desc}
+            onChange={this.handleChange}
+            />
+          <SubmitButton>Submit</SubmitButton>
+          <Link to="/">
+            <SubmitButton>Cancel</SubmitButton>
+          </Link>
+        </Form>
+        </Inputs>
+      </Background>
     );
   }
 }

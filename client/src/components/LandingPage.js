@@ -48,10 +48,10 @@ const LandingPage = () => (
           </List>
           </SubContainer>
           <SignUp>
-               <Link to='login' >
+               <a href='login' >
                   <H2>Sign Up</H2>
-                     <Icon name='double angle right' size='large'/>
-                  </Link>
+                     <Icon name='double angle right' size='massive'/>
+               </a>
           </SignUp>
           </Container>
     </Left>
