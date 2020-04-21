@@ -8,6 +8,9 @@ import {
    Right,
    SignUp,
    H2,
+   SubContainer,
+   Header,
+   Definition,
  } from './styles/LandingStyles';
  import { List, ListContent, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
@@ -19,8 +22,12 @@ const LandingPage = () => (
  <Landing>
     <Left>
        <Container>
-          <h1>GYM PACT</h1>
-          <h4>The social networking fitness tracker for sharing workouts across the planet.</h4>
+          <Header>GYM PACT</Header>
+          <Definition>
+          The social networking fitness tracker for sharing workouts across the planet.
+          </Definition>
+          <SubContainer>
+
           <List>
              <List.Item>
                 <List.Icon name='line graph' size='large' />
@@ -39,6 +46,7 @@ const LandingPage = () => (
                 <List.Content>Reflect your work in your profile</List.Content>
              </List.Item>
           </List>
+          </SubContainer>
           <SignUp>
                <Link to='login' >
                   <H2>Sign Up</H2>
