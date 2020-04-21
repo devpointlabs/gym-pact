@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Grid, Header } from "semantic-ui-react";
+import { Grid, Header, Button } from "semantic-ui-react";
 import axios from "axios";
 
 const UserShow = (props) => {
@@ -86,9 +86,13 @@ const UserShow = (props) => {
   };
   return (
     <>
-      <Link to="/profile">
-        <span> Go Back </span>
-      </Link>
+      <span
+        onClick={() => props.history.goBack()}
+        style={{ cursor: "pointer", color: "skyblue" }}
+      >
+        Go Back
+      </span>
+
       <Grid.Column width={4}></Grid.Column>
       <Grid.Column width={8}>
         <Header as="h1">{username}</Header>{" "}
@@ -103,7 +107,7 @@ const UserShow = (props) => {
           <p>Followers: {followers.length}</p>{" "}
         </div>
         <div>
-          <button onClick={() => followUser(currentUser)}>{follow}</button>
+          <Button onClick={() => followUser(currentUser)}>{follow}</Button>
         </div>
       </Grid.Column>
     </>
