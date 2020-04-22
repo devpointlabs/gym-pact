@@ -38,6 +38,7 @@ class Navbar extends React.Component {
   };
   clearSearch = () => {
     this.setState({ searchActive: "none" });
+    console.log("cleared");
   };
   searchSection = () => {
     const {
@@ -47,7 +48,11 @@ class Navbar extends React.Component {
     if (user) {
       return (
         <Menu
-          style={{ display: "flex", justifyContent: "center", width: "100%" }}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+          }}
         >
           <Link to="/home">
             <Menu.Item
@@ -136,9 +141,9 @@ class Navbar extends React.Component {
     return (
       <div>
         <Menu pointing secondary>
-          <Link to="/home">
+          <Link to="/">
             <Menu.Item
-              name="Feed"
+              name="GymPact"
               id="home"
               active={this.props.location.pathname === "/home"}
             />

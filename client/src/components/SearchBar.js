@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container } from "semantic-ui-react";
 import WorkoutCard from "./workouts/WorkoutCard";
 import axios from "axios";
-import Modal from "./workouts/Modal";
+import SearchModal from "./workouts/SearchModal";
 
 class SearchBar extends Component {
   state = {
@@ -66,7 +66,7 @@ class SearchBar extends Component {
           >
             <div>
               {this.state.toggleModal === true ? (
-                <Modal
+                <SearchModal
                   clearSearch={this.props.clearSearch}
                   workout={this.state.workout}
                   user={this.props.user}

@@ -23,7 +23,13 @@ class DatePicker extends React.Component {
   render() {
     return (
       <Form>
-        <DateInput label="DOB" />
+        <DateInput
+          name="date"
+          placeholder="Date of Birth"
+          value={this.state.date}
+          iconPosition="left"
+          onChange={this.handleChange}
+        />
       </Form>
     );
   }

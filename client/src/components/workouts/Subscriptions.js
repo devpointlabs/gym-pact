@@ -4,12 +4,13 @@ import WorkoutCard from "./WorkoutCard";
 import axios from "axios";
 import Modal from "./Modal";
 import { WorkoutConsumer } from "../../providers/WorkoutProvider";
+import { AuthConsumer } from "../../providers/AuthProvider";
 
 class Subscriptions extends Component {
   state = {
-    workouts: this.props.workouts.workouts,
+    workouts: [],
     subscriptions: [],
-    following: this.props.location.user.following,
+    following: this.props.user.user.following,
     toggleModal: false,
     workout: {},
   };
@@ -34,15 +35,21 @@ class Subscriptions extends Component {
   };
 
   componentDidMount() {
-    const { following } = this.state;
-    const { workouts, subscriptions } = this.state;
-    let tempArr = [];
-    workouts.forEach((w) => {
-      if (following.indexOf(w.user_id) > -1) {
-        tempArr.push(w);
-      }
-    });
-    this.setState({ subscriptions: tempArr });
+    const { following, workouts } = this.state;
+    axios
+      .get("/api/all_workouts")
+      .then((res) => {
+        let tempArr = [];
+        res.data.forEach((w) => {
+          if (following.indexOf(w.user_id) > -1) {
+            tempArr.push(w);
+          }
+        });
+        this.setState({ subscriptions: tempArr });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   render() {
@@ -77,9 +84,15 @@ class Subscriptions extends Component {
 export default class ConnectedSubscriptions extends Component {
   render() {
     return (
-      <WorkoutConsumer>
-        {(workout) => <Subscriptions {...this.props} workouts={workout} />}
-      </WorkoutConsumer>
+      <AuthConsumer>
+        {(user) => (
+          <WorkoutConsumer>
+            {(workout) => (
+              <Subscriptions {...this.props} workouts={workout} user={user} />
+            )}
+          </WorkoutConsumer>
+        )}
+      </AuthConsumer>
     );
   }
 }

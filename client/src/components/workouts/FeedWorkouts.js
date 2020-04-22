@@ -6,13 +6,26 @@ import { WorkoutConsumer } from "../../providers/WorkoutProvider";
 import { AuthConsumer } from "../../providers/AuthProvider";
 import Modal from "./Modal";
 
+let position = 10;
+let height = window.innerHeight;
+
 class FeedWorkouts extends Component {
   state = { workouts: [], toggleModal: false, workout: {} };
 
   componentDidMount() {
-    console.log("componenet is moutned");
-    this.setState({ workouts: this.props.workouts.workouts });
+    axios.get("/api/all_workouts").then((res) => {
+      this.setState({ workouts: res.data.splice(0, position) });
+    });
   }
+
+  // dynamically load workouts
+  dynamicLoad = () => {
+    axios.get("/api/all_workouts").then((res) => {
+      this.setState({ workouts: res.data.splice(0, position) });
+      console.log("Height is", height);
+    });
+    height += window.innerHeight * 1.85;
+  };
 
   unToggle = () => {
     console.log("untoggle");
@@ -34,19 +47,35 @@ class FeedWorkouts extends Component {
   };
 
   render() {
+    // load more workouts on scroll
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > height) {
+        // splice the array for more entries
+        position += 5;
+        this.dynamicLoad();
+      }
+    });
     const { workouts, workout } = this.state;
     return (
       <div>
         <h1>Gym Pact Workouts</h1>
-        <Container style={{ display: "flex", flexWrap: "wrap" }}>
+        <Container>
           {this.state.toggleModal === true ? (
             <Modal
               workout={workout}
               user={this.props.user}
               unToggle={this.unToggle}
+              toggle={this.state.toggleModal}
             />
           ) : (
-            <div>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                width: "100%",
+                justifyContent: "space-around",
+              }}
+            >
               {workouts.map((workout) => (
                 <WorkoutCard
                   key={workout.id}
