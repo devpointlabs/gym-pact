@@ -3,6 +3,12 @@ import { Form, FormButton } from "semantic-ui-react";
 import { WorkoutConsumer } from "../../providers/WorkoutProvider";
 import { Link } from "react-router-dom";
 import Dropzone from 'react-dropzone';
+import { 
+  SubmitButton,
+  Background,
+  Inputs, 
+  } from '../../components/styles/SharedStyles';
+
 
 class WorkoutForm extends Component {
   state = { title: "", desc: "", image: "" };
@@ -37,8 +43,10 @@ class WorkoutForm extends Component {
   render() {
     const { title, desc } = this.state;
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <Dropzone onDrop={this.onDrop} multiple={false}>
+      <Background>
+        <Inputs>
+          <Form onSubmit={this.handleSubmit}>
+           <Dropzone onDrop={this.onDrop} multiple={false}>
             {({ getRootProps, getInputProps, isDragActive }) => {
               return (
                 <div {...getRootProps()} style={styles.dropzone}>
@@ -52,26 +60,27 @@ class WorkoutForm extends Component {
               );
             }}
           </Dropzone>
-        <Form.Input
-          label="Workout Title" 
-          required
-          name="title"
-          value={title}
-          onChange={this.handleChange}
-        />
-        <Form.Input
-          label="Workout Description"
-          required
-          name="desc"
-          value={desc}
-          onChange={this.handleChange}
-        />
-        <FormButton>Submit</FormButton>
-
-        <FormButton onClick={() => this.props.history.goBack()}>
-          Cancel
-        </FormButton>
-      </Form>
+          <Form.Input
+            label="Workout Title"
+            required
+            name="title"
+            value={title}
+            onChange={this.handleChange}
+            />
+          <Form.Input
+            label="Workout Description"
+            required
+            name="desc"
+            value={desc}
+            onChange={this.handleChange}
+            />
+          <SubmitButton>Submit</SubmitButton>
+          <Link to="/">
+            <SubmitButton>Cancel</SubmitButton>
+          </Link>
+        </Form>
+        </Inputs>
+      </Background>
     );
   }
 }
