@@ -14,6 +14,7 @@ const SModalUser = (props) => {
   const postUser = [];
   const id = props.workout.user_id;
   const [comments, setComments] = useState([]);
+  const [commentsCount, setCommentsCount] = useState("");
   const [clear, setClear] = useState();
 
   // componentDidmount
@@ -33,6 +34,17 @@ const SModalUser = (props) => {
     getPostUser();
   }, [props.workout.id]);
 
+  useEffect(() => {
+    axios
+      .get(`/api/workouts/${props.workout.id}/comments`)
+      .then((res) => {
+        let count = res.data.length;
+        return count;
+      })
+      .then((count) => {
+        setCommentsCount(count);
+      });
+  });
   const addComment = (comment) => {
     setComments([...comments, comment]);
   };
@@ -97,7 +109,15 @@ const SModalUser = (props) => {
   };
 
   return (
-    <Modal trigger={<Workout>{props.workout.title}</Workout>} closeIcon>
+    <Modal
+      trigger={
+        <Workout>
+          <span>{props.workout.title}</span>
+          <span style={{ color: "#6CD3E0" }}>{commentsCount} Comments</span>
+        </Workout>
+      }
+      closeIcon
+    >
       <Modal.Content style={{ padding: 0 }}>
         <Row>
           <Image src={props.workout.image} style={{ width: "70%" }} />
@@ -154,6 +174,8 @@ const Workout = styled.div`
   margin: 0.4rem 0;
   height: 3rem;
   width: 70%;
+  display: flex;
+  justify-content: space-evenly;
   cursor: pointer;
   border-radius: 5px;
 `;

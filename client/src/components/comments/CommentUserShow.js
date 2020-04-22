@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Image } from "semantic-ui-react";
 import axios from "axios";
+import styled from "styled-components";
 
 const Comment = (props) => {
   const [user, setUser] = useState({});
@@ -21,18 +22,13 @@ const Comment = (props) => {
   const checkDeleteComment = () => {};
 
   return (
-    <>
-      <img src={user.image ? user.image : styles.defaultImage} width="40px" />
+    <CommentRow>
+      <Image src={user.image} width="40px" height="40px" circular />
 
-      <h4>{user.first_name}</h4>
+      <CommentName>{user.first_name}</CommentName>
 
-      <p>{comment.text_field}</p>
-      {showButton ? (
-        <button onClick={() => props.deleteComment(comment)}>Delete</button>
-      ) : (
-        <></>
-      )}
-    </>
+      <CommentText>{comment.text_field}</CommentText>
+    </CommentRow>
   );
 };
 
@@ -45,3 +41,16 @@ const styles = {
     fontSize: "1em",
   },
 };
+
+const CommentRow = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 0.5rem 0;
+`;
+const CommentName = styled.h4`
+  margin: 0 0.4rem;
+`;
+const CommentText = styled.div`
+  height: fit-content;
+  width: 80%;
+`;

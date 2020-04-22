@@ -49,7 +49,8 @@ class FeedWorkouts extends Component {
   render() {
     // load more workouts on scroll
     window.addEventListener("scroll", () => {
-      if (window.scrollY > height) {
+      // console.log(window.scrollY, height);
+      if (window.scrollY > height * 0.5) {
         // splice the array for more entries
         position += 5;
         this.dynamicLoad();
@@ -90,7 +91,6 @@ class FeedWorkouts extends Component {
     );
   }
 }
-
 
 export default class ConnectedFeedWorkouts extends Component {
   render() {

@@ -25,6 +25,7 @@ const UserShow = (props) => {
     id,
     weight,
   } = props.location.state.user;
+
   const [follow, setFollow] = useState(
     followers.indexOf(currentUser.id) > -1 ? "Following" : "Follow"
   );
@@ -134,22 +135,15 @@ const UserShow = (props) => {
         </span>
       </div>
       <IntroRow style={{ justifyContent: "space-evenly" }}>
-        <div
-          style={{
-            width: "100%",
-            textAlign: "center",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
+        <ImageDiv>
           <Image
             circular
             src={image}
             style={{ margin: "2rem", width: "25rem", height: "25rem" }}
           />
-        </div>
+        </ImageDiv>
 
-        <Row>
+        <HeaderRow>
           <Header as="h1">{username}</Header>
           <div>
             <Button
@@ -160,7 +154,7 @@ const UserShow = (props) => {
               <Icon name={follow === "Following" ? "check" : "plus"} />
             </Button>
           </div>
-        </Row>
+        </HeaderRow>
       </IntroRow>
       <WorkoutsInfoRow>
         <AboutColumn>
@@ -247,29 +241,46 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: #fff;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   @media ${device.tablet} {
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
   }
   @media ${device.laptop} {
-    border: 1px solid green;
+    /* border: 1px solid green; */
   }
 `;
 const Column = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid red;
 `;
 const Row = styled.div`
   display: flex;
   justify-content: space-evenly;
-  border: 1px solid red;
 `;
 const IntroRow = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  border: 1px solid red;
+  @media ${device.laptop} {
+    flex-direction: row;
+  }
+`;
+const ImageDiv = styled.div`
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  @media ${device.laptop} {
+    width: fit-content;
+  }
+`;
+const HeaderRow = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  @media ${device.laptop} {
+    width: 50%;
+    align-items: center;
+  }
 `;
 const WorkoutsInfoRow = styled.div`
   display: flex;
@@ -278,7 +289,6 @@ const WorkoutsInfoRow = styled.div`
   width: 100%;
   margin: 3.5rem 0;
   padding-left: 10%;
-  border: 1px solid red;
   @media ${device.laptop} {
     flex-direction: row;
     padding-left: 0;
@@ -294,10 +304,10 @@ const AboutColumn = styled.div`
 const WorkoutsDiv = styled.div`
   width: 100%;
   margin-top: 3rem;
-  border: 1px solid red;
   box-shadow: 4px 8px 10px #999;
   @media ${device.laptop} {
     margin-top: 0;
+    margin-left: 2rem;
     width: 60%;
   }
 `;

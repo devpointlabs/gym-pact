@@ -19,6 +19,9 @@ const CommentForm = (props) => {
       .then((res) => {
         props.addComment(res.data);
       })
+      .then(() => {
+        setComment("");
+      })
       .catch((err) => {
         console.log(err);
       });
