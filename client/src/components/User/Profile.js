@@ -15,9 +15,12 @@ import axios from "axios";
 import { Redirect } from "react-router-dom";
 import "./UserStyle.css";
 import { Card, Icon } from "semantic-ui-react";
+import Ropes from '../../imgs/ropes.jpg';
 const ProfileCard = () => {};
 const defaultImage =
   "https://s3.amazonaws.com/37assets/svn/765-default-avatar.png";
+
+
 class Profile extends React.Component {
   state = {
     editing: false,
@@ -31,6 +34,7 @@ class Profile extends React.Component {
     followers: [],
     following: [],
   };
+
   componentDidMount() {
     const {
       auth: { user },
@@ -67,12 +71,15 @@ class Profile extends React.Component {
         console.log(err);
       });
   }
+
   onDrop = (files) => {
     this.setState({ formValues: { ...this.state.formValues, file: files[0] } }); //adding file into state to store
   };
+
   toggleEdit = () => {
     this.setState({ editing: !this.state.editing });
   };
+
   handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({
@@ -82,6 +89,7 @@ class Profile extends React.Component {
       },
     });
   };
+
   // Update Workout
   updateWorkout = (work_id, workout) => {
     axios
@@ -99,6 +107,7 @@ class Profile extends React.Component {
         console.log(err);
       });
   };
+
   // Delete Workout
   deleteWorkout = (workout_id) => {
     axios
@@ -114,6 +123,7 @@ class Profile extends React.Component {
         console.log(err);
       });
   };
+
   showImage = () => {
     const {
       auth: { user },
@@ -122,6 +132,24 @@ class Profile extends React.Component {
     if (user.image) return user.image;
     return defaultImage;
   };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const {
+      formValues: { first_name, email, file },
+    } = this.state;
+    const { user, updateUser } = this.props.auth;
+    updateUser(user.id, { first_name, email, file });
+    this.setState({
+      editing: false,
+      formValues: {
+        ...this.state.formValues,
+        file: "",
+      },
+    });
+  };
+
+  // Profile View
   profileView = () => {
     const {
       auth: { user },
@@ -145,39 +173,82 @@ class Profile extends React.Component {
         </Grid.Row>
         <Grid.Column style={{ height: "321px", width: "4in" }}>
           <Grid.Row>
-            {" "}
-            (col one)
+            {/* {" "}
+            (col one) */}
             <Card>
               <Card.Content>
                 <Card.Header>INFORMATION</Card.Header>
                 <Card.Description>
-                  <></>
+                  Name: {user.first_name} {user.last_name}
                 </Card.Description>
               </Card.Content>
               <Card.Content extra>
-                <a></a>
+                Fitness Level:{user.fitness_level}
+                Fitness Level:{user.fitness_level}
+                Fitness Level:{user.fitness_level}
               </Card.Content>
             </Card>
-            {/* <Card>
-    <Card.Content>
-      <Card.Header>
-        <h1> Your Workouts</h1>
-      </Card.Header>
-      <Card.Description>
-        <>
-        </> 
-      </Card.Description>
-    </Card.Content>
-    <Card.Content extra>
-      <a>
-      </a>
-    </Card.Content>
-    </Card> */}
             <Card>
               <Card.Content>
-                <Card.Header></Card.Header>
+                <Card.Header>Followers</Card.Header>
                 <Card.Description>
-                  <></>
+                  {this.state.followers.map((user, ind) => (
+                    <div key={ind}>
+                      <Link
+                        to={{
+                          pathname: "/usershow",
+                          state: {
+                            currentUser: this.state.currentUser,
+                            user: user,
+                          },
+                        }}
+                      >
+                        <div style={styles.userImage}>
+                          <Image
+                            src={user.image || defaultImage}
+                            size="mini"
+                            circular
+                          />
+                          <p>
+                            {user.first_name} {user.last_name}
+                          </p>
+                        </div>
+                      </Link>
+                    </div>
+                  ))}
+                </Card.Description>
+              </Card.Content>
+            </Card>
+            <Card>
+              <Card.Content>
+                <Card.Header>Following</Card.Header>
+                <Card.Description>
+                  <div>
+                    {this.state.following.map((user, ind) => (
+                      <div key={ind}>
+                        <Link
+                          to={{
+                            pathname: "/usershow",
+                            state: {
+                              currentUser: this.state.currentUser,
+                              user: user,
+                            },
+                          }}
+                        >
+                          <div style={styles.userImage}>
+                            <Image
+                              src={user.image || defaultImage}
+                              size="mini"
+                              circular
+                            />
+                            <p>
+                              {user.first_name} {user.last_name}
+                            </p>
+                          </div>
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
                 </Card.Description>
               </Card.Content>
               <Card.Content extra>
@@ -186,14 +257,18 @@ class Profile extends React.Component {
             </Card>
           </Grid.Row>
         </Grid.Column>
-        <Grid.Column>
-          <div>
-            <h3>Your Workouts</h3>
-            {this.state.workouts.map((w, ind) => (
-              <div key={ind}>
-                <p>
-                  <u>{w.title}</u>: {w.desc}
-                </p>
+        <Grid.Column width={8}>
+          <h3>Your Workouts</h3>
+
+          {this.state.workouts.map((w, ind) => (
+            <Card key={ind}>
+              <Card.Content>
+                <Image src={w.image || Ropes} />
+
+                <Card.Header>
+                  <div style={styles.workoutRow}>{w.title}</div>
+                </Card.Header>
+
                 <button onClick={() => this.deleteWorkout(w.id)}>Delete</button>
                 <Link
                   to={{
@@ -208,29 +283,15 @@ class Profile extends React.Component {
                 >
                   <button>Edit</button>
                 </Link>
-              </div>
-            ))}
-          </div>
-          <Grid.Row>col two</Grid.Row>
+              </Card.Content>
+            </Card>
+          ))}
+          {/* <Grid.Row>col two</Grid.Row> */}
         </Grid.Column>
       </>
     );
   };
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const {
-      formValues: { first_name, email, file },
-    } = this.state;
-    const { user, updateUser } = this.props.auth;
-    updateUser(user.id, { first_name, email, file });
-    this.setState({
-      editing: false,
-      formValues: {
-        ...this.state.formValues,
-        file: "",
-      },
-    });
-  };
+
   editView = () => {
     // const { auth: { first_name }, } = this.props;
     const {
@@ -274,9 +335,11 @@ class Profile extends React.Component {
       </Form>
     );
   };
+
+
   render() {
+    if (!this.props.auth.user) return <Redirect to="/" />
     const { editing } = this.state;
-    if (!this.props.auth.user) return <Redirect to="/" />;
     return (
       <Container>
         <Divider hidden />
@@ -287,47 +350,13 @@ class Profile extends React.Component {
             </Button>
           </Grid.Row>
           {editing ? this.editView() : this.profileView()}
-          <div>
-            <h3>Your Followers text-align: justify;</h3>
-            {this.state.followers.map((user, ind) => (
-              <div key={ind}>
-                <Link
-                  to={{
-                    pathname: "/usershow",
-                    state: {
-                      currentUser: this.state.currentUser,
-                      user: user,
-                    },
-                  }}
-                >
-                  <p>{user.username}</p>
-                </Link>
-              </div>
-            ))}
-          </div>
-          <div>
-            <h3>Following</h3>
-            {this.state.following.map((user, ind) => (
-              <div key={ind}>
-                <Link
-                  to={{
-                    pathname: "/usershow",
-                    state: {
-                      currentUser: this.state.currentUser,
-                      user: user,
-                    },
-                  }}
-                >
-                  <p>{user.username}</p>
-                </Link>
-              </div>
-            ))}
-          </div>
         </Grid>
       </Container>
     );
   }
 }
+
+
 export default class ConnectedProfile extends React.Component {
   render() {
     return (
@@ -348,6 +377,17 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     padding: "10px",
+  },
+  userImage: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start'
+  },
+  workoutRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    padding: '.5em 0em'
   },
 };
 // export default Profile;

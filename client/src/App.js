@@ -22,25 +22,27 @@ const App = () => (
   <Fragment>
     <Navbar />
     <FetchUser>
-      <WorkoutProvider>
-        <Switch>
-          <Route exact path="/" component={LandingPage} />
-          <ProtectedRoute exact path="/home" component={Home} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/workoutshow" component={WorkoutShow} />
-          <Route exact path="/workoutform" component={WorkoutForm} />
-          <Route exact path="/editworkout" component={EditWorkout} />
-          <Route exact path="/profile" component={Profile} />
-          <Route exact path="/usershow" component={UserShow} />
-          <Route
-            exact
-            path="/subscriptions"
-            component={ConnectedSubscriptions}
-          />
-          <Route component={NoMatch} />
-        </Switch>
-      </WorkoutProvider>
+      <div style={{ backgroundColor: "#F0F1F8", width: "100vw", height: '100vh' }}>
+        <WorkoutProvider>
+          <Switch>
+            <Route exact path="/" component={LandingPage} />
+            <ProtectedRoute exact path="/home" component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/workoutshow" component={WorkoutShow} />
+            <Route exact path="/workoutform" component={WorkoutForm} />
+            <Route exact path="/editworkout" component={EditWorkout} />
+            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/usershow" component={UserShow} />
+            <Route
+              exact
+              path="/subscriptions"
+              component={ConnectedSubscriptions}
+            />
+            <Route component={NoMatch} />
+          </Switch>
+        </WorkoutProvider>
+      </div>
     </FetchUser>
   </Fragment>
 );
