@@ -1,41 +1,37 @@
 import React, { Component } from "react";
-import { Container, Grid, Card, Button } from "semantic-ui-react";
+import { Container } from "semantic-ui-react";
 import WorkoutCard from "./WorkoutCard";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { WorkoutConsumer } from "../../providers/WorkoutProvider";
-import { AuthConsumer } from '../../providers/AuthProvider';
-import Modal from './Modal';
+import { AuthConsumer } from "../../providers/AuthProvider";
+import Modal from "./Modal";
 
 class FeedWorkouts extends Component {
   state = { workouts: [], toggleModal: false, workout: {} };
 
   componentDidMount() {
-    axios
-      .get("/api/all_workouts")
-      .then((res) => {
-        this.setState({ workouts: res.data });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    console.log("componenet is moutned");
+    this.setState({ workouts: this.props.workouts.workouts });
   }
 
   unToggle = () => {
-    this.setState({ toggleModal: false })
-
-  }
+    console.log("untoggle");
+    this.setState({ toggleModal: false });
+  };
 
   toggle = (id) => {
-    axios.get(`/api/workouts/${id}`)
-    .then(res => {
-      this.setState({workout: res.data})
-    })
-      .then(() => { 
-        this.setState({ toggleModal: true })
-      }
-        )
-    }
+    axios
+      .get(`/api/get_workout/${id}`)
+      .then((res) => {
+        console.log("toggle");
+        console.log(res.data);
+        this.setState({ workout: res.data });
+      })
+      .then(() => {
+        this.setState({ toggleModal: true });
+      })
+      .catch(console.log("Didn't work"));
+  };
 
   render() {
     const { workouts, workout } = this.state;
@@ -44,17 +40,22 @@ class FeedWorkouts extends Component {
         <h1>Gym Pact Workouts</h1>
         <Container style={{ display: "flex", flexWrap: "wrap" }}>
           {this.state.toggleModal === true ? (
-            <Modal workout={workout} user={this.props.user} unToggle={this.unToggle}/>
-            // <div>test</div>
-          ): (
+            <Modal
+              workout={workout}
+              user={this.props.user}
+              unToggle={this.unToggle}
+            />
+          ) : (
             <div>
-            {workouts.map((workout, ind) => (
-              <div onClick={this.toggle}>
-              <WorkoutCard key={ind} workout={workout} toggle={this.toggle}/>
-              </div>
+              {workouts.map((workout) => (
+                <WorkoutCard
+                  key={workout.id}
+                  workout={workout}
+                  toggle={this.toggle}
+                />
               ))}
             </div>
-            )}
+          )}
         </Container>
       </div>
     );
@@ -64,11 +65,13 @@ class FeedWorkouts extends Component {
 export default class ConnectedFeedWorkouts extends Component {
   render() {
     return (
-      <AuthConsumer>      
-        {user => (
+      <AuthConsumer>
+        {(user) => (
           <WorkoutConsumer>
-        {(workout) => <FeedWorkouts {...this.props} workouts={workout} user={user}/>}
-      </WorkoutConsumer>
+            {(workout) => (
+              <FeedWorkouts {...this.props} workouts={workout} user={user} />
+            )}
+          </WorkoutConsumer>
         )}
       </AuthConsumer>
     );

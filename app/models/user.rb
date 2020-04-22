@@ -11,8 +11,11 @@ class User < ActiveRecord::Base
   has_many :workouts
 
   has_many :comments
-  has_many :workouts, through: :comments
+  # Do we really need this below?: 
+  # has_many :workouts, through: :comments
 
+
+  
 end
 
 

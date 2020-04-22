@@ -10,6 +10,8 @@ import {
 
 class WorkoutForm extends Component {
   state = { title: "", desc: "" };
+
+  
   componentDidMount() {
     console.log(this.props.history.location.state.user.id);
   }
@@ -20,9 +22,10 @@ class WorkoutForm extends Component {
   handleSubmit = (e) => {
     const { title, desc } = this.state;
     const { createWorkout, history } = this.props;
+    const wholeWorkout = { title: this.state.title, desc: this.state.desc, user_id: this.props.history.location.state.user.id }
     e.preventDefault();
     createWorkout(
-      this.state,
+      wholeWorkout,
       this.props.history.location.state.user.id,
       history
     );
