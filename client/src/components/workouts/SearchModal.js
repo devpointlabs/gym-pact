@@ -3,7 +3,7 @@ import { AuthConsumer } from "../../providers/AuthProvider";
 import styled from "styled-components";
 import ropesImg from "../../imgs/ropes.jpg";
 import axios from "axios";
-import gymProfilePic from "../../imgs/gymProfPic.jpg";
+// import gymProfilePic from "../../imgs/gymProfPic.jpg";
 import Comment from "../comments/Comment";
 import CommentForm from "../comments/CommentForm";
 import { Link } from "react-router-dom";
@@ -110,7 +110,7 @@ const SearchModal = (props) => {
           <Column style={{ paddingLeft: "1rem" }}>
             <Row style={{ width: "20rem" }}>
               <img
-                src={gymProfilePic}
+                // src={gymProfilePic}
                 style={{
                   width: "50px",
                   height: "50px",
