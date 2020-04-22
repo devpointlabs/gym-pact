@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import gym from '../../imgs/gym.jpg';
-
+import gym from '../../imgs/gymDark.png';
+ 
 
 export const Landing = styled.div`
 display: grid;

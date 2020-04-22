@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Image, Comment, Button, Form, Header } from 'semantic-ui-react';
 import ropesImg from '../../imgs/ropes.jpg';
-import gymProfPic from '../../imgs/gymProfPic.jpg';
+import gymProfPic from '../../imgs/ropes.jpg';
 
 
 

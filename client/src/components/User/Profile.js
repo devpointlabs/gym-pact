@@ -12,10 +12,12 @@ import {
 import { Link } from "react-router-dom";
 import Dropzone from "react-dropzone";
 import axios from "axios";
-
+import { Redirect } from "react-router-dom";
+import "./UserStyle.css";
+import { Card, Icon } from "semantic-ui-react";
+const ProfileCard = () => {};
 const defaultImage =
   "https://s3.amazonaws.com/37assets/svn/765-default-avatar.png";
-
 class Profile extends React.Component {
   state = {
     editing: false,
@@ -29,7 +31,6 @@ class Profile extends React.Component {
     followers: [],
     following: [],
   };
-
   componentDidMount() {
     const {
       auth: { user },
@@ -66,15 +67,12 @@ class Profile extends React.Component {
         console.log(err);
       });
   }
-
   onDrop = (files) => {
     this.setState({ formValues: { ...this.state.formValues, file: files[0] } }); //adding file into state to store
   };
-
   toggleEdit = () => {
     this.setState({ editing: !this.state.editing });
   };
-
   handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({
@@ -101,7 +99,6 @@ class Profile extends React.Component {
         console.log(err);
       });
   };
-
   // Delete Workout
   deleteWorkout = (workout_id) => {
     axios
@@ -117,23 +114,108 @@ class Profile extends React.Component {
         console.log(err);
       });
   };
+  showImage = () => {
+    const {
+      auth: { user },
+    } = this.props;
+    if (!user) return null;
+    if (user.image) return user.image;
+    return defaultImage;
+  };
   profileView = () => {
     const {
       auth: { user },
     } = this.props;
     return (
       <>
-        <Grid.Column width={4}>
-          <Image src={user.image || defaultImage} />
+        <Grid.Row columns={2}>
+          <Grid.Column width={4}>
+            <Image
+              src={this.showImage()}
+              circular
+              size="tiny"
+              style={{ height: "20em", width: "20em" }}
+            />
+          </Grid.Column>
+          <Grid.Column width={4} verticalAlign="middle">
+            <Header as="h1">
+              {user.first_name} {user.last_name}
+            </Header>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Column style={{ height: "321px", width: "4in" }}>
+          <Grid.Row>
+            {" "}
+            (col one)
+            <Card>
+              <Card.Content>
+                <Card.Header>INFORMATION</Card.Header>
+                <Card.Description>
+                  <></>
+                </Card.Description>
+              </Card.Content>
+              <Card.Content extra>
+                <a></a>
+              </Card.Content>
+            </Card>
+            {/* <Card>
+    <Card.Content>
+      <Card.Header>
+        <h1> Your Workouts</h1>
+      </Card.Header>
+      <Card.Description>
+        <>
+        </> 
+      </Card.Description>
+    </Card.Content>
+    <Card.Content extra>
+      <a>
+      </a>
+    </Card.Content>
+    </Card> */}
+            <Card>
+              <Card.Content>
+                <Card.Header></Card.Header>
+                <Card.Description>
+                  <></>
+                </Card.Description>
+              </Card.Content>
+              <Card.Content extra>
+                <a></a>
+              </Card.Content>
+            </Card>
+          </Grid.Row>
         </Grid.Column>
-        <Grid.Column width={8}>
-          <Header as="h1">{user.first_name}</Header>
-          <Header as="h1">{user.email}</Header>
+        <Grid.Column>
+          <div>
+            <h3>Your Workouts</h3>
+            {this.state.workouts.map((w, ind) => (
+              <div key={ind}>
+                <p>
+                  <u>{w.title}</u>: {w.desc}
+                </p>
+                <button onClick={() => this.deleteWorkout(w.id)}>Delete</button>
+                <Link
+                  to={{
+                    pathname: "/editWorkout",
+                    state: {
+                      user: this.state.user_id,
+                      title: w.title,
+                      desc: w.desc,
+                      workout_id: w.id,
+                    },
+                  }}
+                >
+                  <button>Edit</button>
+                </Link>
+              </div>
+            ))}
+          </div>
+          <Grid.Row>col two</Grid.Row>
         </Grid.Column>
       </>
     );
   };
-
   handleSubmit = (e) => {
     e.preventDefault();
     const {
@@ -149,7 +231,6 @@ class Profile extends React.Component {
       },
     });
   };
-
   editView = () => {
     // const { auth: { first_name }, } = this.props;
     const {
@@ -193,47 +274,21 @@ class Profile extends React.Component {
       </Form>
     );
   };
-
   render() {
     const { editing } = this.state;
+    if (!this.props.auth.user) return <Redirect to="/" />;
     return (
       <Container>
         <Divider hidden />
         <Grid>
-          <Grid.Row>
-            {editing ? this.editView() : this.profileView()}
-            <Grid.Column>
-              <Button onClick={this.toggleEdit}>
-                {editing ? "Cancel" : "Edit"}
-              </Button>
-            </Grid.Column>
+          <Grid.Row textAlign="right">
+            <Button onClick={this.toggleEdit}>
+              {editing ? "Cancel" : "Edit"}
+            </Button>
           </Grid.Row>
+          {editing ? this.editView() : this.profileView()}
           <div>
-            <h3>Your Workouts</h3>
-            {this.state.workouts.map((w, ind) => (
-              <div key={ind}>
-                <p>
-                  <u>{w.title}</u>: {w.desc}
-                </p>
-                <button onClick={() => this.deleteWorkout(w.id)}>Delete</button>
-                <Link
-                  to={{
-                    pathname: "/editWorkout",
-                    state: {
-                      user: this.state.user_id,
-                      title: w.title,
-                      desc: w.desc,
-                      workout_id: w.id,
-                    },
-                  }}
-                >
-                  <button>Edit</button>
-                </Link>
-              </div>
-            ))}
-          </div>
-          <div>
-            <h3>Your Followers</h3>
+            <h3>Your Followers text-align: justify;</h3>
             {this.state.followers.map((user, ind) => (
               <div key={ind}>
                 <Link
@@ -273,7 +328,6 @@ class Profile extends React.Component {
     );
   }
 }
-
 export default class ConnectedProfile extends React.Component {
   render() {
     return (
@@ -283,9 +337,7 @@ export default class ConnectedProfile extends React.Component {
     );
   }
 }
-
 // export default ConnectedProfile;
-
 const styles = {
   dropzone: {
     height: "200px",
@@ -298,5 +350,4 @@ const styles = {
     padding: "10px",
   },
 };
-
 // export default Profile;
