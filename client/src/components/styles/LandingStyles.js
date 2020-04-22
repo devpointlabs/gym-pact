@@ -6,8 +6,8 @@ import gym from '../../imgs/gym.jpg';
 export const Landing = styled.div`
 display: grid;
 grid-template-columns: 50% 50%;
-height: 100vh;
-font-color: #292B4D !important;
+height: calc(100vh - 38px);
+color: #292B4D !important;
 `
 
 export const BackgroundLeft = styled.div`
@@ -48,13 +48,14 @@ font-size: 5rem;
 export const CallBtn = styled.button`
 
 `
-export const SignUp = styled.div`
-display: grid;
-grid-columns: 50% 50%;
+export const SignUp = styled.a`
+display: flex;
+align-items: center;
 grid-column-start: 2;
 grid-row-start: 5;
 font-family: Teko;
 font-style: normal;
+color: #292B4D;
 `
 export const H2 = styled.h2`
 grid-column-start: 1;

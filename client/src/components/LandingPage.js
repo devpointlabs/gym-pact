@@ -47,11 +47,9 @@ const LandingPage = () => (
              </List.Item>
           </List>
           </SubContainer>
-          <SignUp>
-               <a href='login' >
+          <SignUp href='/register'>
                   <H2>Sign Up</H2>
                      <Icon name='double angle right' size='massive'/>
-               </a>
           </SignUp>
           </Container>
     </Left>
