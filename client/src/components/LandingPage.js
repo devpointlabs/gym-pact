@@ -5,9 +5,15 @@ import {
    CallBtn,
    Left,
    Landing,
-   Right
+   Right,
+   SignUp,
+   H2,
+   SubContainer,
+   Header,
+   Definition,
  } from './styles/LandingStyles';
- import { List, ListContent } from 'semantic-ui-react';
+ import { List, ListContent, Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
  
 
@@ -16,8 +22,12 @@ const LandingPage = () => (
  <Landing>
     <Left>
        <Container>
-          <h1>GYM PACT</h1>
-          <h4>The social networking fitness tracker for sharing workouts across the planet.</h4>
+          <Header>GYM PACT</Header>
+          <Definition>
+          The social networking fitness tracker for sharing workouts across the planet.
+          </Definition>
+          <SubContainer>
+
           <List>
              <List.Item>
                 <List.Icon name='line graph' size='large' />
@@ -28,15 +38,20 @@ const LandingPage = () => (
                 <List.Content>Follow your friends and admirers</List.Content>
              </List.Item>
              <List.Item>
-                <List.Icon name='idea' size='large' />
+                <List.Icon name='block layout' size='large' />
                 <List.Content>Scroll through your workout feed for new ideas</List.Content>
              </List.Item>
              <List.Item>
-                <List.Icon name='balance' size='large' />
+                <List.Icon name='dot circle outline' size='large' />
                 <List.Content>Reflect your work in your profile</List.Content>
              </List.Item>
           </List>
-       </Container>
+          </SubContainer>
+          <SignUp href='/register'>
+                  <H2>Sign Up</H2>
+                     <Icon name='double angle right' size='massive'/>
+          </SignUp>
+          </Container>
     </Left>
     <Right></Right>
  </Landing>
