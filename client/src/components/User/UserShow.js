@@ -5,6 +5,7 @@ import axios from "axios";
 import SModalUser from "../workouts/SModalUser";
 
 const UserShow = (props) => {
+  const prevState = props.location.state.currentUser;
   const [workouts, setWorkouts] = useState([]);
   const { currentUser } = props.location.state;
   const user = props.location.state.user;
@@ -108,6 +109,7 @@ const UserShow = (props) => {
         });
     }
   };
+
   return (
     <>
       <span
@@ -135,13 +137,13 @@ const UserShow = (props) => {
         </div>
         <div>
           <h3>Workouts</h3>
-          <span
+          <Button
             onClick={() => {
               open ? hideWorkouts() : getWorkouts();
             }}
           >
-            {workouts.length ? "Hide Workouts" : "Show Workouts"}
-          </span>
+            {workouts.length ? "Hide Workouts" : "Show Workouts +"}
+          </Button>
           {workouts.map((w, ind) => (
             <SModalUser
               workout={w}

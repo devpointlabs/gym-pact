@@ -68,7 +68,6 @@ const SModalUser = (props) => {
       .get("/api/all_users")
       .then((res) => {
         response.push(res.data);
-        console.log(users);
         response.forEach((res) => {
           res.filter((user) => {
             // debugger;
@@ -79,7 +78,6 @@ const SModalUser = (props) => {
       .catch((err) => {
         console.log(err);
       });
-    console.log(users);
   };
 
   const [display, setDisplay] = useState("initial");
