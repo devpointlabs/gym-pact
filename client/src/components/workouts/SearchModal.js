@@ -110,7 +110,7 @@ const SearchModal = (props) => {
           <Column style={{ paddingLeft: "1rem" }}>
             <Row style={{ width: "20rem" }}>
               <img
-                // src={gymProfilePic}
+                src={props.workout.image}
                 style={{
                   width: "50px",
                   height: "50px",
