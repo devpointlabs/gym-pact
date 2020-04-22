@@ -6,7 +6,7 @@ const WorkoutCard = ({ workout, toggle }) => (
   // workoutShow
   <Card style={{ margin: "1rem" }} onClick={() => toggle(workout.id)}>
     <div>
-      <Image src={ropesImg} style={{ cursor: "pointer" }} />
+      <Image src={workout.image} style={{ cursor: "pointer" }} />
     </div>
     <CardContent>
       <Card.Header>{workout.title}</Card.Header>
