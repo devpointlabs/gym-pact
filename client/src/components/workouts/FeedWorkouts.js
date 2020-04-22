@@ -62,6 +62,7 @@ class FeedWorkouts extends Component {
   }
 }
 
+
 export default class ConnectedFeedWorkouts extends Component {
   render() {
     return (
