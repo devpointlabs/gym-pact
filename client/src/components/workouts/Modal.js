@@ -59,9 +59,6 @@ const Modal = (props) => {
     ));
   };
 
-  // Carson and Harlan Commented this out because of conflicts with Comments
-  // between Carson, Harlan and Jon we will need to test this.
-  //
   const getPostUser = () => {
     axios
       .get("/api/all_users")
@@ -106,11 +103,11 @@ const Modal = (props) => {
       <Container style={{ display: display }}>
         <Close onClick={props.unToggle}>X</Close>
         <Row>
-          <Image src={ropesImg} />
+          <Image src={props.workout.image} />
           <Column style={{ paddingLeft: "1rem" }}>
             <Row style={{ width: "20rem" }}>
               <img
-                src={gymProfilePic}
+                src={users.image}
                 style={{
                   width: "50px",
                   height: "50px",

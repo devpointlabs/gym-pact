@@ -32,7 +32,7 @@ const Comment = (props) => {
 
   return (
     <>
-      <img src={user.image ? user.image : styles.defaultImage} />
+      <img src={user.image ? user.image : styles.defaultImage} width="40px" />
       <Link
         to={{
           pathname: "/usershow",
@@ -64,4 +64,3 @@ const styles = {
     fontSize: "1em",
   },
 };
-

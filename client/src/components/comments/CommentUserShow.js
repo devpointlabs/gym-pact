@@ -9,7 +9,6 @@ const Comment = (props) => {
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
-    // componentDidMount
     axios
       .get(`/api/users/${props.user_id}`)
       .then((res) => {
@@ -19,20 +18,11 @@ const Comment = (props) => {
     console.log(props);
   }, []);
 
-  const checkDeleteComment = () => {
-    // if (props.user.user.id === comment.user_id) {
-    //   console.log("user_id ->", props.user.user.id);
-    //   console.log("comment user_id ->", comment.user_id);
-    //   setShowButton(true);
-    // } else {
-    //   console.log("user_id null ->", props.user.user.id);
-    //   console.log("comment user_id null ->", comment.user_id);
-    // }
-  };
+  const checkDeleteComment = () => {};
 
   return (
     <>
-      <img src={user.image ? user.image : styles.defaultImage} />
+      <img src={user.image ? user.image : styles.defaultImage} width="40px" />
 
       <h4>{user.first_name}</h4>
 

@@ -100,11 +100,11 @@ const SModalUser = (props) => {
     <Modal trigger={<h3>{props.workout.title}</h3>} closeIcon>
       <Modal.Content style={{ padding: 0 }}>
         <Row>
-          <Image src={ropesImg} style={{ width: "70%" }} />
+          <Image src={props.workout.image} style={{ width: "70%" }} />
           <Column>
             <Row style={{ width: "20rem" }}>
               <img
-                src={props.workout.image}
+                src={users.image}
                 style={{
                   width: "50px",
                   height: "50px",

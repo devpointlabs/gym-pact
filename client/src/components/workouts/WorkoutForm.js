@@ -2,22 +2,20 @@ import React, { Component } from "react";
 import { Form, FormButton } from "semantic-ui-react";
 import { WorkoutConsumer } from "../../providers/WorkoutProvider";
 import { Link } from "react-router-dom";
-import Dropzone from 'react-dropzone';
-import { 
+import Dropzone from "react-dropzone";
+import {
   SubmitButton,
   Background,
-  Inputs, 
-  } from '../../components/styles/SharedStyles';
-
+  Inputs,
+} from "../../components/styles/SharedStyles";
 
 class WorkoutForm extends Component {
   state = { title: "", desc: "", image: "" };
 
-  
   componentDidMount() {
     console.log(this.props.history.location.state.user.id);
   }
-  
+
   handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
@@ -30,7 +28,11 @@ class WorkoutForm extends Component {
   handleSubmit = (e) => {
     const { title, desc, image } = this.state;
     const { createWorkout, history } = this.props;
-    const wholeWorkout = { title: this.state.title, desc: this.state.desc, user_id: this.props.history.location.state.user.id }
+    const wholeWorkout = {
+      title: this.state.title,
+      desc: this.state.desc,
+      user_id: this.props.history.location.state.user.id,
+    };
     e.preventDefault();
     createWorkout(
       wholeWorkout,
@@ -46,39 +48,44 @@ class WorkoutForm extends Component {
       <Background>
         <Inputs>
           <Form onSubmit={this.handleSubmit}>
-           <Dropzone onDrop={this.onDrop} multiple={false}>
-            {({ getRootProps, getInputProps, isDragActive }) => {
-              return (
-                <div {...getRootProps()} style={styles.dropzone}>
-                  <input {...getInputProps()} />
-                  {isDragActive ? (
-                    <p>Drag Your Image Here! </p>
-                  ) : (
-                    <p> JPEG PDF </p>
-                  )}
-                </div>
-              );
-            }}
-          </Dropzone>
-          <Form.Input
-            label="Workout Title"
-            required
-            name="title"
-            value={title}
-            onChange={this.handleChange}
+            <Dropzone onDrop={this.onDrop} multiple={false}>
+              {({ getRootProps, getInputProps, isDragActive }) => {
+                return (
+                  <div {...getRootProps()} style={styles.dropzone}>
+                    <input {...getInputProps()} />
+                    {isDragActive ? (
+                      <p>Drag Your Image Here! </p>
+                    ) : (
+                      <p> JPEG PDF </p>
+                    )}
+                  </div>
+                );
+              }}
+            </Dropzone>
+            <Form.Input
+              label="Workout Title"
+              required
+              name="title"
+              value={title}
+              onChange={this.handleChange}
             />
-          <Form.Input
-            label="Workout Description"
-            required
-            name="desc"
-            value={desc}
-            onChange={this.handleChange}
+            <Form.Input
+              label="Workout Description"
+              required
+              name="desc"
+              value={desc}
+              onChange={this.handleChange}
             />
-          <SubmitButton>Submit</SubmitButton>
-          <Link to="/">
-            <SubmitButton>Cancel</SubmitButton>
-          </Link>
-        </Form>
+            <SubmitButton>Submit</SubmitButton>
+
+            <SubmitButton
+              onClick={() => {
+                this.props.history.goBack();
+              }}
+            >
+              Cancel
+            </SubmitButton>
+          </Form>
         </Inputs>
       </Background>
     );
