@@ -7,7 +7,6 @@ import SModalUser from "../workouts/SModalUser";
 import { device } from "../../mediaquery";
 
 const UserShow = (props) => {
-  const prevState = props.location.state.currentUser;
   const [workouts, setWorkouts] = useState([]);
   const { currentUser } = props.location.state;
   const user = props.location.state.user;
@@ -63,8 +62,6 @@ const UserShow = (props) => {
           ? currentUserFollowing.push(id)
           : null
       );
-      console.log("This users followers", followers);
-      console.log("Logged in users following", currentUserFollowing);
       currentUser.following = currentUserFollowing;
       axios
         .put(`/api/user/${id}`, user)
@@ -166,20 +163,23 @@ const UserShow = (props) => {
         </Row>
       </IntroRow>
       <WorkoutsInfoRow>
-        <h3>
-          <span style={{ color: "#6CD3E0" }}>
-            <Icon name="universal access" />
-          </span>
-          About {username}
-        </h3>
+        <AboutColumn>
+          <h3>
+            <span style={{ color: "#6CD3E0" }}>
+              <Icon name="universal access" />
+            </span>
+            About {username}
+          </h3>
 
-        <Column>
           <ul style={{ listStyle: "none" }}>
             <li>
               <ListSpan>First Name:</ListSpan> {first_name}
             </li>
             <li>
               <ListSpan>Last Name:</ListSpan> {last_name}
+            </li>
+            <li>
+              <ListSpan>Email:</ListSpan> {email}
             </li>
             <li>
               <ListSpan>Date of Birth:</ListSpan> {date_of_birth}
@@ -196,36 +196,43 @@ const UserShow = (props) => {
             <li>
               <ListSpan>Followers:</ListSpan> {followers.length}
             </li>
+            <li>
+              <ListSpan>Following:</ListSpan> {following.length}
+            </li>
           </ul>
-        </Column>
+        </AboutColumn>
 
-        <Column>
-          <WorkoutsDiv>
-            <h3>
-              <span style={{ color: "#6CD3E0" }}>
-                <Icon name="hand point right outline" />
-              </span>
-              Workouts
-            </h3>
-            <Button
-              onClick={() => {
-                open ? hideWorkouts() : getWorkouts();
-              }}
-            >
-              {workouts.length ? "Hide Workouts" : "Show Workouts"}
-              <Icon
-                name={workouts.length ? "minus" : "plus"}
-                style={{ marginLeft: "0.5rem" }}
-              />
-            </Button>
-            {workouts.map((w, ind) => (
-              <SModalUser
-                workout={w}
-                currentUser={props.location.state.currentUser}
-              />
-            ))}
-          </WorkoutsDiv>
-        </Column>
+        <WorkoutsDiv>
+          <h3>
+            <span style={{ color: "#6CD3E0" }}>
+              <Icon name="hand point right outline" />
+            </span>
+            Workouts
+          </h3>
+          <Button
+            style={{
+              backgroundColor: "#6CD3E0",
+              color: "#353765",
+              margin: "2rem 0 0.5rem 2rem",
+            }}
+            onClick={() => {
+              open ? hideWorkouts() : getWorkouts();
+            }}
+          >
+            {workouts.length ? "Hide Workouts" : "Show Workouts"}
+            <Icon
+              name={workouts.length ? "minus" : "plus"}
+              style={{ marginLeft: "0.5rem" }}
+            />
+          </Button>
+          {workouts.map((w, ind) => (
+            <SModalUser
+              key={ind}
+              workout={w}
+              currentUser={props.location.state.currentUser}
+            />
+          ))}
+        </WorkoutsDiv>
       </WorkoutsInfoRow>
     </Container>
   );
@@ -240,6 +247,13 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: #fff;
+  border: 1px solid red;
+  @media ${device.tablet} {
+    border: 1px solid blue;
+  }
+  @media ${device.laptop} {
+    border: 1px solid green;
+  }
 `;
 const Column = styled.div`
   display: flex;
@@ -263,14 +277,29 @@ const WorkoutsInfoRow = styled.div`
   flex-direction: column;
   width: 100%;
   margin: 3.5rem 0;
+  padding-left: 10%;
   border: 1px solid red;
-  @media ${device.tablet} {
-    border: 1px solid blue;
+  @media ${device.laptop} {
+    flex-direction: row;
+    padding-left: 0;
+  }
+`;
+const AboutColumn = styled.div`
+  box-shadow: 4px 8px 10px #999;
+  @media ${device.laptop} {
+    flex-direction: row;
+    width: 40%;
   }
 `;
 const WorkoutsDiv = styled.div`
   width: 100%;
+  margin-top: 3rem;
   border: 1px solid red;
+  box-shadow: 4px 8px 10px #999;
+  @media ${device.laptop} {
+    margin-top: 0;
+    width: 60%;
+  }
 `;
 const ListSpan = styled.span`
   color: black;

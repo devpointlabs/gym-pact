@@ -97,7 +97,7 @@ const SModalUser = (props) => {
   };
 
   return (
-    <Modal trigger={<h3>{props.workout.title}</h3>} closeIcon>
+    <Modal trigger={<Workout>{props.workout.title}</Workout>} closeIcon>
       <Modal.Content style={{ padding: 0 }}>
         <Row>
           <Image src={props.workout.image} style={{ width: "70%" }} />
@@ -146,43 +146,16 @@ const SModalUser = (props) => {
 };
 export default SModalUser;
 
-const ModalDiv = styled.div`
-  z-index: 1;
-  color: #292b4d;
-`;
-const Background = styled.div`
-  transition-duration: 1s;
-  position: fixed;
-  bottom: 0vh;
-  right: 0vw;
-  height: 100vh;
-  width: 100vw;
-  background-color: black;
-  overflow-y: hidden;
-  opacity: 0.8;
-  z-index: 1;
-`;
-const Container = styled.div`
-  position: fixed;
-  height: 70vh;
-  width: 60vw;
-  top: 15vh;
-  left: 21vw;
-  background-color: #eee;
-  z-index: 3;
-  border-radius: 5px;
-`;
-const Close = styled.span`
-  position: fixed;
-  top: 13vh;
-  left: 80.2vw;
-  height: 30px;
-  width: 30px;
-  background-color: #6cd3e0;
-  text-align: center;
-  padding-top: 4px;
-  border-radius: 50%;
+const Workout = styled.div`
+  background-color: #353765;
+  color: #fbd878;
+  padding-left: 1.4rem;
+  padding-top: 0.5rem;
+  margin: 0.4rem 0;
+  height: 3rem;
+  width: 70%;
   cursor: pointer;
+  border-radius: 5px;
 `;
 const Column = styled.div`
   display: flex;
@@ -229,21 +202,4 @@ const CommentCounter = styled.p`
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   width: 90%;
-`;
-// const Image = styled.img`
-//   width: 38vw;
-//   height: 70vh;
-//   z-index: 2;
-//   border-top-left-radius: 5px;
-//   border-bottom-left-radius: 5px;
-// `;
-const Input = styled.input`
-  margin-top: 2rem;
-  padding: 0.5rem;
-  height: 25px;
-  width: 80%;
-  border-radius: 15px;
-  outline: none;
-  border-style: solid;
-  border-color: #ddd;
 `;
