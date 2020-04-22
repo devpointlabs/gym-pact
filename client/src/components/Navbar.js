@@ -14,8 +14,10 @@ class Navbar extends React.Component {
   filter = (e) => {
     const { searchInput, searchResults } = this.state;
     this.setState({ searchInput: e.target.value });
+
     if (e.which != 8 && e.which != 16) {
       this.setState({ searchActive: "block" });
+
       axios
         .get("/api/all_workouts")
         .then((res) => {

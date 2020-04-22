@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Grid, Header, Button } from "semantic-ui-react";
+import { Image, Icon, Header, Button } from "semantic-ui-react";
 import axios from "axios";
+import styled from "styled-components";
 import SModalUser from "../workouts/SModalUser";
+import { device } from "../../mediaquery";
 
 const UserShow = (props) => {
   const prevState = props.location.state.currentUser;
@@ -11,6 +13,7 @@ const UserShow = (props) => {
   const user = props.location.state.user;
   const [open, setOpen] = useState(false);
   const {
+    image,
     username,
     first_name,
     last_name,
@@ -24,7 +27,7 @@ const UserShow = (props) => {
     weight,
   } = props.location.state.user;
   const [follow, setFollow] = useState(
-    followers.indexOf(currentUser.id) > -1 ? "UnFollow" : "Follow"
+    followers.indexOf(currentUser.id) > -1 ? "Following" : "Follow"
   );
   const [currentUserFollowing, setCurrentUserFollowing] = useState(
     currentUser.following
@@ -54,7 +57,7 @@ const UserShow = (props) => {
   const followUser = (currentUser) => {
     if (followers.indexOf(currentUser.id) === -1) {
       followers.push(currentUser.id);
-      setFollow("UnFollow");
+      setFollow("Following");
       setCurrentUserFollowing(
         currentUserFollowing.indexOf(id) === -1
           ? currentUserFollowing.push(id)
@@ -111,49 +114,166 @@ const UserShow = (props) => {
   };
 
   return (
-    <>
-      <span
-        onClick={() => props.history.goBack()}
-        style={{ cursor: "pointer", color: "skyblue" }}
+    <Container>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-start",
+          width: "100%",
+          marginBottom: "4rem",
+        }}
       >
-        Go Back
-      </span>
-      <Grid.Column width={4}></Grid.Column>
-      <Grid.Column width={8}>
-        <Header as="h1">{username}</Header>{" "}
-        <div>
-          <span>{id}</span>
-          <p>First Name: {first_name}</p>
-          <p>Last Name: {last_name}</p>
-          <p>Email: {email}</p>
-          <p>DOB: {date_of_birth}</p>
-          <p>Gender: {gender}</p>
-          <p>Weight: {weight}</p>
-          <p>Fitness Level: {fitness_level}</p>
-          <p>Followers: {followers.length}</p>{" "}
+        <span
+          onClick={() => props.history.goBack()}
+          style={{
+            cursor: "pointer",
+            backgroundColor: "#FBD878",
+            color: "#353765",
+            padding: "0.3rem",
+            borderRadius: "8px",
+          }}
+        >
+          <Icon name="double angle left" size="large" /> Go Back
+        </span>
+      </div>
+      <IntroRow style={{ justifyContent: "space-evenly" }}>
+        <div
+          style={{
+            width: "100%",
+            textAlign: "center",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Image
+            circular
+            src={image}
+            style={{ margin: "2rem", width: "25rem", height: "25rem" }}
+          />
         </div>
-        <div>
-          <Button onClick={() => followUser(currentUser)}>{follow}</Button>
-        </div>
-        <div>
-          <h3>Workouts</h3>
-          <Button
-            onClick={() => {
-              open ? hideWorkouts() : getWorkouts();
-            }}
-          >
-            {workouts.length ? "Hide Workouts" : "Show Workouts +"}
-          </Button>
-          {workouts.map((w, ind) => (
-            <SModalUser
-              workout={w}
-              currentUser={props.location.state.currentUser}
-            />
-          ))}
-        </div>
-      </Grid.Column>
-    </>
+
+        <Row>
+          <Header as="h1">{username}</Header>
+          <div>
+            <Button
+              onClick={() => followUser(currentUser)}
+              style={{ backgroundColor: "#353765", color: "#6CD3E0" }}
+            >
+              <span style={{ marginRight: "0.5rem" }}>{follow}</span>
+              <Icon name={follow === "Following" ? "check" : "plus"} />
+            </Button>
+          </div>
+        </Row>
+      </IntroRow>
+      <WorkoutsInfoRow>
+        <h3>
+          <span style={{ color: "#6CD3E0" }}>
+            <Icon name="universal access" />
+          </span>
+          About {username}
+        </h3>
+
+        <Column>
+          <ul style={{ listStyle: "none" }}>
+            <li>
+              <ListSpan>First Name:</ListSpan> {first_name}
+            </li>
+            <li>
+              <ListSpan>Last Name:</ListSpan> {last_name}
+            </li>
+            <li>
+              <ListSpan>Date of Birth:</ListSpan> {date_of_birth}
+            </li>
+            <li>
+              <ListSpan>Gender:</ListSpan> {gender}
+            </li>
+            <li>
+              <ListSpan>Weight:</ListSpan> {weight}
+            </li>
+            <li>
+              <ListSpan>Fitness Level:</ListSpan> {fitness_level}
+            </li>
+            <li>
+              <ListSpan>Followers:</ListSpan> {followers.length}
+            </li>
+          </ul>
+        </Column>
+
+        <Column>
+          <WorkoutsDiv>
+            <h3>
+              <span style={{ color: "#6CD3E0" }}>
+                <Icon name="hand point right outline" />
+              </span>
+              Workouts
+            </h3>
+            <Button
+              onClick={() => {
+                open ? hideWorkouts() : getWorkouts();
+              }}
+            >
+              {workouts.length ? "Hide Workouts" : "Show Workouts"}
+              <Icon
+                name={workouts.length ? "minus" : "plus"}
+                style={{ marginLeft: "0.5rem" }}
+              />
+            </Button>
+            {workouts.map((w, ind) => (
+              <SModalUser
+                workout={w}
+                currentUser={props.location.state.currentUser}
+              />
+            ))}
+          </WorkoutsDiv>
+        </Column>
+      </WorkoutsInfoRow>
+    </Container>
   );
 };
 
 export default UserShow;
+
+const Container = styled.div`
+  width: 100%;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+`;
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid red;
+`;
+const Row = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  border: 1px solid red;
+`;
+const IntroRow = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid red;
+`;
+const WorkoutsInfoRow = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  width: 100%;
+  margin: 3.5rem 0;
+  border: 1px solid red;
+  @media ${device.tablet} {
+    border: 1px solid blue;
+  }
+`;
+const WorkoutsDiv = styled.div`
+  width: 100%;
+  border: 1px solid red;
+`;
+const ListSpan = styled.span`
+  color: black;
+  font-weight: bolder;
+  margin-right: 0.3rem;
+`;
