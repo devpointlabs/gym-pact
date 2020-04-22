@@ -6,7 +6,7 @@ import { WorkoutConsumer } from "../../providers/WorkoutProvider";
 import { AuthConsumer } from "../../providers/AuthProvider";
 import Modal from "./Modal";
 
-let position = 5;
+let position = 10;
 let height = window.innerHeight;
 
 class FeedWorkouts extends Component {
@@ -59,7 +59,7 @@ class FeedWorkouts extends Component {
     return (
       <div>
         <h1>Gym Pact Workouts</h1>
-        <Container style={{ display: "flex", flexWrap: "wrap" }}>
+        <Container>
           {this.state.toggleModal === true ? (
             <Modal
               workout={workout}
@@ -68,7 +68,14 @@ class FeedWorkouts extends Component {
               toggle={this.state.toggleModal}
             />
           ) : (
-            <div>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                width: "100%",
+                justifyContent: "space-around",
+              }}
+            >
               {workouts.map((workout) => (
                 <WorkoutCard
                   key={workout.id}

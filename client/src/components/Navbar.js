@@ -48,7 +48,11 @@ class Navbar extends React.Component {
     if (user) {
       return (
         <Menu
-          style={{ display: "flex", justifyContent: "center", width: "100%" }}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+          }}
         >
           <Link to="/home">
             <Menu.Item
