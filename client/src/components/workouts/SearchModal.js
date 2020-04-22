@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AuthConsumer } from "../../providers/AuthProvider";
 import styled from "styled-components";
-import ropesImg from "../../imgs/ropes.jpg";
 import axios from "axios";
-import gymProfilePic from "../../imgs/gymProfPic.jpg";
 import Comment from "../comments/Comment";
 import CommentForm from "../comments/CommentForm";
 import { Link } from "react-router-dom";
@@ -106,11 +104,11 @@ const SearchModal = (props) => {
       <Container style={{ display: display }}>
         <Close onClick={props.unToggle}>X</Close>
         <Row>
-          <Image src={ropesImg} />
+          <Image src={props.workout.image} />
           <Column style={{ paddingLeft: "1rem" }}>
             <Row style={{ width: "20rem" }}>
               <img
-                src={gymProfilePic}
+                src={props.user.image}
                 style={{
                   width: "50px",
                   height: "50px",
