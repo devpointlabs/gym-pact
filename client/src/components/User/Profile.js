@@ -183,9 +183,9 @@ class Profile extends React.Component {
                 </Card.Description>
               </Card.Content>
               <Card.Content extra>
-                Fitness Level:{user.fitness_level}
-                Fitness Level:{user.fitness_level}
-                Fitness Level:{user.fitness_level}
+                Fitness Level:{user.fitness_level};
+                Gender:{user.gender};
+                DateofBirth:{user.dateofBirth};
               </Card.Content>
             </Card>
             <Card>
@@ -257,7 +257,8 @@ class Profile extends React.Component {
             </Card>
           </Grid.Row>
         </Grid.Column>
-        <Grid.Column width={8}>
+        <Grid.Column width={8
+        }>
           <h3>Your Workouts</h3>
 
           {this.state.workouts.map((w, ind) => (
