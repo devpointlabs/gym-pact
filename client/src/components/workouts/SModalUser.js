@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { AuthConsumer } from "../../providers/AuthProvider";
-import styled from "styled-components";
+import { Button, Header, Image, Modal } from "semantic-ui-react";
 import ropesImg from "../../imgs/ropes.jpg";
 import axios from "axios";
 import gymProfilePic from "../../imgs/gymProfPic.jpg";
-import Comment from "../comments/Comment";
+import Comment from "../comments/CommentUserShow";
 import CommentForm from "../comments/CommentForm";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
-const SearchModal = (props) => {
+const SModalUser = (props) => {
   const [users, setUsers] = useState([]);
   const response = [];
   const postUser = [];
@@ -54,7 +54,8 @@ const SearchModal = (props) => {
         {...comment}
         deleteComment={deleteComment}
         workout={props.workout}
-        user={props.user}
+        currentUser={props.currentUser}
+        user={users}
       />
     ));
   };
@@ -98,16 +99,11 @@ const SearchModal = (props) => {
   };
 
   return (
-    <ModalDiv>
-      <Background
-        onClick={props.unToggle}
-        style={{ display: display }}
-      ></Background>
-      <Container style={{ display: display }}>
-        <Close onClick={props.unToggle}>X</Close>
+    <Modal trigger={<h3>{props.workout.title}</h3>} closeIcon>
+      <Modal.Content style={{ padding: 0 }}>
         <Row>
-          <Image src={ropesImg} />
-          <Column style={{ paddingLeft: "1rem" }}>
+          <Image src={ropesImg} style={{ width: "70%" }} />
+          <Column>
             <Row style={{ width: "20rem" }}>
               <img
                 src={gymProfilePic}
@@ -119,62 +115,38 @@ const SearchModal = (props) => {
                 }}
               />
               <Column style={{ paddingTop: "1rem" }}>
-                <Link
-                  onClick={() => {
-                    props.unToggle();
-                    props.clearSearch();
-                  }}
-                  to={{
-                    pathname: "/usershow",
-                    state: {
-                      user: users,
-                      currentUser: props.user.user,
-                    },
-                  }}
-                >
-                  <H2>{users.username}</H2>
-                </Link>
+                <H2>{users.username}</H2>
+
                 <p style={{ fontSize: "12px" }}>{props.workout.created_at}</p>
               </Column>
             </Row>
-            <H1>{props.workout.title}</H1>
-            <Desc>{props.workout.desc}</Desc>
-            <CommentCounter>
-              {comments.length === 0
-                ? "Be the first to leave a comment..."
-                : comments.length + " comments"}
-            </CommentCounter>
-            <CommentsDiv
-              onClick={() => {
-                props.unToggle();
-                props.clearSearch();
-              }}
-            >
-              {comments.length === 0
-                ? "There are no comments"
-                : renderComments()}
-            </CommentsDiv>
-            <CommentForm
-              addComment={addComment}
-              workout_id={props.workout.id}
-            />
+
+            <Column>
+              <H1>{props.workout.title}</H1>
+              <Desc>{props.workout.desc}</Desc>
+              <CommentCounter>
+                {comments.length === 0
+                  ? "Be the first to leave a comment..."
+                  : comments.length + " comments"}
+              </CommentCounter>
+              <CommentsDiv>
+                {comments.length === 0
+                  ? "There are no comments"
+                  : renderComments()}
+              </CommentsDiv>
+              <CommentForm
+                style={{ width: "100%" }}
+                addComment={addComment}
+                workout_id={props.workout.id}
+              />
+            </Column>
           </Column>
         </Row>
-      </Container>
-      {props.children}
-    </ModalDiv>
+      </Modal.Content>
+    </Modal>
   );
 };
-
-export default class ConnectedModal extends React.Component {
-  render() {
-    return (
-      <AuthConsumer>
-        {(user) => <SearchModal {...this.props} user={user} />}
-      </AuthConsumer>
-    );
-  }
-}
+export default SModalUser;
 
 const ModalDiv = styled.div`
   z-index: 1;
@@ -260,13 +232,13 @@ const CommentCounter = styled.p`
   border-bottom: 1px solid #ddd;
   width: 90%;
 `;
-const Image = styled.img`
-  width: 38vw;
-  height: 70vh;
-  z-index: 2;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-`;
+// const Image = styled.img`
+//   width: 38vw;
+//   height: 70vh;
+//   z-index: 2;
+//   border-top-left-radius: 5px;
+//   border-bottom-left-radius: 5px;
+// `;
 const Input = styled.input`
   margin-top: 2rem;
   padding: 0.5rem;

@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Grid, Header, Button } from "semantic-ui-react";
 import axios from "axios";
+import SModalUser from "../workouts/SModalUser";
 
 const UserShow = (props) => {
+  const [workouts, setWorkouts] = useState([]);
   const { currentUser } = props.location.state;
   const user = props.location.state.user;
+  const [open, setOpen] = useState(false);
   const {
     username,
     first_name,
@@ -26,6 +29,27 @@ const UserShow = (props) => {
     currentUser.following
   );
 
+  const getWorkouts = () => {
+    axios
+      .get("/api/all_workouts")
+      .then((res) => {
+        let arr = res.data.filter((workout) => {
+          return workout.user_id === id;
+        });
+        return arr;
+      })
+      .then((res) => {
+        setOpen(true);
+        setWorkouts(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const hideWorkouts = () => {
+    setOpen(false);
+    setWorkouts([]);
+  };
   const followUser = (currentUser) => {
     if (followers.indexOf(currentUser.id) === -1) {
       followers.push(currentUser.id);
@@ -92,11 +116,11 @@ const UserShow = (props) => {
       >
         Go Back
       </span>
-
       <Grid.Column width={4}></Grid.Column>
       <Grid.Column width={8}>
         <Header as="h1">{username}</Header>{" "}
         <div>
+          <span>{id}</span>
           <p>First Name: {first_name}</p>
           <p>Last Name: {last_name}</p>
           <p>Email: {email}</p>
@@ -108,6 +132,22 @@ const UserShow = (props) => {
         </div>
         <div>
           <Button onClick={() => followUser(currentUser)}>{follow}</Button>
+        </div>
+        <div>
+          <h3>Workouts</h3>
+          <span
+            onClick={() => {
+              open ? hideWorkouts() : getWorkouts();
+            }}
+          >
+            {workouts.length ? "Hide Workouts" : "Show Workouts"}
+          </span>
+          {workouts.map((w, ind) => (
+            <SModalUser
+              workout={w}
+              currentUser={props.location.state.currentUser}
+            />
+          ))}
         </div>
       </Grid.Column>
     </>

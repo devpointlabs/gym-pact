@@ -65,6 +65,7 @@ class FeedWorkouts extends Component {
               workout={workout}
               user={this.props.user}
               unToggle={this.unToggle}
+              toggle={this.state.toggleModal}
             />
           ) : (
             <div>
