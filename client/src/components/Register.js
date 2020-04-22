@@ -1,14 +1,12 @@
-import React from "react";
-import { AuthConsumer } from "../providers/AuthProvider";
-import {
-  Button,
-  Form,
-  Segment,
-  Header,
-  Select,
-  Input,
-  Icon,
-} from "semantic-ui-react";
+
+import React from 'react';
+import { AuthConsumer } from '../providers/AuthProvider';
+import { Button, Form, Segment, Header, Container } from 'semantic-ui-react';
+import { 
+  SubmitButton,
+  Background,
+  Inputs, 
+  } from '../components/styles/SharedStyles';
 import DatePicker from "./DatePicker";
 // import Axios from 'axios';
 const genders = [
@@ -22,6 +20,7 @@ const fitnessLevels = [
   { key: 3, text: "Advanced", value: "advanced" },
   { key: 4, text: "Professional", value: "professional" },
 ];
+
 
 class Register extends React.Component {
   state = {
@@ -107,10 +106,10 @@ class Register extends React.Component {
     } = this.state;
 
     return (
-      <Segment basic>
-        <Header as="h1" textAlign="center">
-          Register
-        </Header>
+
+    <Background>
+      <Inputs>
+        <Header as='h1' textAlign='center'>Register</Header>
         <Form onSubmit={this.handleSubmit}>
           <Form.Input
             label="First Name"
@@ -120,7 +119,7 @@ class Register extends React.Component {
             value={first_name}
             placeholder="First Name"
             onChange={this.handleChange}
-          />
+            />
           <Form.Input
             label="Last Name"
             required
@@ -136,7 +135,7 @@ class Register extends React.Component {
             value={username}
             placeholder="User Name"
             onChange={this.handleChange}
-          />
+            />
           <Form.Input
             label="Email"
             required
@@ -144,7 +143,7 @@ class Register extends React.Component {
             value={email}
             placeholder="Email"
             onChange={this.handleChange}
-          />
+            />
           <Form.Input
             label="Password"
             required
@@ -153,7 +152,7 @@ class Register extends React.Component {
             placeholder="Password"
             type="password"
             onChange={this.handleChange}
-          />
+            />
           <Form.Input
             label="Password Confirmation"
             required
@@ -162,7 +161,7 @@ class Register extends React.Component {
             placeholder="Password Confirmation"
             type="password"
             onChange={this.handleChange}
-          />
+            />
           <Form.Input
             value={gender}
             label="Gender"
@@ -170,7 +169,7 @@ class Register extends React.Component {
             name="gender"
             placeholder="Gender"
             onChange={this.handleChange}
-          />
+            />
           <Form.Input
             label="Weight"
             required
@@ -178,7 +177,7 @@ class Register extends React.Component {
             value={weight}
             placeholder="Weight"
             onChange={this.handleChange}
-          />
+            />
           <Form.Input
             label="Date of Birth"
             required
@@ -194,26 +193,26 @@ class Register extends React.Component {
             value={fitness_level}
             placeholder="Fitness Level"
             onChange={this.handleChange}
-          />
-          <Segment textAlign="center" basic>
-            <Button primary type="submit">
-              Submit
-            </Button>
+            />
+          <Segment textAlign='center' basic>
+            <SubmitButton type='submit'>Submit</SubmitButton>
           </Segment>
         </Form>
-      </Segment>
-    );
+      </Inputs>
+  </Background>
+    )
   }
 }
 
-class ConnectedRegister extends React.Component {
-  render() {
-    return (
-      <AuthConsumer>
-        {(auth) => <Register {...this.props} auth={auth} />}
-      </AuthConsumer>
-    );
-  }
+ class ConnectedRegister extends React.Component {
+   render() {
+     return (
+       <AuthConsumer>
+       { auth => <Register { ...this.props } auth={auth} /> }
+       </AuthConsumer>
+       )
+      }
+
 }
 
 export default ConnectedRegister;

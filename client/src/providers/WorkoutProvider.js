@@ -61,10 +61,12 @@ class WorkoutProvider extends Component {
       });
   };
   // creates new workout
-  createWorkout = (workout, id, history) => {
+  createWorkout = (workout, file, id, history) => {
+    let data = new FormData();
+    data.append("file", file);
     // debugger
     axios
-      .post(`/api/users/${id}/workouts`, workout)
+      .post(`/api/users/${id}/workouts?title=${workout.title}&desc=${workout.desc}`, data)
       .then((res) => {
         const { workouts } = this.state;
         res.data.title = workout.title;
