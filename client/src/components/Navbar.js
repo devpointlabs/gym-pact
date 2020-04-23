@@ -1,9 +1,20 @@
 import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
-import { Menu, Input } from "semantic-ui-react";
+import { Menu, Input, Segment } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import SearchBar from "./SearchBar";
+import {
+  TopNav,
+  TopARight,
+  TopALeft,
+  TopACenter,
+  UnderNav,
+  BottomALeft,
+  BottomARight,
+  BottomACenter,
+  SearchContainer,
+} from "../components/styles/NavBarStyles";
 
 class Navbar extends React.Component {
   state = {
@@ -49,38 +60,51 @@ class Navbar extends React.Component {
     } = this.props;
     if (user) {
       return (
-        <Menu
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            width: "100%",
-          }}
-        >
-          <Link to="/home">
-            <Menu.Item
-              name="Recent"
-              id="feed"
-              active={this.props.location.pathname === "/home"}
-            />
-          </Link>
+        <UnderNav>
+          <BottomACenter href="/home">Recent</BottomACenter>
           <Link to={{ pathname: "/subscriptions", user: this.props.auth.user }}>
-            <Menu.Item
-              name="Subscribed"
-              id="subscribed"
-              active={this.props.location.pathname === "/subscriptions"}
-            />
+            <BottomACenter>Subscriptions</BottomACenter>
           </Link>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-            }}
-          >
-            <Menu.Item>
-              <Input onKeyDown={this.filter} placeholder="search" />
-            </Menu.Item>
-          </div>
-        </Menu>
+          <SearchContainer>
+            <BottomARight
+              onKeyDown={this.filter}
+              placeholder="search..."
+            ></BottomARight>
+          </SearchContainer>
+        </UnderNav>
+
+        // <Menu
+        //   style={{
+        //     display: "flex",
+        //     justifyContent: "center",
+        //     width: "100%",
+        //   }}
+        // >
+        //   <Link to="/home">
+        //     <Menu.Item
+        //       name="Recent"
+        //       id="feed"
+        //       active={this.props.location.pathname === "/home"}
+        //     />
+        //   </Link>
+        //   <Link to={{ pathname: "/subscriptions", user: this.props.auth.user }}>
+        //     <Menu.Item
+        //       name="Subscribed"
+        //       id="subscribed"
+        //       active={this.props.location.pathname === "/subscriptions"}
+        //     />
+        //   </Link>
+        //   <div
+        //     style={{
+        //       display: "flex",
+        //       justifyContent: "flex-end",
+        //     }}
+        //   >
+        //     <Menu.Item>
+        //       <Input onKeyDown={this.filter} placeholder="search" />
+        //     </Menu.Item>
+        //   </div>
+        // </Menu>
       );
     } else {
       return null;
@@ -94,47 +118,61 @@ class Navbar extends React.Component {
 
     if (user) {
       return (
-        <Menu.Menu position="right">
-          <Menu.Item
-            name="logout"
-            onClick={() => handleLogout(this.props.history)}
-          />
-          <Link
-            to={{
-              pathname: "/workoutform",
-              state: { user: user },
-            }}
-          >
-            <Menu.Item active={location.pathname === "/workoutform"}>
-              + New Workout
-            </Menu.Item>
+        <TopNav>
+          <TopARight onClick={() => handleLogout(this.props.history)}>
+            Logout
+          </TopARight>
+          <TopARight href="/profile">Profile</TopARight>
+          <Link to={{ pathname: "/workoutform", state: { user: user } }}>
+            <TopARight>New Workout</TopARight>
           </Link>
-          <Link to="/profile">
-            <Menu.Item
-              name="profile"
-              active={location.pathname === "/profile"}
-            />
-          </Link>
-        </Menu.Menu>
+        </TopNav>
+
+        // <Menu.Menu position="right">
+        //   <Menu.Item
+        //     name="logout"
+        //     onClick={() => handleLogout(this.props.history)}
+        //   />
+        //   <Link
+        //     to={{
+        //       pathname: "/workoutform",
+        //       state: { user: user },
+        //     }}
+        //   >
+        //     <Menu.Item active={location.pathname === "/workoutform"}>
+        // //       + New Workout
+        // //     </Menu.Item>
+        //   </Link>
+        //   <Link to="/profile">
+        //     <Menu.Item
+        //       name="profile"
+        //       active={location.pathname === "/profile"}
+        //     />
+        //   </Link>
+        // </Menu.Menu>
       );
     } else {
       return (
-        <Menu.Menu position="right">
-          <Link to="/login">
-            <Menu.Item
-              id="login"
-              name="login"
-              active={location.pathname === "/login"}
-            />
-          </Link>
-          <Link to="/register">
-            <Menu.Item
-              id="register"
-              name="register"
-              active={location.pathname === "/register"}
-            />
-          </Link>
-        </Menu.Menu>
+        <TopNav>
+          <TopARight href="/register">Register</TopARight>
+          <TopARight href="/login">Login</TopARight>
+        </TopNav>
+        // <Menu.Menu position="right">
+        //   <Link to="/login">
+        //     <Menu.Item
+        //       id="login"
+        //       name="login"
+        //       active={location.pathname === "/login"}
+        //       />
+        //   </Link>
+        //   <Link to="/register">
+        //     <Menu.Item
+        //       id="register"
+        //       name="register"
+        //       active={location.pathname === "/register"}
+        //       />
+        //   </Link>
+        // </Menu.Menu>
       );
     }
   };
@@ -142,22 +180,28 @@ class Navbar extends React.Component {
   render() {
     return (
       <div>
-        <Menu pointing secondary>
-          <Link to="/">
-            <Menu.Item
-              name="GymPact"
-              id="home"
-              active={this.props.location.pathname === "/home"}
-            />
-          </Link>
+        <TopNav>
+          <TopALeft href="/">GymPact</TopALeft>
           {this.rightNavItems()}
-        </Menu>
-        {this.searchSection()}
-        <SearchBar
-          searchActive={this.state.searchActive}
-          searchResults={this.state.searchResults}
-          clearSearch={this.clearSearch}
-        />
+          {this.searchSection()}
+          <SearchBar
+            searchActive={this.state.searchActive}
+            searchResults={this.state.searchResults}
+            clearSearch={this.clearSearch}
+          />
+        </TopNav>
+
+        {/* <Segment inverted>
+          <Menu inverted pointing secondary>
+            <Link to="/">
+              <Menu.Item
+                name="GymPact"
+                id="home"
+                active={this.props.location.pathname === "/home"}
+                />
+            </Link>
+          </Menu>
+      </Segment> */}
       </div>
     );
   }

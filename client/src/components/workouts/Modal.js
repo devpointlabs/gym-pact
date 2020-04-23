@@ -7,6 +7,8 @@ import Comment from "../comments/Comment";
 import CommentForm from "../comments/CommentForm";
 import { Link } from "react-router-dom";
 import { device } from "../../mediaquery";
+import Moment from 'react-moment';
+
 
 const Modal = (props) => {
   const [users, setUsers] = useState([]);
@@ -55,6 +57,15 @@ const Modal = (props) => {
     ));
   };
 
+  const getWorkoutCreation = () => (
+    <Moment format="MMMM DD, YYYY" withTitle>
+                    {props.workout.created_at}
+                </Moment>
+  )
+
+  // Carson and Harlan Commented this out because of conflicts with Comments
+  // between Carson, Harlan and Jon we will need to test this.
+  //
   const getPostUser = () => {
     axios
       .get("/api/all_users")
@@ -116,6 +127,7 @@ const Modal = (props) => {
             </Column>
           </HeaderRow>
           <WorkoutDetails>
+
             <H1>{props.workout.title}</H1>
             <Desc>{props.workout.desc}</Desc>
           </WorkoutDetails>
