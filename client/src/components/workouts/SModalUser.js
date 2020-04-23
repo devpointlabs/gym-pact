@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Button, Header, Image, Modal } from "semantic-ui-react";
-import ropesImg from "../../imgs/ropes.jpg";
+import { Modal } from "semantic-ui-react";
 import axios from "axios";
 import gymProfilePic from "../../imgs/ropes.jpg";
 import Comment from "../comments/CommentUserShow";
 import CommentForm from "../comments/CommentForm";
-import { Link } from "react-router-dom";
+import { device } from "../../mediaquery";
 import styled from "styled-components";
 
 const SModalUser = (props) => {
@@ -14,6 +13,7 @@ const SModalUser = (props) => {
   const postUser = [];
   const id = props.workout.user_id;
   const [comments, setComments] = useState([]);
+  const [commentsCount, setCommentsCount] = useState("");
   const [clear, setClear] = useState();
 
   // componentDidmount
@@ -33,6 +33,17 @@ const SModalUser = (props) => {
     getPostUser();
   }, [props.workout.id]);
 
+  useEffect(() => {
+    axios
+      .get(`/api/workouts/${props.workout.id}/comments`)
+      .then((res) => {
+        let count = res.data.length;
+        return count;
+      })
+      .then((count) => {
+        setCommentsCount(count);
+      });
+  });
   const addComment = (comment) => {
     setComments([...comments, comment]);
   };
@@ -97,101 +108,148 @@ const SModalUser = (props) => {
   };
 
   return (
-    <Modal trigger={<h3>{props.workout.title}</h3>} closeIcon>
+    <Modal
+      trigger={
+        <Workout>
+          <span>{props.workout.title}</span>
+          <span style={{ color: "#6CD3E0" }}>{commentsCount} Comments</span>
+        </Workout>
+      }
+      style={{ width: "60%" }}
+      closeIcon
+    >
       <Modal.Content style={{ padding: 0 }}>
-        <Row>
-          <Image src={ropesImg} style={{ width: "70%" }} />
+        <ModalDiv>
           <Column>
-            <Row style={{ width: "20rem" }}>
-              <img
-                src={gymProfilePic}
-                style={{
-                  width: "50px",
-                  height: "50px",
-                  margin: "0.5rem",
-                  borderRadius: "50%",
-                }}
-              />
-              <Column style={{ paddingTop: "1rem" }}>
-                <H2>{users.username}</H2>
-
-                <p style={{ fontSize: "12px" }}>{props.workout.created_at}</p>
-              </Column>
-            </Row>
-
-            <Column>
+            <HeaderAndImage>
+              <HeaderRow style={{ width: "20rem" }}>
+                <img
+                  src={users.image}
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    margin: "0.5rem",
+                    borderRadius: "50%",
+                  }}
+                />
+                <Column style={{ paddingTop: "1rem" }}>
+                  <H2>{users.username}</H2>
+                  <p style={{ fontSize: "12px" }}>{props.workout.created_at}</p>
+                </Column>
+              </HeaderRow>
+              <Image src={props.workout.image} />
+            </HeaderAndImage>
+            <WorkoutDetails>
               <H1>{props.workout.title}</H1>
               <Desc>{props.workout.desc}</Desc>
-              <CommentCounter>
-                {comments.length === 0
-                  ? "Be the first to leave a comment..."
-                  : comments.length + " comments"}
-              </CommentCounter>
-              <CommentsDiv>
-                {comments.length === 0
-                  ? "There are no comments"
-                  : renderComments()}
-              </CommentsDiv>
-              <CommentForm
-                style={{ width: "100%" }}
-                addComment={addComment}
-                workout_id={props.workout.id}
-              />
-            </Column>
+            </WorkoutDetails>
+            <CommentCounter>
+              {comments.length === 0
+                ? "Be the first to leave a comment..."
+                : comments.length + " comments"}
+            </CommentCounter>
+            <CommentsDiv>
+              {comments.length === 0
+                ? "There are no comments"
+                : renderComments()}
+            </CommentsDiv>
+            <CommentForm
+              style={{ width: "100%" }}
+              addComment={addComment}
+              workout_id={props.workout.id}
+            />
           </Column>
-        </Row>
+        </ModalDiv>
       </Modal.Content>
     </Modal>
   );
 };
 export default SModalUser;
 
-const ModalDiv = styled.div`
-  z-index: 1;
-  color: #292b4d;
-`;
-const Background = styled.div`
-  transition-duration: 1s;
-  position: fixed;
-  bottom: 0vh;
-  right: 0vw;
-  height: 100vh;
-  width: 100vw;
-  background-color: black;
-  overflow-y: hidden;
-  opacity: 0.8;
-  z-index: 1;
-`;
-const Container = styled.div`
-  position: fixed;
-  height: 70vh;
-  width: 60vw;
-  top: 15vh;
-  left: 21vw;
-  background-color: #eee;
-  z-index: 3;
+const Workout = styled.div`
+  background-color: #353765;
+  color: #fbd878;
+  padding: 0.4rem 1.4rem;
+  margin: 0.4rem 0 0 4rem;
+  min-height: 3rem;
+  width: 70%;
+  display: flex;
+  justify-content: space-evenly;
+  cursor: pointer;
   border-radius: 5px;
 `;
-const Close = styled.span`
-  position: fixed;
-  top: 13vh;
-  left: 80.2vw;
-  height: 30px;
-  width: 30px;
-  background-color: #6cd3e0;
-  text-align: center;
-  padding-top: 4px;
-  border-radius: 50%;
-  cursor: pointer;
+const ModalDiv = styled.div`
+  display: flex;
+  /* @media ${device.mobileS} {
+    border: 3px solid brown;
+  }
+  @media ${device.mobileM} {
+    border: 3px solid purple;
+  }
+  @media ${device.mobileL} {
+    border: 3px solid yellow;
+  }
+  @media ${device.tablet} {
+    border: 1px solid red;
+  }
+  @media ${device.tablet} {
+    border: 1px solid red;
+  }
+  @media ${device.laptop} {
+    border: 1px solid green;
+  }
+  @media ${device.laptopL} {
+    border: 1px solid blue;
+  } */
+`;
+const Image = styled.img`
+  min-height: 40vh;
+  width: 90%;
+  @media ${device.tablet} {
+    width: 50%;
+  }
+  @media ${device.laptop} {
+    width: 55%;
+  }
+  @media ${device.laptopL} {
+    width: 60%;
+  }
+`;
+const HeaderRow = styled.div`
+  display: flex;
+`;
+const HeaderAndImage = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  @media ${device.tablet} {
+    flex-direction: row-reverse;
+  }
+`;
+const WorkoutDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media ${device.tablet} {
+    position: relative;
+    max-width: 46%;
+    top: -20%;
+    left: 55%;
+    align-items: flex-end;
+    padding-right: 2rem;
+    margin-bottom: 1rem;
+  }
+  @media ${device.laptop} {
+    top: -30%;
+    margin-top: -5%;
+  }
+  @media ${device.laptopL} {
+    margin-top: -10%;
+  }
 `;
 const Column = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  color: grey;
-`;
-const Row = styled.div`
-  display: flex;
 `;
 const H1 = styled.h1`
   position: relative;
@@ -211,8 +269,6 @@ const H2 = styled.h2`
   z-index: 12;
 `;
 const Desc = styled.p`
-  min-height: 10vh;
-  max-width: 80%;
   font-size: 12px;
   color: #000;
 `;
@@ -226,24 +282,9 @@ const CommentsDiv = styled.div`
 `;
 const CommentCounter = styled.p`
   padding: 1rem 0;
+  margin-left: 1rem;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
+  align-self: center;
   width: 90%;
-`;
-// const Image = styled.img`
-//   width: 38vw;
-//   height: 70vh;
-//   z-index: 2;
-//   border-top-left-radius: 5px;
-//   border-bottom-left-radius: 5px;
-// `;
-const Input = styled.input`
-  margin-top: 2rem;
-  padding: 0.5rem;
-  height: 25px;
-  width: 80%;
-  border-radius: 15px;
-  outline: none;
-  border-style: solid;
-  border-color: #ddd;
 `;

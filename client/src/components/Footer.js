@@ -4,9 +4,6 @@
 // const Footer = () => {
 //   return (
 //     <div style={styles.footer}>
-
-
-
 //     </div>
 //   )
 // }
@@ -33,3 +30,4 @@
 //     marginTop: "-8em",
 //   },
 // };
+

@@ -1,6 +1,5 @@
 import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
-import { Menu, Input, Segment } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import SearchBar from "./SearchBar";
@@ -25,8 +24,10 @@ class Navbar extends React.Component {
   filter = (e) => {
     const { searchInput, searchResults } = this.state;
     this.setState({ searchInput: e.target.value });
+
     if (e.which != 8 && e.which != 16) {
       this.setState({ searchActive: "block" });
+
       axios
         .get("/api/all_workouts")
         .then((res) => {
@@ -37,7 +38,6 @@ class Navbar extends React.Component {
                 .includes(this.state.searchInput.toLowerCase());
             }),
           });
-          console.log(this.state.searchResults, this.state.searchInput);
         })
         .catch((err) => {
           console.log(err);

@@ -57,12 +57,13 @@ class Subscriptions extends Component {
       <div>
         <h1>Subscriptions</h1>
 
-        <Container style={{ display: "flex", flexWrap: "wrap" }}>
+        <Container>
           {this.state.toggleModal === true ? (
             <Modal
               workout={this.state.workout}
               user={this.props.user}
               unToggle={this.unToggle}
+              toggle={this.state.toggleModal}
             />
           ) : (
             <div
