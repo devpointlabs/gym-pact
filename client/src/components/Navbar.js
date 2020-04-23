@@ -63,7 +63,7 @@ class Navbar extends React.Component {
       return (
         
         <UnderNav>
-          <BottomACenter href='/home'>Home</BottomACenter>
+          <BottomACenter href='/home'>Recent</BottomACenter>
           <BottomACenter href={{ pathname: "/subscriptions", user: this.props.auth.user }}>Subscribed</BottomACenter>
           <SearchContainer>
             <BottomARight onKeyDown={this.filter} placeholder="search..."></BottomARight>
@@ -120,7 +120,10 @@ class Navbar extends React.Component {
         <TopNav>
           <TopARight  onClick={() => handleLogout(this.props.history)}>Logout</TopARight>
           <TopARight href="/profile">Profile</TopARight>
-          <TopARight href='/workoutform' active={location.pathname === "/workoutform"}>New Workout</TopARight>
+            <Link to={{pathname: "/workoutform", state: {user: user},}}>
+          <TopARight>New Workout
+          </TopARight>
+              </Link> 
         </TopNav>
 
 

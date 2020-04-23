@@ -3,10 +3,12 @@ import styled from 'styled-components';
 export const TopNav = styled.div`
    overflow: hidden;
    background-color: #292B4D;
+   padding: .5em;
    `
    export const UnderNav = styled.div`
    overflow: hidden;
    background-color: #353765;
+   padding: .5em;
 
 `
 
@@ -69,6 +71,7 @@ export const SearchContainer = styled.form`
    
    export const BottomARight = styled.input`
    float: right;
+   border-radius: 4px;
 `
 // export const BottomARight = styled.input[type=text]`
 //    padding: 6px;
