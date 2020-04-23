@@ -1,6 +1,5 @@
 import React from "react";
 import { AuthConsumer } from "../providers/AuthProvider";
-import { Menu, Input, Segment } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import SearchBar from "./SearchBar";
@@ -39,7 +38,6 @@ class Navbar extends React.Component {
                 .includes(this.state.searchInput.toLowerCase());
             }),
           });
-          console.log(this.state.searchResults, this.state.searchInput);
         })
         .catch((err) => {
           console.log(err);

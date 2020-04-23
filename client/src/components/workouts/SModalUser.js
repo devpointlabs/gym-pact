@@ -202,6 +202,7 @@ const ModalDiv = styled.div`
   } */
 `;
 const Image = styled.img`
+  min-height: 40vh;
   width: 90%;
   @media ${device.tablet} {
     width: 50%;
@@ -229,7 +230,9 @@ const WorkoutDetails = styled.div`
   flex-direction: column;
   @media ${device.tablet} {
     position: relative;
+    max-width: 46%;
     top: -20%;
+    left: 55%;
     align-items: flex-end;
     padding-right: 2rem;
     margin-bottom: 1rem;

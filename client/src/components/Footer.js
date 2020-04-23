@@ -1,12 +1,8 @@
-import React from 'react';
+import React from "react";
 
 const Footer = () => {
-  return (
-    <div style={styles.footer}>
-
-    </div>
-  )
-}
+  return <div style={styles.footer}></div>;
+};
 
 export default Footer;
 
@@ -23,7 +19,7 @@ const styles = {
     // backgroundColor: "black",
     // color: "white",
     textAlign: "center",
-    height: "4em",
+    height: "0em",
     marginTop: "-8em",
   },
 };
