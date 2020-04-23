@@ -186,9 +186,9 @@ class Profile extends React.Component {
                 Fitness Level:{user.fitness_level}
                 <div
               style={{
-                display: "flex",
-                flexWrap: "wrap",
-                width: "100%",
+                // display: "flex",
+                // flexWrap: "wrap",
+                // width: "100%",
                 justifyContent: "space-around",
               }}
             ></div>
@@ -196,9 +196,9 @@ class Profile extends React.Component {
                 Gender:{user.gender}
                 <div
               style={{
-                display: "flex",
-                flexWrap: "wrap",
-                width: "100%",
+                // display: "flex",
+                // flexWrap: "wrap",
+                // width: "100%",
                 justifyContent: "space-around",
               }}
             ></div>
@@ -206,13 +206,13 @@ class Profile extends React.Component {
                 DateofBirth:{user.date_of_birth}
                 <div
               style={{
-                display: "flex",
-                flexWrap: "wrap",
-                width: "100%",
+                // display: "flex",
+                // flexWrap: "wrap",
+                // width: "100%",
                 justifyContent: "space-around",
               }}
             ></div>
-            
+
               </Card.Content>
             </Card>
             <Card>
@@ -407,7 +407,7 @@ const styles = {
     padding: "10px",
   },
   userImage: {
-    display: 'flex',
+    display: 'flexÇ',
     flexDirection: 'row',
     justifyContent: 'flex-start'
   },
