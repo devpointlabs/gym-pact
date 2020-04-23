@@ -15,40 +15,51 @@ import axios from "axios";
 import { Redirect } from "react-router-dom";
 import "./UserStyle.css";
 import { Card, Icon } from "semantic-ui-react";
-import Ropes from '../../imgs/ropes.jpg';
+import Ropes from "../../imgs/ropes.jpg";
 const ProfileCard = () => {};
 const defaultImage =
   "https://s3.amazonaws.com/37assets/svn/765-default-avatar.png";
-
 
 class Profile extends React.Component {
   state = {
     editing: false,
     formValues: { first_name: "", email: "", file: "" },
     workouts: [],
-    currentUser: this.props.auth.user,
-    user_id: this.props.auth.user.id,
+    currentUser: "",
+    user_id: "",
     users: [],
-    followersIndex: this.props.auth.user.followers,
-    followingIndex: this.props.auth.user.following,
+    followersIndex: "",
+    followingIndex: "",
     followers: [],
     following: [],
   };
 
   componentDidMount() {
+    const { auth } = this.props;
+    if (!this.props.auth.user) return <Redirect to="/" />;
     const {
       auth: { user },
     } = this.props;
+
     this.setState({
       formValues: { first_name: user.first_name, email: user.email },
       user_id: user.id,
     });
     // get workouts for this user
     console.log(`/api/users/${this.state.user_id}/workouts`);
-    axios.get(`/api/users/${this.state.user_id}/workouts`).then((res) => {
+
+    this.setState({
+      currentUser: auth.user,
+      user_id: auth.user.id,
+      followersIndex: auth.user.followers,
+      followingIndex: auth.user.following,
+    });
+
+    axios.get(`/api/users/${this.props.auth.user.id}/workouts`).then((res) => {
       console.log(res.data);
       this.setState({ workouts: res.data });
     });
+
     // get user to compare to followers and followings
     axios
       .get("/api/all_users")
@@ -149,6 +160,140 @@ class Profile extends React.Component {
     });
   };
 
+  userWorkouts = () => {
+    if (this.state.workouts.length === 0) {
+      return <div>No Workouts</div>;
+    } else {
+      return (
+        <Card.Group itemsPerRow={2}>
+          {/* <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            width: "100%",
+            justifyContent: "space-around",
+          }}
+        > */}
+          {this.state.workouts.map((w, ind) => (
+            <Card key={ind}>
+              <Image src={w.image || Ropes} wrapped ui={false} />
+              <Card.Content>
+                <Card.Header>
+                  <div style={styles.workoutRow}>{w.title}</div>
+                </Card.Header>
+                <Card.Description>{w.desc}</Card.Description>
+              </Card.Content>
+              <Card.Content extra>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-around",
+                    width: "100%",
+                  }}
+                >
+                  <Button
+                    onClick={() => this.deleteWorkout(w.id)}
+                    style={{ backgroundColor: "#6CD3E0" }}
+                  >
+                    Delete
+                  </Button>
+
+                  <Link
+                    to={{
+                      pathname: "/editWorkout",
+                      state: {
+                        user: this.state.user_id,
+                        title: w.title,
+                        desc: w.desc,
+                        workout_id: w.id,
+                      },
+                    }}
+                  >
+                    <Button style={{ backgroundColor: "#FBD877" }}>Edit</Button>
+                  </Link>
+                </div>
+              </Card.Content>
+            </Card>
+          ))}
+          {/* </div> */}
+        </Card.Group>
+      );
+    }
+  };
+
+  following = () => {
+    const { following } = this.state;
+    if (following.length === 0) {
+      return <div>You are not following anyone!</div>;
+    } else {
+      return (
+        <div>
+          {following.map((user, ind) => (
+            <div key={ind}>
+              <Link
+                to={{
+                  pathname: "/usershow",
+                  state: {
+                    currentUser: this.state.currentUser,
+                    user: user,
+                  },
+                }}
+              >
+                <div style={styles.userImage}>
+                  <Image
+                    src={user.image || defaultImage}
+                    size="mini"
+                    circular
+                  />
+                  <p>
+                    {user.first_name} {user.last_name}
+                  </p>
+                </div>
+              </Link>
+            </div>
+          ))}
+        </div>
+      );
+    }
+  };
+
+  followers = () => {
+    const { followers } = this.state;
+    if (followers.length !== 0) {
+      return (
+        <div>
+          {followers.map((user, ind) => (
+            <div key={ind}>
+              <Link
+                to={{
+                  pathname: "/usershow",
+                  state: {
+                    currentUser: this.state.currentUser,
+                    user: user,
+                  },
+                }}
+              >
+                <div style={styles.userImage}>
+                  <Image
+                    src={user.image || defaultImage}
+                    size="mini"
+                    circular
+                  />
+                  <p>
+                    {user.first_name} {user.last_name}
+                  </p>
+                </div>
+              </Link>
+            </div>
+          ))}
+        </div>
+      );
+    } else {
+      return <div>No Followers</div>;
+    }
+  };
+
   // Profile View
   profileView = () => {
     const {
@@ -156,7 +301,11 @@ class Profile extends React.Component {
     } = this.props;
     return (
       <>
-        <Grid.Row columns={2}>
+        <Grid.Row
+          columns={2}
+          // style={{ border: "solid 1em #353765", borderRadius: "4px" }}
+        >
+          {/* <div style={{ border: "solid 2em #353765" }}> */}
           <Grid.Column width={4}>
             <Image
               src={this.showImage()}
@@ -170,113 +319,59 @@ class Profile extends React.Component {
               {user.first_name} {user.last_name}
             </Header>
           </Grid.Column>
+          {/* </div> */}
         </Grid.Row>
-        <Grid.Column style={{ height: "321px", width: "4in" }}>
+        <Grid.Column style={{ height: "100%", width: "30%" }}>
+          <h3>Information</h3>
           <Grid.Row>
             {/* {" "}
             (col one) */}
-            <Card>
+            <Card style={{ border: "solid 2px #353765", borderRadius: "4px" }}>
               <Card.Content>
-                <Card.Header>INFORMATION</Card.Header>
                 <Card.Description>
                   Name: {user.first_name} {user.last_name}
                 </Card.Description>
               </Card.Content>
               <Card.Content extra>
-                Fitness Level:{user.fitness_level}
+                Fitness Level: {user.fitness_level}
                 <div
-              style={{
-                // display: "flex",
-                // flexWrap: "wrap",
-                // width: "100%",
-                justifyContent: "space-around",
-              }}
-            ></div>
-                
-                Gender:{user.gender}
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    // width: "100%",
+                    justifyContent: "space-around",
+                  }}
+                ></div>
+                Gender: {user.gender}
                 <div
-              style={{
-                // display: "flex",
-                // flexWrap: "wrap",
-                // width: "100%",
-                justifyContent: "space-around",
-              }}
-            ></div>
-
-                DateofBirth:{user.date_of_birth}
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    // width: "100%",
+                    justifyContent: "space-around",
+                  }}
+                ></div>
+                DateofBirth: {user.date_of_birth}
                 <div
-              style={{
-                // display: "flex",
-                // flexWrap: "wrap",
-                // width: "100%",
-                justifyContent: "space-around",
-              }}
-            ></div>
-
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    // width: "100%",
+                    justifyContent: "space-around",
+                  }}
+                ></div>
               </Card.Content>
             </Card>
-            <Card>
+            <Card style={{ border: "solid 2px #353765", borderRadius: "4px" }}>
               <Card.Content>
                 <Card.Header>Followers</Card.Header>
-                <Card.Description>
-                  {this.state.followers.map((user, ind) => (
-                    <div key={ind}>
-                      <Link
-                        to={{
-                          pathname: "/usershow",
-                          state: {
-                            currentUser: this.state.currentUser,
-                            user: user,
-                          },
-                        }}
-                      >
-                        <div style={styles.userImage}>
-                          <Image
-                            src={user.image || defaultImage}
-                            size="mini"
-                            circular
-                          />
-                          <p>
-                            {user.first_name} {user.last_name}
-                          </p>
-                        </div>
-                      </Link>
-                    </div>
-                  ))}
-                </Card.Description>
+                <Card.Description>{this.followers()}</Card.Description>
               </Card.Content>
             </Card>
-            <Card>
+            <Card style={{ border: "solid 2px #353765", borderRadius: "4px" }}>
               <Card.Content>
                 <Card.Header>Following</Card.Header>
-                <Card.Description>
-                  <div>
-                    {this.state.following.map((user, ind) => (
-                      <div key={ind}>
-                        <Link
-                          to={{
-                            pathname: "/usershow",
-                            state: {
-                              currentUser: this.state.currentUser,
-                              user: user,
-                            },
-                          }}
-                        >
-                          <div style={styles.userImage}>
-                            <Image
-                              src={user.image || defaultImage}
-                              size="mini"
-                              circular
-                            />
-                            <p>
-                              {user.first_name} {user.last_name}
-                            </p>
-                          </div>
-                        </Link>
-                      </div>
-                    ))}
-                  </div>
-                </Card.Description>
+                <Card.Description>{this.following()}</Card.Description>
               </Card.Content>
               <Card.Content extra>
                 <a></a>
@@ -284,36 +379,10 @@ class Profile extends React.Component {
             </Card>
           </Grid.Row>
         </Grid.Column>
-        <Grid.Column width={8
-        }>
+        <Grid.Column width={8}>
           <h3>Your Workouts</h3>
 
-          {this.state.workouts.map((w, ind) => (
-            <Card key={ind}>
-              <Card.Content>
-                <Image src={w.image || Ropes} />
-
-                <Card.Header>
-                  <div style={styles.workoutRow}>{w.title}</div>
-                </Card.Header>
-
-                <button onClick={() => this.deleteWorkout(w.id)}>Delete</button>
-                <Link
-                  to={{
-                    pathname: "/editWorkout",
-                    state: {
-                      user: this.state.user_id,
-                      title: w.title,
-                      desc: w.desc,
-                      workout_id: w.id,
-                    },
-                  }}
-                >
-                  <button>Edit</button>
-                </Link>
-              </Card.Content>
-            </Card>
-          ))}
+          {this.userWorkouts()}
           {/* <Grid.Row>col two</Grid.Row> */}
         </Grid.Column>
       </>
@@ -364,9 +433,8 @@ class Profile extends React.Component {
     );
   };
 
-
   render() {
-    if (!this.props.auth.user) return <Redirect to="/" />
+    if (!this.props.auth.user) return <Redirect to="/" />;
     const { editing } = this.state;
     return (
       <Container>
@@ -383,7 +451,6 @@ class Profile extends React.Component {
     );
   }
 }
-
 
 export default class ConnectedProfile extends React.Component {
   render() {
@@ -407,15 +474,15 @@ const styles = {
     padding: "10px",
   },
   userImage: {
-    display: 'flexÇ',
-    flexDirection: 'row',
-    justifyContent: 'flex-start'
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
   },
   workoutRow: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    padding: '.5em 0em'
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    padding: ".5em 0em",
   },
 
 };
