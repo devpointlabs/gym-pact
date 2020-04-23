@@ -24,9 +24,7 @@ const Comment = (props) => {
   return (
     <CommentRow>
       <Image src={user.image} width="40px" height="40px" circular />
-
       <CommentName>{user.first_name}</CommentName>
-
       <CommentText>{comment.text_field}</CommentText>
     </CommentRow>
   );
@@ -44,13 +42,14 @@ const styles = {
 
 const CommentRow = styled.div`
   display: flex;
-  align-items: center;
   margin: 0.5rem 0;
 `;
 const CommentName = styled.h4`
   margin: 0 0.4rem;
+  padding-top: 8px;
 `;
 const CommentText = styled.div`
   height: fit-content;
   width: 80%;
+  padding-top: 12px;
 `;

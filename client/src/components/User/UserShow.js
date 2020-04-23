@@ -139,7 +139,11 @@ const UserShow = (props) => {
           <Image
             circular
             src={image}
-            style={{ margin: "2rem", width: "25rem", height: "25rem" }}
+            style={{
+              margin: "2rem",
+              width: "25rem",
+              height: "25rem",
+            }}
           />
         </ImageDiv>
 
@@ -304,6 +308,7 @@ const AboutColumn = styled.div`
 const WorkoutsDiv = styled.div`
   width: 100%;
   margin-top: 3rem;
+  padding: 2rem;
   box-shadow: 4px 8px 10px #999;
   @media ${device.laptop} {
     margin-top: 0;
