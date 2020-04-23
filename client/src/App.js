@@ -17,12 +17,13 @@ import LandingPage from "./components/LandingPage";
 import Profile from "./components/User/Profile";
 import UserShow from "./components/User/UserShow";
 import ConnectedSubscriptions from "./components/workouts/Subscriptions";
+import Footer from './components/Footer';
 
 const App = () => (
   <Fragment>
     <Navbar />
     <FetchUser>
-      <div style={{ backgroundColor: "#F0F1F8", width: "100vw", height: '100vh' }}>
+      <div style={{ backgroundColor: "#F0F1F8", width: '100vw', height: '100vh', paddingTop: '4em', paddingBottom: '6em' }}>
         <WorkoutProvider>
           <Switch>
             <Route exact path="/" component={LandingPage} />
@@ -43,6 +44,7 @@ const App = () => (
           </Switch>
         </WorkoutProvider>
       </div>
+        <Footer />
     </FetchUser>
   </Fragment>
 );
