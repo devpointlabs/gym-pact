@@ -201,31 +201,31 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   @media ${device.mobileS} {
-    border: 3px solid brown;
+    /* border: 3px solid brown; */
   }
   @media ${device.mobileM} {
-    border: 3px solid purple;
+    /* border: 3px solid purple; */
   }
   @media ${device.mobileL} {
-    border: 3px solid yellow;
+    /* border: 3px solid yellow; */
   }
   @media ${device.tablet} {
     flex-direction: row;
     align-content: center;
     align-items: center;
     justify-content: center;
-    border: 3px solid red;
+    /* border: 3px solid red; */
     width: 70%;
     top: 20vh;
     left: 15vw;
   }
   @media ${device.laptop} {
-    border: 3px solid green;
+    /* border: 3px solid green; */
     top: 10vh;
     max-height: 80vh;
   }
   @media ${device.laptopL} {
-    border: 3px solid blue;
+    /* border: 3px solid blue; */
     max-width: 1008px;
   }
 `;
@@ -233,11 +233,11 @@ const ImageDiv = styled.div`
   width: 100%;
   /* height: 35vh; */
   height: 100%;
-  border: 2px solid red;
+  /* border: 2px solid red; */
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.8);
+  /* background-color: rgba(0, 0, 0, 0.8); */
   @media ${device.mobileM} {
     height: 30vh;
   }
@@ -297,7 +297,7 @@ const WorkoutDetails = styled.div`
   height: 100%;
   /* align-items: center; */
   @media ${device.tablet} {
-    border: 1px solid red;
+    /* border: 1px solid red; */
     height: 40%;
   }
 `;
