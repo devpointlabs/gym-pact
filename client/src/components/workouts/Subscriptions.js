@@ -65,7 +65,14 @@ class Subscriptions extends Component {
               unToggle={this.unToggle}
             />
           ) : (
-            <div>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                width: "100%",
+                justifyContent: "space-around",
+              }}
+            >
               {this.state.subscriptions.map((workout) => (
                 <WorkoutCard
                   key={workout.id}

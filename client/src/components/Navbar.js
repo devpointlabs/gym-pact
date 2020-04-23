@@ -5,7 +5,7 @@ import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import SearchBar from "./SearchBar";
 import {
-  TopNav, 
+  TopNav,
   TopARight,
   TopALeft,
   TopACenter,
@@ -14,10 +14,7 @@ import {
   BottomARight,
   BottomACenter,
   SearchContainer,
-} from '../components/styles/NavBarStyles';
-
-
-
+} from "../components/styles/NavBarStyles";
 
 class Navbar extends React.Component {
   state = {
@@ -61,15 +58,18 @@ class Navbar extends React.Component {
     } = this.props;
     if (user) {
       return (
-        
         <UnderNav>
-          <BottomACenter href='/home'>Recent</BottomACenter>
-          <BottomACenter href={{ pathname: "/subscriptions", user: this.props.auth.user }}>Subscribed</BottomACenter>
+          <BottomACenter href="/home">Recent</BottomACenter>
+          <Link to={{ pathname: "/subscriptions", user: this.props.auth.user }}>
+            <BottomACenter>Subscriptions</BottomACenter>
+          </Link>
           <SearchContainer>
-            <BottomARight onKeyDown={this.filter} placeholder="search..."></BottomARight>
+            <BottomARight
+              onKeyDown={this.filter}
+              placeholder="search..."
+            ></BottomARight>
           </SearchContainer>
         </UnderNav>
-
 
         // <Menu
         //   style={{
@@ -116,16 +116,15 @@ class Navbar extends React.Component {
 
     if (user) {
       return (
-
         <TopNav>
-          <TopARight  onClick={() => handleLogout(this.props.history)}>Logout</TopARight>
-          <TopARight href="/profile">Profile</TopARight>
-            <Link to={{pathname: "/workoutform", state: {user: user},}}>
-          <TopARight>New Workout
+          <TopARight onClick={() => handleLogout(this.props.history)}>
+            Logout
           </TopARight>
-              </Link> 
+          <TopARight href="/profile">Profile</TopARight>
+          <Link to={{ pathname: "/workoutform", state: { user: user } }}>
+            <TopARight>New Workout</TopARight>
+          </Link>
         </TopNav>
-
 
         // <Menu.Menu position="right">
         //   <Menu.Item
@@ -152,26 +151,26 @@ class Navbar extends React.Component {
       );
     } else {
       return (
-          <TopNav>
-            <TopARight href='/register'>Register</TopARight>
-            <TopARight href='/login'>Login</TopARight>
-          </TopNav>
-          // <Menu.Menu position="right">
-          //   <Link to="/login">
-          //     <Menu.Item
-          //       id="login"
-          //       name="login"
-          //       active={location.pathname === "/login"}
-          //       />
-          //   </Link>
-          //   <Link to="/register">
-          //     <Menu.Item
-          //       id="register"
-          //       name="register"
-          //       active={location.pathname === "/register"}
-          //       />
-          //   </Link>
-          // </Menu.Menu>
+        <TopNav>
+          <TopARight href="/register">Register</TopARight>
+          <TopARight href="/login">Login</TopARight>
+        </TopNav>
+        // <Menu.Menu position="right">
+        //   <Link to="/login">
+        //     <Menu.Item
+        //       id="login"
+        //       name="login"
+        //       active={location.pathname === "/login"}
+        //       />
+        //   </Link>
+        //   <Link to="/register">
+        //     <Menu.Item
+        //       id="register"
+        //       name="register"
+        //       active={location.pathname === "/register"}
+        //       />
+        //   </Link>
+        // </Menu.Menu>
       );
     }
   };
@@ -180,16 +179,15 @@ class Navbar extends React.Component {
     return (
       <div>
         <TopNav>
-            <TopALeft href='/'>GymPact</TopALeft>
-              {this.rightNavItems()}
-              {this.searchSection()}
-              <SearchBar
-                searchActive={this.state.searchActive}
-                searchResults={this.state.searchResults}
-                clearSearch={this.clearSearch}
-                />
-          </TopNav>
-                
+          <TopALeft href="/">GymPact</TopALeft>
+          {this.rightNavItems()}
+          {this.searchSection()}
+          <SearchBar
+            searchActive={this.state.searchActive}
+            searchResults={this.state.searchResults}
+            clearSearch={this.clearSearch}
+          />
+        </TopNav>
 
         {/* <Segment inverted>
           <Menu inverted pointing secondary>
@@ -202,7 +200,7 @@ class Navbar extends React.Component {
             </Link>
           </Menu>
       </Segment> */}
-        </div>
+      </div>
     );
   }
 }
