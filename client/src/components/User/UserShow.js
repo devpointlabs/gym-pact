@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Image, Icon, Header, Button } from "semantic-ui-react";
+import { Icon, Header, Button } from "semantic-ui-react";
 import axios from "axios";
 import styled from "styled-components";
 import SModalUser from "../workouts/SModalUser";
@@ -136,15 +136,7 @@ const UserShow = (props) => {
       </div>
       <IntroRow style={{ justifyContent: "space-evenly" }}>
         <ImageDiv>
-          <Image
-            circular
-            src={image}
-            style={{
-              margin: "2rem",
-              width: "25rem",
-              height: "25rem",
-            }}
-          />
+          <Image src={image} />
         </ImageDiv>
 
         <HeaderRow>
@@ -267,6 +259,16 @@ const IntroRow = styled.div`
   width: 100%;
   @media ${device.laptop} {
     flex-direction: row;
+  }
+`;
+const Image = styled.img`
+  border-radius: 50%;
+  width: 18rem;
+  height: 18rem;
+  margin-bottom: 2rem;
+  @media ${device.mobileL} {
+    width: 25rem;
+    height: 25rem;
   }
 `;
 const ImageDiv = styled.div`
