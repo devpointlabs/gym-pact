@@ -7,6 +7,7 @@ import gymProfilePic from "../../imgs/ropes.jpg";
 import Comment from "../comments/Comment";
 import CommentForm from "../comments/CommentForm";
 import { Link } from "react-router-dom";
+import Moment from 'react-moment';
 
 const Modal = (props) => {
   const [users, setUsers] = useState([]);
@@ -59,6 +60,12 @@ const Modal = (props) => {
     ));
   };
 
+  const getWorkoutCreation = () => (
+    <Moment format="MMMM DD, YYYY" withTitle>
+                    {props.workout.created_at}
+                </Moment>
+  )
+
   // Carson and Harlan Commented this out because of conflicts with Comments
   // between Carson, Harlan and Jon we will need to test this.
   //
@@ -106,11 +113,11 @@ const Modal = (props) => {
       <Container style={{ display: display }}>
         <Close onClick={props.unToggle}>X</Close>
         <Row>
-          <Image src={ropesImg} />
+          <Image src={props.workout.image} />
           <Column style={{ paddingLeft: "1rem" }}>
             <Row style={{ width: "20rem" }}>
               <img
-                src={gymProfilePic}
+                src={props.user.image}
                 style={{
                   width: "50px",
                   height: "50px",
@@ -133,7 +140,7 @@ const Modal = (props) => {
                 >
                   <H2>{users.username}</H2>
                 </Link>
-                <p style={{ fontSize: "12px" }}>{props.workout.created_at}</p>
+                <p style={{ fontSize: "12px" }}>{getWorkoutCreation()}</p>
               </Column>
             </Row>
             <H1>{props.workout.title}</H1>
