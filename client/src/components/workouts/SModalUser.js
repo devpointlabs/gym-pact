@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal } from "semantic-ui-react";
 import axios from "axios";
+import gymProfilePic from "../../imgs/ropes.jpg";
 import Comment from "../comments/CommentUserShow";
 import CommentForm from "../comments/CommentForm";
 import { device } from "../../mediaquery";

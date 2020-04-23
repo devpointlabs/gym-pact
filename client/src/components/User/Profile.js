@@ -324,8 +324,7 @@ class Profile extends React.Component {
         <Grid.Column style={{ height: "100%", width: "30%" }}>
           <h3>Information</h3>
           <Grid.Row>
-            {/* {" "}
-            (col one) */}
+
             <Card style={{ border: "solid 2px #353765", borderRadius: "4px" }}>
               <Card.Content>
                 <Card.Description>
@@ -333,6 +332,19 @@ class Profile extends React.Component {
                 </Card.Description>
               </Card.Content>
               <Card.Content extra>
+                Username: {user.username}
+               
+                <div
+                  style={{
+                    color: "black",
+                    display: "flex",
+                    flexWrap: "wrap",
+                    // width: "100%",
+                    justifyContent: "space-around",
+                  }}
+                ></div>
+
+
                 Fitness Level: {user.fitness_level}
                 <div
                   style={{
@@ -484,5 +496,6 @@ const styles = {
     justifyContent: "flex-start",
     padding: ".5em 0em",
   },
+
 };
 // export default Profile;

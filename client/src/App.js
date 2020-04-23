@@ -17,7 +17,7 @@ import LandingPage from "./components/LandingPage";
 import Profile from "./components/User/Profile";
 import UserShow from "./components/User/UserShow";
 import ConnectedSubscriptions from "./components/workouts/Subscriptions";
-import Footer from './components/Footer';
+// import Footer from './components/Footer';
 
 const App = () => (
   <Fragment>
@@ -44,7 +44,7 @@ const App = () => (
           </Switch>
         </WorkoutProvider>
       </div>
-        <Footer />
+        {/* <Footer /> */}
     </FetchUser>
   </Fragment>
 );

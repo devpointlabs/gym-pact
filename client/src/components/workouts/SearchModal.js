@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { AuthConsumer } from "../../providers/AuthProvider";
 import styled from "styled-components";
 import axios from "axios";
+import gymProfilePic from "../../imgs/ropes.jpg";
 import { device } from "../../mediaquery";
 import Comment from "../comments/Comment";
 import CommentForm from "../comments/CommentForm";
