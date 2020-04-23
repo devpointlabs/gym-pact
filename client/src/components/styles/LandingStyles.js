@@ -62,7 +62,7 @@ grid-column-start: 1;
 grid-column-end: 2;
 font-family: Teko, sans-serif;
 font-style: normal;
-
+font-size: 2.5em !important;
 `
 export const Header = styled.h1`
 grid-column-start: 2;

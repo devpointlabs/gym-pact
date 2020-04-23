@@ -1,45 +1,59 @@
 {
-  "name": "client",
-  "version": "0.1.0",
-  "private": true,
+  "name": "gym-pact",
+  "version": "1.0.0",
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
   "dependencies": {
-
+    "ansi-styles": "^3.2.1",
+    "babel-plugin-styled-components": "^1.10.7",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "camelize": "^1.0.0",
+    "chalk": "^2.4.2",
+    "color-name": "^1.1.3",
+    "color-convert": "^1.9.3",
+    "css-color-keywords": "^1.0.0",
+    "css-to-react-native": "^3.0.0",
+    "debug": "^3.1.0",
+    "escape-string-regexp": "^1.0.5",
+    "globals": "^11.12.0",
+    "has-flag": "^3.0.0",
+    "hoist-non-react-statics": "^3.3.2",
+    "js-tokens": "^4.0.0",
+    "jsesc": "^2.5.2",
+    "keyboard-key": "^1.1.0",
+    "lodash": "^4.17.15",
+    "loose-envify": "^1.4.0",
+    "moment": "^2.24.0",
+    "ms": "^2.0.0",
+    "object-assign": "^4.1.1",
+    "postcss-value-parser": "^4.0.3",
+    "prop-types": "^15.7.2",
+    "react-is": "^16.13.1",
     "react-lodash": "^0.1.2",
     "semantic-ui-calendar-react": "^0.15.3",
-    "styled-components": "^5.1.0"
-
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "axios": "^0.19.2",
-    "devise-axios": "^1.0.24",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1",
-    "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.88.2"
+    "shallowequal": "^1.1.0",
+    "styled-components": "^5.1.0",
+    "source-map": "^0.5.7",
+    "supports-color": "^5.5.0",
+    "to-fast-properties": "^2.0.0"
   },
-  "proxy": "http://localhost:3001",
+  "devDependencies": {},
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devpointlabs/gym-pact.git"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devpointlabs/gym-pact/issues"
+  },
+  "homepage": "https://github.com/devpointlabs/gym-pact#readme"
 }
