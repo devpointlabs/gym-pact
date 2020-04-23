@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Header, Image, Modal } from "semantic-ui-react";
 import ropesImg from "../../imgs/ropes.jpg";
 import axios from "axios";
-import gymProfilePic from "../../imgs/gymProfPic.jpg";
+import gymProfilePic from "../../imgs/ropes.jpg";
 import Comment from "../comments/CommentUserShow";
 import CommentForm from "../comments/CommentForm";
 import { Link } from "react-router-dom";

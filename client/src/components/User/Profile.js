@@ -183,9 +183,36 @@ class Profile extends React.Component {
                 </Card.Description>
               </Card.Content>
               <Card.Content extra>
-                Fitness Level:{user.fitness_level};
-                Gender:{user.gender};
-                DateofBirth:{user.dateofBirth};
+                Fitness Level:{user.fitness_level}
+                <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                width: "100%",
+                justifyContent: "space-around",
+              }}
+            ></div>
+                
+                Gender:{user.gender}
+                <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                width: "100%",
+                justifyContent: "space-around",
+              }}
+            ></div>
+
+                DateofBirth:{user.date_of_birth}
+                <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                width: "100%",
+                justifyContent: "space-around",
+              }}
+            ></div>
+            
               </Card.Content>
             </Card>
             <Card>
@@ -390,5 +417,6 @@ const styles = {
     justifyContent: 'flex-start',
     padding: '.5em 0em'
   },
+
 };
 // export default Profile;
