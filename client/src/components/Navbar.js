@@ -8,8 +8,12 @@ import {
   TopNav, 
   TopARight,
   TopALeft,
+  TopACenter,
   UnderNav,
   BottomALeft,
+  BottomARight,
+  BottomACenter,
+  SearchContainer,
 } from '../components/styles/NavBarStyles';
 
 
@@ -59,7 +63,11 @@ class Navbar extends React.Component {
       return (
         
         <UnderNav>
-          <BottomALeft href='/home'>Home</BottomALeft>
+          <BottomACenter href='/home'>Home</BottomACenter>
+          <BottomACenter href={{ pathname: "/subscriptions", user: this.props.auth.user }}>Subscribed</BottomACenter>
+          <SearchContainer>
+            <BottomARight onKeyDown={this.filter} placeholder="search..."></BottomARight>
+          </SearchContainer>
         </UnderNav>
 
 
@@ -111,8 +119,8 @@ class Navbar extends React.Component {
 
         <TopNav>
           <TopARight  onClick={() => handleLogout(this.props.history)}>Logout</TopARight>
-          <TopARight href='/workoutform' active={location.pathname === "/workoutform"}>New Workout</TopARight>
           <TopARight href="/profile">Profile</TopARight>
+          <TopARight href='/workoutform' active={location.pathname === "/workoutform"}>New Workout</TopARight>
         </TopNav>
 
 
