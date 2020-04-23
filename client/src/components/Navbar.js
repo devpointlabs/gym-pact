@@ -3,6 +3,7 @@ import { AuthConsumer } from "../providers/AuthProvider";
 import { Menu, Input, Segment } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
+import gpicon from "../imgs/gym-pact.svg";
 import SearchBar from "./SearchBar";
 import {
   TopNav,
