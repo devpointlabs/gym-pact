@@ -23,7 +23,7 @@ const Comment = (props) => {
 
   return (
     <CommentRow>
-      <Image src={user.image} width="40px" height="40px" circular />
+      <Image src={user.image} width="30px" height="30px" circular />
       <CommentName>{user.first_name}</CommentName>
       <CommentText>{comment.text_field}</CommentText>
     </CommentRow>

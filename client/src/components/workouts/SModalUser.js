@@ -133,7 +133,6 @@ const SModalUser = (props) => {
                 />
                 <Column style={{ paddingTop: "1rem" }}>
                   <H2>{users.username}</H2>
-
                   <p style={{ fontSize: "12px" }}>{props.workout.created_at}</p>
                 </Column>
               </HeaderRow>
@@ -208,8 +207,10 @@ const Image = styled.img`
     width: 50%;
   }
   @media ${device.laptop} {
-    width: 70%;
-    max-width: 70%;
+    width: 55%;
+  }
+  @media ${device.laptopL} {
+    width: 60%;
   }
 `;
 const HeaderRow = styled.div`
@@ -245,10 +246,6 @@ const Column = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  color: grey;
-`;
-const Row = styled.div`
-  display: flex;
 `;
 const H1 = styled.h1`
   position: relative;

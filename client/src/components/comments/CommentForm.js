@@ -40,7 +40,7 @@ const CommentForm = (props) => {
         />
         <Icon
           onClick={handleSubmit}
-          style={{ cursor: "pointer", color: "#353765" }}
+          style={{ cursor: "pointer", color: "#6CD3E0" }}
           name="angle double right"
           size="big"
         />
