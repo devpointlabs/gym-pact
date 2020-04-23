@@ -8,6 +8,7 @@ const Comment = (props) => {
   const [user, setUser] = useState({});
   const [comments, setComments] = useState();
   const { ...comment } = props;
+  const { unToggle } = props;
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
@@ -36,6 +37,9 @@ const Comment = (props) => {
     <CommentRow>
       <Image src={user.image} width="40px" height="40px" circular />
       <Link
+        onClick={() => {
+          unToggle();
+        }}
         to={{
           pathname: "/usershow",
           state: {

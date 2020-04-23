@@ -30,7 +30,7 @@ class FeedWorkouts extends Component {
   unToggle = () => {
     console.log("untoggle");
     this.setState({ toggleModal: false });
-    // document.body.style.overflowY = "initial";
+    document.body.style.overflowY = "initial";
   };
 
   toggle = (id) => {
@@ -45,7 +45,7 @@ class FeedWorkouts extends Component {
         this.setState({ toggleModal: true });
       })
       .catch(console.log("Didn't work"));
-    // document.body.style.overflowY = "hidden";
+    document.body.style.overflowY = "hidden";
   };
 
   render() {

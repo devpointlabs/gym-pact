@@ -53,7 +53,7 @@ export default CommentForm;
 
 const Input = styled.input`
   &&::placeholder {
-    color: black;
+    color: grey;
   }
   height: 2.5rem;
   margin: 1rem;
