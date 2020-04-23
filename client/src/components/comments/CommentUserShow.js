@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Image } from "semantic-ui-react";
 import axios from "axios";
+import styled from "styled-components";
 
 const Comment = (props) => {
   const [user, setUser] = useState({});
@@ -9,7 +10,6 @@ const Comment = (props) => {
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
-    // componentDidMount
     axios
       .get(`/api/users/${props.user_id}`)
       .then((res) => {
@@ -19,30 +19,14 @@ const Comment = (props) => {
     console.log(props);
   }, []);
 
-  const checkDeleteComment = () => {
-    // if (props.user.user.id === comment.user_id) {
-    //   console.log("user_id ->", props.user.user.id);
-    //   console.log("comment user_id ->", comment.user_id);
-    //   setShowButton(true);
-    // } else {
-    //   console.log("user_id null ->", props.user.user.id);
-    //   console.log("comment user_id null ->", comment.user_id);
-    // }
-  };
+  const checkDeleteComment = () => {};
 
   return (
-    <>
-      <img src={user.image ? user.image : styles.defaultImage} />
-
-      <h4>{user.first_name}</h4>
-
-      <p>{comment.text_field}</p>
-      {showButton ? (
-        <button onClick={() => props.deleteComment(comment)}>Delete</button>
-      ) : (
-        <></>
-      )}
-    </>
+    <CommentRow>
+      <Image src={user.image} width="30px" height="30px" circular />
+      <CommentName>{user.first_name}</CommentName>
+      <CommentText>{comment.text_field}</CommentText>
+    </CommentRow>
   );
 };
 
@@ -55,3 +39,17 @@ const styles = {
     fontSize: "1em",
   },
 };
+
+const CommentRow = styled.div`
+  display: flex;
+  margin: 0.5rem 0;
+`;
+const CommentName = styled.h4`
+  margin: 0 0.4rem;
+  padding-top: 8px;
+`;
+const CommentText = styled.div`
+  height: fit-content;
+  width: 80%;
+  padding-top: 12px;
+`;

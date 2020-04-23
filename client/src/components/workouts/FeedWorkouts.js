@@ -30,6 +30,7 @@ class FeedWorkouts extends Component {
   unToggle = () => {
     console.log("untoggle");
     this.setState({ toggleModal: false });
+    document.body.style.overflowY = "initial";
   };
 
   toggle = (id) => {
@@ -44,12 +45,14 @@ class FeedWorkouts extends Component {
         this.setState({ toggleModal: true });
       })
       .catch(console.log("Didn't work"));
+    document.body.style.overflowY = "hidden";
   };
 
   render() {
     // load more workouts on scroll
     window.addEventListener("scroll", () => {
-      if (window.scrollY > height) {
+      // console.log(window.scrollY, height);
+      if (window.scrollY > height * 0.5) {
         // splice the array for more entries
         position += 5;
         this.dynamicLoad();
@@ -90,7 +93,6 @@ class FeedWorkouts extends Component {
     );
   }
 }
-
 
 export default class ConnectedFeedWorkouts extends Component {
   render() {

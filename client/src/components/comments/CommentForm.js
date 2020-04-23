@@ -1,7 +1,8 @@
-import React, { Component } from "react";
-import { Form, FormButton } from "semantic-ui-react";
+import React from "react";
+import { Form, FormButton, Icon } from "semantic-ui-react";
 import axios from "axios";
 import { useState } from "react";
+import styled from "styled-components";
 
 const CommentForm = (props) => {
   const [commentValue, setComment] = useState("");
@@ -19,24 +20,44 @@ const CommentForm = (props) => {
       .then((res) => {
         props.addComment(res.data);
       })
+      .then(() => {
+        setComment("");
+      })
       .catch((err) => {
         console.log(err);
       });
   };
 
   return (
-    <>
-      <Form onSubmit={handleSubmit}>
-        <Form.Input
+    <Form onSubmit={handleSubmit}>
+      <div style={{ display: "flex", alignItems: "center", margin: "5px" }}>
+        <Input
           placeholder="Leave a comment..."
           name="comment"
           value={commentValue}
           onChange={handleCommentChange}
+          autoComplete="off"
         />
-        <Form.Button>Submit</Form.Button>
-      </Form>
-    </>
+        <Icon
+          onClick={handleSubmit}
+          style={{ cursor: "pointer", color: "#6CD3E0" }}
+          name="angle double right"
+          size="big"
+        />
+      </div>
+    </Form>
   );
 };
 
 export default CommentForm;
+
+const Input = styled.input`
+  &&::placeholder {
+    color: grey;
+  }
+  height: 2.5rem;
+  margin: 1rem;
+  padding: 0.5rem;
+  width: 90%;
+  background-color: #ddd;
+`;

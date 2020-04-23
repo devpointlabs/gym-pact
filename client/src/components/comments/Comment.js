@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { Image, Icon } from "semantic-ui-react";
+import styled from "styled-components";
 
 const Comment = (props) => {
   const [user, setUser] = useState({});
   const [comments, setComments] = useState();
   const { ...comment } = props;
+  const { unToggle } = props;
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
@@ -31,9 +34,12 @@ const Comment = (props) => {
   };
 
   return (
-    <>
-      <img src={user.image ? user.image : styles.defaultImage} />
+    <CommentRow>
+      <Image src={user.image} width="40px" height="40px" circular />
       <Link
+        onClick={() => {
+          unToggle();
+        }}
         to={{
           pathname: "/usershow",
           state: {
@@ -42,16 +48,20 @@ const Comment = (props) => {
           },
         }}
       >
-        <h4>{user.first_name}</h4>
+        <CommentName>{user.first_name}</CommentName>
       </Link>
 
-      <p>{comment.text_field}</p>
+      <CommentText>{comment.text_field}</CommentText>
       {showButton ? (
-        <button onClick={() => props.deleteComment(comment)}>Delete</button>
+        <Icon
+          name="delete"
+          onClick={() => props.deleteComment(comment)}
+          style={{ color: "red", cursor: "pointer" }}
+        />
       ) : (
         <></>
       )}
-    </>
+    </CommentRow>
   );
 };
 
@@ -65,3 +75,16 @@ const styles = {
   },
 };
 
+const CommentRow = styled.div`
+  display: flex;
+  margin: 0.5rem 0;
+`;
+const CommentName = styled.h4`
+  margin: 0 0.4rem;
+  padding-top: 8px;
+`;
+const CommentText = styled.div`
+  height: fit-content;
+  width: 80%;
+  padding-top: 12px;
+`;
