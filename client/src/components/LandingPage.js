@@ -25,7 +25,7 @@ const LandingPage = () => (
           planet.
         </Definition>
         <SubContainer>
-          <List>
+          <List style={{ paddingTop: "1rem" }}>
             <List.Item>
               <List.Icon name="line graph" size="large" />
               <List.Content>Track your exercises and workouts</List.Content>
@@ -62,6 +62,9 @@ const LandingPage = () => (
         width: "4.4rem",
         height: "2rem",
         padding: "0.4rem",
+        borderRadius: "4px",
+        marginLeft: "5px",
+        marginBottom: 0,
       }}
     >
       About
