@@ -17,8 +17,12 @@ import LandingPage from "./components/LandingPage";
 import Profile from "./components/User/Profile";
 import UserShow from "./components/User/UserShow";
 import ConnectedSubscriptions from "./components/workouts/Subscriptions";
+<<<<<<< HEAD
 import About from "./components/About";
 import Footer from "./components/Footer";
+=======
+// import Footer from './components/Footer';
+>>>>>>> master
 
 const App = () => (
   <Fragment>
@@ -46,7 +50,11 @@ const App = () => (
           </Switch>
         </WorkoutProvider>
       </div>
+<<<<<<< HEAD
       <Footer />
+=======
+        {/* <Footer /> */}
+>>>>>>> master
     </FetchUser>
   </Fragment>
 );
