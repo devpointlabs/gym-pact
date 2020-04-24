@@ -17,16 +17,18 @@ import LandingPage from "./components/LandingPage";
 import Profile from "./components/User/Profile";
 import UserShow from "./components/User/UserShow";
 import ConnectedSubscriptions from "./components/workouts/Subscriptions";
-import Footer from './components/Footer';
+import About from "./components/About";
+import Footer from "./components/Footer";
 
 const App = () => (
   <Fragment>
     <Navbar />
     <FetchUser>
-      <div style={{ backgroundColor: "#F0F1F8", width: '100vw', height: '100vh', paddingTop: '4em', paddingBottom: '6em' }}>
+      <div>
         <WorkoutProvider>
           <Switch>
             <Route exact path="/" component={LandingPage} />
+            <Route exact path="/about" component={About} />
             <ProtectedRoute exact path="/home" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
@@ -44,7 +46,7 @@ const App = () => (
           </Switch>
         </WorkoutProvider>
       </div>
-        <Footer />
+      <Footer />
     </FetchUser>
   </Fragment>
 );
