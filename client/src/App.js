@@ -24,7 +24,6 @@ const App = () => (
   <Fragment>
     <Navbar />
     <FetchUser>
-      <div>
         <WorkoutProvider>
           <Switch>
             <Route exact path="/" component={LandingPage} />
@@ -45,8 +44,6 @@ const App = () => (
             <Route component={NoMatch} />
           </Switch>
         </WorkoutProvider>
-      </div>
-      <Footer />
     </FetchUser>
   </Fragment>
 );
