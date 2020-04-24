@@ -61,7 +61,6 @@ class FeedWorkouts extends Component {
     const { workouts, workout } = this.state;
     return (
       <div>
-        <h1>Gym Pact Workouts</h1>
         <Container>
           {this.state.toggleModal === true ? (
             <Modal

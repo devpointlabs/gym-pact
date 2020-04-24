@@ -61,7 +61,7 @@ class Navbar extends React.Component {
         <UnderNav>
           <BottomACenter href="/home">Recent</BottomACenter>
           <Link to={{ pathname: "/subscriptions", user: this.props.auth.user }}>
-            <BottomACenter>Subscriptions</BottomACenter>
+            <BottomACenter>The Pact</BottomACenter>
           </Link>
           <SearchContainer>
             <BottomARight
@@ -121,6 +121,7 @@ class Navbar extends React.Component {
             Logout
           </TopARight>
           <TopARight href="/profile">Profile</TopARight>
+          <TopARight href="/about">About</TopARight>
           <Link to={{ pathname: "/workoutform", state: { user: user } }}>
             <TopARight>New Workout</TopARight>
           </Link>

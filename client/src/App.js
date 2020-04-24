@@ -24,6 +24,8 @@ const App = () => (
   <Fragment>
     <Navbar />
     <FetchUser>
+      <div style={{ backgroundColor: "#F0F1F8", width: '100%', height: '100%', minHeight: '100vh' }}>
+
         <WorkoutProvider>
           <Switch>
             <Route exact path="/" component={LandingPage} />
@@ -44,6 +46,7 @@ const App = () => (
             <Route component={NoMatch} />
           </Switch>
         </WorkoutProvider>
+              </div>
     </FetchUser>
   </Fragment>
 );

@@ -53,22 +53,6 @@ const LandingPage = () => (
       </Container>
     </Left>
     <Right></Right>
-    <Link
-      to="/About"
-      style={{
-        color: "#6CD3E0",
-        fontSize: "1.3rem",
-        backgroundColor: "#353765",
-        width: "4.4rem",
-        height: "2rem",
-        padding: "0.4rem",
-        borderRadius: "4px",
-        marginLeft: "5px",
-        marginBottom: 0,
-      }}
-    >
-      About
-    </Link>
   </Landing>
 );
 

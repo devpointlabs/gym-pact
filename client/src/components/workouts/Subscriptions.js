@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container } from "semantic-ui-react";
+import { Container, Header } from "semantic-ui-react";
 import WorkoutCard from "./WorkoutCard";
 import axios from "axios";
 import Modal from "./Modal";
@@ -55,7 +55,17 @@ class Subscriptions extends Component {
   render() {
     return (
       <div>
-        <h1>Subscriptions</h1>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            padding: "2em 0em",
+          }}
+        >
+          <Header textAlign="center" style={{ fontSize: "1.75em" }}>
+            THE PACT
+          </Header>
+        </div>
 
         <Container>
           {this.state.toggleModal === true ? (
